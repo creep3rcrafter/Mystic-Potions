@@ -1,0 +1,51 @@
+{
+  "item.mysticpotions.example_item": "Example Item",
+
+  "effect.mysticpotions.thunderous": "Thunderous",
+  "item.minecraft.potion.effect.thunderous": "Potion of Thunderous",
+  "item.minecraft.splash_potion.effect.thunderous": "Splash Potion of Thunderous",
+  "item.minecraft.lingering_potion.effect.thunderous": "Lingering Potion of Thunderous",
+  "item.minecraft.tipped_arrow.effect.thunderous": "Arrow of Thunderous",
+
+  "effect.mysticpotions.explosive": "Explosive",
+  "item.minecraft.potion.effect.explosive": "Potion of Explosive",
+  "item.minecraft.splash_potion.effect.explosive": "Splash Potion of Explosive",
+  "item.minecraft.lingering_potion.effect.explosive": "Lingering Potion of Explosive",
+  "item.minecraft.tipped_arrow.effect.explosive": "Arrow of Explosive",
+
+  "effect.mysticpotions.decay": "Decay",
+  "item.minecraft.potion.effect.decay": "Potion of Decay",
+  "item.minecraft.splash_potion.effect.decay": "Splash Potion of Decay",
+  "item.minecraft.lingering_potion.effect.decay": "Lingering Potion of Decay",
+  "item.minecraft.tipped_arrow.effect.decay": "Arrow of Decay",
+
+  "effect.mysticpotions.darkness": "Darkness",
+  "item.minecraft.potion.effect.darkness": "Potion of Darkness",
+  "item.minecraft.splash_potion.effect.darkness": "Splash Potion of Darkness",
+  "item.minecraft.lingering_potion.effect.darkness": "Lingering Potion of Darkness",
+  "item.minecraft.tipped_arrow.effect.darkness": "Arrow of Darkness",
+
+  "effect.mysticpotions.burning": "Burning",
+  "item.minecraft.potion.effect.burning": "Potion of Burning",
+  "item.minecraft.splash_potion.effect.burning": "Splash Potion of Burning",
+  "item.minecraft.lingering_potion.effect.burning": "Lingering Potion of Burning",
+  "item.minecraft.tipped_arrow.effect.burning": "Arrow of Burning",
+
+  "effect.mysticpotions.warming": "Warming",
+  "item.minecraft.potion.effect.warming": "Potion of Warming",
+  "item.minecraft.splash_potion.effect.warming": "Splash Potion of Warming",
+  "item.minecraft.lingering_potion.effect.warming": "Lingering Potion of Warming",
+  "item.minecraft.tipped_arrow.effect.warming": "Arrow of Warming",
+
+  "effect.mysticpotions.freezing": "Freezing",
+  "item.minecraft.potion.effect.freezing": "Potion of Freezing",
+  "item.minecraft.splash_potion.effect.freezing": "Splash Potion of Freezing",
+  "item.minecraft.lingering_potion.effect.freezing": "Lingering Potion of Freezing",
+  "item.minecraft.tipped_arrow.effect.freezing": "Arrow of Freezing",
+
+  "effect.mysticpotions.corrosive": "Corrosive",
+  "item.minecraft.potion.effect.corrosive": "Potion of Corrosive",
+  "item.minecraft.splash_potion.effect.corrosive": "Splash Potion of Corrosive",
+  "item.minecraft.lingering_potion.effect.corrosive": "Lingering Potion of Corrosive",
+  "item.minecraft.tipped_arrow.effect.corrosive": "Arrow of Corrosive"
+}
