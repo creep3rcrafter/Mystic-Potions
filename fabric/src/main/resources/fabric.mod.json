@@ -2,17 +2,17 @@
   "schemaVersion": 1,
   "id": "mysticpotions",
   "version": "${version}",
-  "name": "Mystic Potions",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Mystic Potions (Fabric)",
+  "description": "Adds New Potions To Minecraft!",
   "authors": [
-    "Me!"
+    "Creep3rCrafter"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/creep3rcrafter/Mystic-Potions",
+    "sources": "https://github.com/creep3rcrafter/Mystic-Potions"
   },
-  "license": "Insert License Here",
-  "icon": "assets/mysticpotions/icon.png",
+  "license": "All Rights Reserved",
+  "icon": "assets/mysticpotions/MysticPotions Logo HD720pC.png",
   "environment": "*",
   "entrypoints": {
     "main": [

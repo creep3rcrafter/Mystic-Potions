@@ -36,11 +36,15 @@ public class ModEffects {
             ServerLevel level = livingEntity.createCommandSourceStack().getLevel();
             Utils.lightning(livingEntity, level, amplifier);
         }
+        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int amplifier, double damage) {
+            ServerLevel level = livingEntity.createCommandSourceStack().getLevel();
+            Utils.lightning(livingEntity, level, amplifier);
+        }
         public boolean isDurationEffectTick(int duration, int amplifier) {
             return duration >= 1;
         }
         public boolean isInstantenous() {
-            return false;
+            return true;
         }
     });
     public static final RegistrySupplier<MobEffect> EXPLOSIVE = EFFECTS.register("explosive", () -> new MobEffect(MobEffectCategory.HARMFUL,1514264){

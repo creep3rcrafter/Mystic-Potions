@@ -1,17 +1,18 @@
 modLoader = "javafml"
 loaderVersion = "[43,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/creep3rcrafter/Mystic-Potions/issues"
+license = "All Rights Reserved"
 
 [[mods]]
 modId = "mysticpotions"
 version = "${version}"
-displayName = "Mystic Potions"
-authors = "Me!"
+displayName = "Mystic Potions (Forge)"
+displayURL = "https://github.com/creep3rcrafter/Mystic-Potions"
+authors = "Creep3rCrafter"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Adds New Potions To Minecraft!
 '''
-#logoFile = ""
+logoFile = "MysticPotions Logo HD720pC.png"
 
 [[dependencies.mysticpotions]]
 modId = "forge"

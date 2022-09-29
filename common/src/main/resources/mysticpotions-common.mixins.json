@@ -5,6 +5,7 @@
   "client": [
   ],
   "mixins": [
+    "MixinLightningRodBlock"
   ],
   "injectors": {
     "defaultRequire": 1

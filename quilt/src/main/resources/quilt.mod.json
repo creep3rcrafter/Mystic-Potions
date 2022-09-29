@@ -8,14 +8,14 @@
     "group": "${group}",
     "id": "mysticpotions",
     "version": "${version}",
-    "name": "Mystic Potions",
-    "description": "This is an example description! Tell everyone what your mod is about!",
-    "authors": ["Me!"],
+    "name": "Mystic Potions (Quilt)",
+    "description": "Adds New Potions To Minecraft!",
+    "authors": ["Creep3rCrafter"],
     "contact": {
-      "sources": "https://github.com/architectury/architectury-templates"
+      "sources": "https://github.com/creep3rcrafter/Mystic-Potions"
     },
-    "license": "Insert License Here",
-    "icon": "assets/mysticpotions/icon.png",
+    "license": "All Rights Reserved",
+    "icon": "assets/mysticpotions/MysticPotions Logo HD720pC.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "environment": "*",
     "entrypoints": {
