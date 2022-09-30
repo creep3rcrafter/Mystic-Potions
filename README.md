@@ -2,7 +2,7 @@
 ## About: 
 - Adds New Potions To Minecraft & Makes Some Minecraft Potions Brewable!
 - All require **Architectury Api** for respective versions.
-- Have new ideas for potions? leave me a comment.
+- Have new ideas for potions? Leave me a comment.
 ### Potions/Effects:
 - **Thunderous Potion**
     - Instantly strikes lighting on Mobs/Players.
@@ -36,7 +36,7 @@
     - Can be Powered up by mixing Redstone.
 - **Decay Potion**
     - Gives Mobs/Players the Wither Effect.
-    - Brewed by mixing a Awkward Potion with a Wither Skull
+    - Brewed by mixing an Awkward Potion with a Wither Skull
     - Can be Lengthened by mixing with Redstone.
     - Can be Powered up by mixing Glowstone.
 ### What they can be made into
