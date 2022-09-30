@@ -2,9 +2,8 @@ package net.creep3rcrafter.mysticpotions.forge;
 
 import dev.architectury.platform.forge.EventBuses;
 import net.creep3rcrafter.mysticpotions.MysticPotions;
-import net.creep3rcrafter.mysticpotions.register.BrewingRecipes;
+import net.creep3rcrafter.mysticpotions.BrewingRecipes;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;

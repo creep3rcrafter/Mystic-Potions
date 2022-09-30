@@ -1,5 +1,6 @@
-package net.creep3rcrafter.mysticpotions.register;
+package net.creep3rcrafter.mysticpotions;
 
+import net.creep3rcrafter.mysticpotions.register.ModPotions;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
@@ -39,5 +40,7 @@ public class BrewingRecipes {
         //Corrosive
         PotionBrewing.addMix(Potions.STRONG_POISON, Items.GHAST_TEAR, ModPotions.CORROSIVE_POTION.get());
         PotionBrewing.addMix(ModPotions.CORROSIVE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.STRONG_CORROSIVE_POTION.get());
+        //Thunderous
+        PotionBrewing.addMix(ModPotions.THUNDEROUS_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.STRONG_THUNDEROUS_POTION.get());
     }
 }

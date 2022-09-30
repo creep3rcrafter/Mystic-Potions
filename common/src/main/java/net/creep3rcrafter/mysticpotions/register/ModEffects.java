@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -97,6 +98,9 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL,16757504){
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
             livingEntity.setTicksFrozen(0);
+            if (livingEntity instanceof SnowGolem && livingEntity.getLevel() != null && livingEntity.getLevel().getServer().getTickCount() % 20 == 0){
+                livingEntity.hurt(DamageSource.MAGIC, amplifier + 1);
+            }
         }
         public boolean isDurationEffectTick(int duration, int amplifier) {
             return duration >= 1;

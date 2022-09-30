@@ -2,6 +2,7 @@ package net.creep3rcrafter.mysticpotions.mixin;
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.core.BlockPos;
@@ -21,11 +22,8 @@ public abstract class MixinLightningRodBlock {
                 BrewingStandBlockEntity brewingStand = (BrewingStandBlockEntity) level.getBlockEntity(blockPos.below());
                 for (int i = 0; i < brewingStand.items.size(); i++){
                     if (brewingStand.getItem(i).getItem() instanceof PotionItem){
-                        if (PotionUtils.getPotion(brewingStand.getItem(i)) == ModPotions.EXPLOSIVE_POTION.get()){
+                        if (PotionUtils.getPotion(brewingStand.getItem(i)) == Potions.AWKWARD){
                             PotionUtils.setPotion(brewingStand.getItem(i), ModPotions.THUNDEROUS_POTION.get());
-                        }
-                        if (PotionUtils.getPotion(brewingStand.getItem(i)) == ModPotions.STRONG_EXPLOSIVE_POTION.get()){
-                            PotionUtils.setPotion(brewingStand.getItem(i), ModPotions.STRONG_THUNDEROUS_POTION.get());
                         }
                     }
                 }

@@ -23,7 +23,7 @@ import java.util.Random;
 public class Utils {
     public static void lightning(LivingEntity livingEntity, ServerLevel serverWorld, int amplifier) {
         lightning(livingEntity, serverWorld);
-        if (!livingEntity.isSpectator() && serverWorld != null && serverWorld.getServer().getTickCount() % 10 == 0) {
+        if (!livingEntity.isSpectator() && serverWorld != null) {
             for (int i = 0; i < amplifier; i++) {
                 Random random = new Random();
                 BlockPos entityPos = livingEntity.blockPosition();
@@ -37,7 +37,7 @@ public class Utils {
     }
 
     public static void lightning(LivingEntity livingEntity, ServerLevel level) {
-        if (!livingEntity.isSpectator() && level != null && level.getServer().getTickCount() % 20 == 0) {
+        if (!livingEntity.isSpectator() && level != null) {
             BlockPos entityPos = livingEntity.blockPosition();
             LightningBolt LightningBolt = EntityType.LIGHTNING_BOLT.create(level);
             LightningBolt.moveTo(Vec3.atBottomCenterOf(entityPos));

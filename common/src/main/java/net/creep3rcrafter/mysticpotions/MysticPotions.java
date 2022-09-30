@@ -9,7 +9,5 @@ public class MysticPotions {
     public static void init() {
         ModEffects.EFFECTS.register();
         ModPotions.POTIONS.register();
-
-        System.out.println(ExampleExpectPlatform.getConfigDirectory().toAbsolutePath().normalize().toString());
     }
 }
