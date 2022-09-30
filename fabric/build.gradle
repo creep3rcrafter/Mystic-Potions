@@ -1,5 +1,6 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 architectury {
@@ -50,7 +51,7 @@ remapJar {
     injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    classifier "${rootProject.minecraft_version}-Fabric"
 }
 
 jar {
@@ -80,5 +81,19 @@ publishing {
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         // Add repositories to publish to here.
+    }
+}
+modrinth{
+    token = System.getenv("MODRINTH_TOKEN")
+    versionName = "${rootProject.archives_base_name}-" + "${rootProject.version}-" + "${rootProject.minecraft_version}-Fabric"
+    projectId = "5UdtzIKo"
+    versionNumber = "1.0.0"
+    versionType = "alpha"
+    uploadFile = remapJar
+    gameVersions = ["1.19.2"]
+    loaders = ["fabric"]
+    changelog = "First Upload Hope You Like It!"
+    dependencies{
+        required.version "aNnwGOML"
     }
 }

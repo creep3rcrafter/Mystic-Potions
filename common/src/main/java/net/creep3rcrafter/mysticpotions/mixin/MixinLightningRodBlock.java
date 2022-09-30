@@ -1,5 +1,4 @@
 package net.creep3rcrafter.mysticpotions.mixin;
-import net.creep3rcrafter.mysticpotions.register.ModEffects;
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.PotionUtils;

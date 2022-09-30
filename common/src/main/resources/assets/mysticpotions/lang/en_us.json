@@ -47,5 +47,11 @@
   "item.minecraft.potion.effect.corrosive": "Potion of Corrosive",
   "item.minecraft.splash_potion.effect.corrosive": "Splash Potion of Corrosive",
   "item.minecraft.lingering_potion.effect.corrosive": "Lingering Potion of Corrosive",
-  "item.minecraft.tipped_arrow.effect.corrosive": "Arrow of Corrosive"
+  "item.minecraft.tipped_arrow.effect.corrosive": "Arrow of Corrosive",
+
+  "effect.mysticpotions.blindness": "Blindness",
+  "item.minecraft.potion.effect.blindness": "Potion of Blindness",
+  "item.minecraft.splash_potion.effect.blindness": "Splash Potion of Blindness",
+  "item.minecraft.lingering_potion.effect.blindness": "Lingering Potion of Blindness",
+  "item.minecraft.tipped_arrow.effect.blindness": "Arrow of Blindness"
 }
