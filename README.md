@@ -2,7 +2,7 @@
 ## About: 
 - Adds New Potions To Minecraft & Makes Some Minecraft Potions Brewable!
 - All require **Architectury Api** for respective versions.
-- Have new ideas for potions? leave me a comment
+- Have new ideas for potions? leave me a comment.
 ### Potions/Effects:
 - **Thunderous Potion**
     - Instantly strikes lighting on Mobs/Players.
