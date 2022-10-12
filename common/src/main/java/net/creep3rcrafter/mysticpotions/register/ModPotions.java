@@ -14,8 +14,30 @@ public class ModPotions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.POTION_REGISTRY);
 
     /* IDEAS
-    Nullifer
-    Luminous
+    Inversion - Swaps good/bad potions with eachother
+    Nullifer - removes all potion effects and stops all potion effects from happening
+    Luminous - things glow
+    Revival - totem of undieing just without the item
+    Air Swim - swim in the air
+    Menacing - mobs are scared of you
+    Iron Fist - break blocks with your fist with an iron pick effeciency
+    Light Footed - Doesnt set off pressure plates or trip wire
+    Energized - messes with redstone
+    Water Miner - you can mine faster underwater
+    Homing - teleports you to your bed
+    Calming - stops angered mobs from being angry
+    Looting - Gives better mob drops and xp
+    Xp boost - xp multipliyer
+    Smelting - smelts items in your inventory
+    Refinement - Makes potion effects last longer
+    Herding - makes all animals follow you
+    Recovery - sends you to your last death location
+    Knock-back resistance - self explanitory
+    Stealth - you dont make noises
+    nureshment potion
+    invincibility
+
+    Holy Water - hurts hostile mobs and if they hurt you they also take the same ammount of damage
      */
 
     //Thunderous
