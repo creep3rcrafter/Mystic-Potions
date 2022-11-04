@@ -129,6 +129,7 @@ public class Utils {
             }
         }
     }
+
     public static void damageItem(LivingEntity livingEntity, EquipmentSlot equipmentSlot, int damage) {
         if (livingEntity.getItemBySlot(equipmentSlot).isDamageableItem()) {
             //Item item = livingEntity.getItemBySlot(equipmentSlot).getItem();
@@ -137,6 +138,7 @@ public class Utils {
             });
         }
     }
+
     public static void damageItem(LivingEntity livingEntity, ItemStack itemStack, int damage) {
         if (itemStack.isDamageableItem()) {
             itemStack.hurtAndBreak(damage, livingEntity, source -> {

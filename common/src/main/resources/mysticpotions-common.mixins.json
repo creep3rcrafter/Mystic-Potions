@@ -5,7 +5,9 @@
   "client": [
   ],
   "mixins": [
-    "MixinLightningRodBlock"
+    "LightningRodBlockMixin",
+    "LivingEntityMixin",
+    "MobEffectMixin"
   ],
   "injectors": {
     "defaultRequire": 1

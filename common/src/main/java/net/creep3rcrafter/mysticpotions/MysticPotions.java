@@ -5,7 +5,7 @@ import net.creep3rcrafter.mysticpotions.register.ModPotions;
 
 public class MysticPotions {
     public static final String MOD_ID = "mysticpotions";
-    
+
     public static void init() {
         ModEffects.EFFECTS.register();
         ModPotions.POTIONS.register();

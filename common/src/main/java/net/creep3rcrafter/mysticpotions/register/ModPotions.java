@@ -6,39 +6,14 @@ import net.creep3rcrafter.mysticpotions.MysticPotions;
 import net.minecraft.core.Registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
 
 import java.util.function.Supplier;
 
 public class ModPotions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.POTION_REGISTRY);
-
-    /* IDEAS
-    Inversion - Swaps good/bad potions with eachother
-    Nullifer - removes all potion effects and stops all potion effects from happening
-    Luminous - things glow
-    Revival - totem of undieing just without the item
-    Air Swim - swim in the air
-    Menacing - mobs are scared of you
-    Iron Fist - break blocks with your fist with an iron pick effeciency
-    Light Footed - Doesnt set off pressure plates or trip wire
-    Energized - messes with redstone
-    Water Miner - you can mine faster underwater
-    Homing - teleports you to your bed
-    Calming - stops angered mobs from being angry
-    Looting - Gives better mob drops and xp
-    Xp boost - xp multipliyer
-    Smelting - smelts items in your inventory
-    Refinement - Makes potion effects last longer
-    Herding - makes all animals follow you
-    Recovery - sends you to your last death location
-    Knock-back resistance - self explanitory
-    Stealth - you dont make noises
-    nureshment potion
-    invincibility
-
-    Holy Water - hurts hostile mobs and if they hurt you they also take the same ammount of damage
-     */
 
     //Thunderous
     public static final RegistrySupplier<Potion> THUNDEROUS_POTION = POTIONS.register("thunderous", () -> new Potion("thunderous", new MobEffectInstance(ModEffects.THUNDEROUS.get(), 1)));
@@ -69,6 +44,25 @@ public class ModPotions {
     //Darkness
     public static final RegistrySupplier<Potion> DARKNESS_POTION = POTIONS.register("darkness", () -> new Potion("darkness", new MobEffectInstance(MobEffects.DARKNESS, 900)));
     public static final RegistrySupplier<Potion> LONG_DARKNESS_POTION = POTIONS.register("long_darkness", () -> new Potion("darkness", new MobEffectInstance(MobEffects.DARKNESS, 1800)));
+    //1.1.0
+    //Homing
+    public static final RegistrySupplier<Potion> HOMING_POTION = POTIONS.register("homing", () -> new Potion("homing", new MobEffectInstance(ModEffects.HOMING.get(), 1)));
+    //Recovery
+    public static final RegistrySupplier<Potion> RECOVERY_POTION = POTIONS.register("recovery", () -> new Potion("recovery", new MobEffectInstance(ModEffects.RECOVERY.get(), 1)));
+    //Undying
+    public static final RegistrySupplier<Potion> UNDYING_POTION = POTIONS.register("undying", () -> new Potion("undying", new MobEffectInstance(ModEffects.UNDYING.get(), 12000)));
+    //Air Swim
+    public static final RegistrySupplier<Potion> AIR_SWIM = POTIONS.register("air_swim", () -> new Potion("air_swim", new MobEffectInstance(ModEffects.AIR_SWIM.get(), 1200)));
+    //Nullifer
+    public static final RegistrySupplier<Potion> NULLIFIER = POTIONS.register("nullifier", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 1200)));
+    //Extension
+    public static final RegistrySupplier<Potion> EXTENSION = POTIONS.register("extension", () -> new Potion("extension", new MobEffectInstance(ModEffects.EXTENSION.get(), 1)));
+    //Dolphins Grace
+    public static final RegistrySupplier<Potion> DOLPHINS_GRACE = POTIONS.register("dolphins_grace", () -> new Potion("dolphins_grace", new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 600)));
+
+    PotionItem
+
+
 
 
     public static RegistrySupplier<Potion> register(String name, Supplier<Potion> potion) {

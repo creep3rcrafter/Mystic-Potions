@@ -2,6 +2,15 @@ accessWidener   v2  named
 accessible field net/minecraft/world/item/crafting/UpgradeRecipe base Lnet/minecraft/world/item/crafting/Ingredient;
 accessible field net/minecraft/world/item/crafting/UpgradeRecipe addition Lnet/minecraft/world/item/crafting/Ingredient;
 accessible field net/minecraft/world/level/block/entity/BrewingStandBlockEntity items Lnet/minecraft/core/NonNullList;
+accessible field net/minecraft/world/effect/MobEffectInstance duration I
+accessible field net/minecraft/world/effect/MobEffectInstance amplifier I
+accessible field net/minecraft/world/entity/Entity wasEyeInWater Z
+accessible field net/minecraft/world/entity/Entity wasTouchingWater Z
+accessible field net/minecraft/world/entity/LivingEntity SPEED_MODIFIER_SPRINTING_UUID Ljava/util/UUID;
+accessible field net/minecraft/world/entity/LivingEntity SPEED_MODIFIER_SPRINTING Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;
 accessible method net/minecraft/world/item/alchemy/PotionBrewing addMix (Lnet/minecraft/world/item/alchemy/Potion;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/alchemy/Potion;)V
 accessible method net/minecraft/world/item/alchemy/Potions register (Ljava/lang/String;Lnet/minecraft/world/item/alchemy/Potion;)Lnet/minecraft/world/item/alchemy/Potion;
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+accessible method net/minecraft/server/level/ServerPlayer isReachableBedBlock (Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/server/level/ServerPlayer bedBlocked (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z
+# extendable method net/minecraft/world/entity/LivingEntity checkTotemDeathProtection (Lnet/minecraft/world/damagesource/DamageSource;)Z
