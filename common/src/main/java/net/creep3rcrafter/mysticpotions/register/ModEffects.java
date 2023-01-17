@@ -13,27 +13,31 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.BedBlock;
@@ -41,6 +45,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -69,12 +74,13 @@ public class ModEffects {
     Invincibility/overkilled- but delayed damage and make stackable - maybe make antidote
     Holy Water - hurts hostile mobs and if they hurt you they also take the same ammount of damage
     fast falling
+    Extension/Extension Cooldown
 
     Done------------------------------------
     Undying - totem of undieing just without the item
     Homing - teleports you to your bed
     Recovery - sends you to your last death location
-    Extension/Extension Cooldown
+    Teleportation - randomly teleports you
     Nullifier - removes all potion effects and stops all potion effects from happening
     Air Swim - swim in the air
     */
@@ -94,22 +100,27 @@ public class ModEffects {
     });//New
     public static final RegistrySupplier<MobEffect> AIR_SWIM = EFFECTS.register("air_swim", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 24991) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            float f;
-            //livingEntity.updateFluidHeightAndDoFluidPushing(FluidTags.WATER, 0.014D);
-            if(livingEntity.isSprinting()){
-                livingEntity.resetFallDistance();
-                livingEntity.wasEyeInWater = true;
-                livingEntity.wasTouchingWater = true;
-                livingEntity.setSwimming(true);
-                livingEntity.updateFluidHeightAndDoFluidPushing(FluidTags.WATER, 0.014D);
-                Vec3 vec32 = livingEntity.getDeltaMovement();
-                f = 1.08f;
-                if (livingEntity.horizontalCollision && livingEntity.onClimbable()) {
-                    vec32 = new Vec3(vec32.x, 0.25D, vec32.z);
+            if (livingEntity.isSprinting()) {
+                if (!livingEntity.isPassenger()) {
+                    if (!livingEntity.hasEffect(MobEffects.DOLPHINS_GRACE)) {
+                        if (!livingEntity.isEyeInFluid(FluidTags.WATER)) {
+                            if (!livingEntity.updateFluidHeightAndDoFluidPushing(FluidTags.WATER, 0.014D)) {
+                                float f;
+                                livingEntity.resetFallDistance();
+                                livingEntity.wasEyeInWater = true;
+                                livingEntity.wasTouchingWater = true;
+                                livingEntity.setSwimming(true);
+                                Vec3 vec32 = livingEntity.getDeltaMovement();
+                                f = 1.08f;
+                                if (livingEntity.horizontalCollision && livingEntity.onClimbable()) {
+                                    vec32 = new Vec3(vec32.x, 0.25D, vec32.z);
+                                }
+                                livingEntity.setDeltaMovement(vec32.multiply(f, f + 0.05, f));
+                                livingEntity.gameEvent(GameEvent.SWIM);
+                            }
+                        }
+                    }
                 }
-                livingEntity.setDeltaMovement(vec32.multiply(f, f + 0.05, f));
-                livingEntity.gameEvent(GameEvent.SWIM);
-
             }
             //livingEntity.updateSwimming();
         }
@@ -124,10 +135,10 @@ public class ModEffects {
     });//New
     public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            for (int i = 0; i < livingEntity.getActiveEffects().size(); i++){
-                if (((MobEffectInstance)livingEntity.getActiveEffects().toArray()[i]).getEffect() != NULLIFIER.get()){
-                    ((MobEffectInstance)livingEntity.getActiveEffects().toArray()[i]).duration = 0;
-                    ((MobEffectInstance)livingEntity.getActiveEffects().toArray()[i]).amplifier = 0;
+            for (int i = 0; i < livingEntity.getActiveEffects().size(); i++) {
+                if (((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).getEffect() != NULLIFIER.get()) {
+                    ((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).duration = 0;
+                    ((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).amplifier = 0;
                 }
             }
         }
@@ -140,9 +151,6 @@ public class ModEffects {
             return false;
         }
     });//New
-
-
-
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
             livingEntity.setTicksFrozen(0);
@@ -159,6 +167,7 @@ public class ModEffects {
             return false;
         }
     });
+    /*
     public static final RegistrySupplier<MobEffect> EXTENSION = EFFECTS.register("extension", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16711935) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
             if (livingEntity.getActiveEffects().size() > 0) {
@@ -225,10 +234,40 @@ public class ModEffects {
         public boolean isInstantenous() {
             return true;
         }
-    });//New
-    public static final RegistrySupplier<MobEffect> POTENCY = EFFECTS.register("potency", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16711935) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    });//New */
+    //Neutral
+    public static final RegistrySupplier<MobEffect> TELEPORTATION = EFFECTS.register("teleportation", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13041919) {
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            Random random = new Random();
+            if (livingEntity.getLevel().getServer() != null) {
+                if (livingEntity.getLevel().getServer().getTickCount() % (20 + random.nextInt(-10, 40)) == 0) {
+                    ServerLevel level = livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension());
+                    assert level != null;
+                    if (!level.isClientSide) {
+                        double d = livingEntity.getX();
+                        double e = livingEntity.getY();
+                        double f = livingEntity.getZ();
 
+                        for (int i = 0; i < 32; ++i) {
+                            double g = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * 32.0D;
+                            double h = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16), (double) level.getMinBuildHeight(), (double) (level.getMinBuildHeight() + ((ServerLevel) level).getLogicalHeight() - 1));
+                            double j = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * 32.0D;
+                            if (livingEntity.isPassenger()) {
+                                livingEntity.stopRiding();
+                            }
+
+                            Vec3 vec3 = livingEntity.position();
+                            if (livingEntity.randomTeleport(g, h, j, true)) {
+                                level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(livingEntity));
+                                SoundEvent soundEvent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
+                                level.playSound((Player) null, d, e, f, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                                livingEntity.playSound(soundEvent, 1.0F, 1.0F);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public boolean isDurationEffectTick(int duration, int amplifier) {
@@ -239,8 +278,7 @@ public class ModEffects {
             return false;
         }
     });//New
-    //Neutral
-    public static final RegistrySupplier<MobEffect> HOMING = EFFECTS.register("homing", () -> new MobEffect(MobEffectCategory.NEUTRAL, 36863) {
+    public static final RegistrySupplier<MobEffect> HOMING = EFFECTS.register("homing", () -> new MobEffect(MobEffectCategory.NEUTRAL, 16736892) {
 
         public void applyEffectTick(LivingEntity livingEntity, int i) {
             if (livingEntity instanceof ServerPlayer && !livingEntity.isSpectator()) {
@@ -284,7 +322,7 @@ public class ModEffects {
             return true;
         }
     });//New
-    public static final RegistrySupplier<MobEffect> RECOVERY = EFFECTS.register("recovery", () -> new MobEffect(MobEffectCategory.NEUTRAL, 14948064) {
+    public static final RegistrySupplier<MobEffect> RECOVERY = EFFECTS.register("recovery", () -> new MobEffect(MobEffectCategory.NEUTRAL, 9044042) {
         public void applyEffectTick(LivingEntity livingEntity, int i) {
             if (livingEntity instanceof ServerPlayer && !livingEntity.isSpectator()) {
                 ServerPlayer serverPlayer = ((ServerPlayer) livingEntity);
@@ -324,13 +362,15 @@ public class ModEffects {
         }
     });//New
     //Harmful
-    public static final RegistrySupplier<MobEffect> THUNDEROUS = EFFECTS.register("thunderous", () -> new MobEffect(MobEffectCategory.HARMFUL, 10485759) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            Utils.lightning(livingEntity, null, amplifier);
+    public static final RegistrySupplier<MobEffect> THUNDEROUS = EFFECTS.register("thunderous", () -> new MobEffect(MobEffectCategory.HARMFUL, 14745599) {
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            System.out.println("lightning");
+            Utils.lightning(livingEntity, livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension()), amplifier);
         }
 
-        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int amplifier, double damage) {
-            Utils.lightning(livingEntity, null, amplifier);
+        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, @NotNull LivingEntity livingEntity, int amplifier, double damage) {
+            System.out.println("lightning");
+            Utils.lightning(livingEntity, livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension()), amplifier);
         }
 
         public boolean isDurationEffectTick(int duration, int amplifier) {
@@ -341,7 +381,7 @@ public class ModEffects {
             return true;
         }
     });
-    public static final RegistrySupplier<MobEffect> EXPLOSIVE = EFFECTS.register("explosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 1514264) {
+    public static final RegistrySupplier<MobEffect> EXPLOSIVE = EFFECTS.register("explosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 4522008) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
             if (livingEntity.getLevel() != null) {
                 ServerLevel level = (ServerLevel) livingEntity.getLevel();
@@ -385,7 +425,7 @@ public class ModEffects {
         }
     });
     public static final RegistrySupplier<MobEffect> BURNING = EFFECTS.register("burning", () -> new MobEffect(MobEffectCategory.HARMFUL, 16740608) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
             livingEntity.setSecondsOnFire(1);
         }
 
@@ -412,9 +452,9 @@ public class ModEffects {
             return false;
         }
     });
-    public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 65420) {
+    public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.getLevel() != null) {
+            if (livingEntity.getLevel().getServer() != null) {
                 ServerLevel level = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
                 if (!livingEntity.isSpectator() && level != null && level.getServer().getTickCount() % 10 == 0) {
@@ -488,6 +528,7 @@ public class ModEffects {
         }
     });
     //Cooldown
+    /*
     public static final RegistrySupplier<MobEffect> EXTENSION_COOLDOWN = EFFECTS.register("extension_cooldown", () -> new MobEffect(MobEffectCategory.NEUTRAL, 16711935) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         }
@@ -500,8 +541,5 @@ public class ModEffects {
             return false;
         }
     });//New
-
-    public static RegistrySupplier<MobEffect> register(String name, Supplier<MobEffect> mobEffect) {
-        return EFFECTS.register(name, mobEffect);
-    }
+     */
 }

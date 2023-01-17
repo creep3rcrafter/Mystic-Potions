@@ -6,14 +6,11 @@ import net.creep3rcrafter.mysticpotions.MysticPotions;
 import net.minecraft.core.Registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
-
-import java.util.function.Supplier;
 
 public class ModPotions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.POTION_REGISTRY);
+
 
     //Thunderous
     public static final RegistrySupplier<Potion> THUNDEROUS_POTION = POTIONS.register("thunderous", () -> new Potion("thunderous", new MobEffectInstance(ModEffects.THUNDEROUS.get(), 1)));
@@ -52,20 +49,16 @@ public class ModPotions {
     //Undying
     public static final RegistrySupplier<Potion> UNDYING_POTION = POTIONS.register("undying", () -> new Potion("undying", new MobEffectInstance(ModEffects.UNDYING.get(), 12000)));
     //Air Swim
-    public static final RegistrySupplier<Potion> AIR_SWIM = POTIONS.register("air_swim", () -> new Potion("air_swim", new MobEffectInstance(ModEffects.AIR_SWIM.get(), 1200)));
-    //Nullifer
-    public static final RegistrySupplier<Potion> NULLIFIER = POTIONS.register("nullifier", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 1200)));
-    //Extension
-    public static final RegistrySupplier<Potion> EXTENSION = POTIONS.register("extension", () -> new Potion("extension", new MobEffectInstance(ModEffects.EXTENSION.get(), 1)));
+    public static final RegistrySupplier<Potion> AIR_SWIM_POTION = POTIONS.register("air_swim", () -> new Potion("air_swim", new MobEffectInstance(ModEffects.AIR_SWIM.get(), 1200)));
+    //Nullifier
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION = POTIONS.register("nullifier", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 600)));
     //Dolphins Grace
-    public static final RegistrySupplier<Potion> DOLPHINS_GRACE = POTIONS.register("dolphins_grace", () -> new Potion("dolphins_grace", new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 600)));
-
-    PotionItem
-
-
-
-
-    public static RegistrySupplier<Potion> register(String name, Supplier<Potion> potion) {
-        return POTIONS.register(name, potion);
-    }
+    public static final RegistrySupplier<Potion> DOLPHINS_GRACE_POTION = POTIONS.register("dolphins_grace", () -> new Potion("dolphins_grace", new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 600)));
+    //Teleportation
+    public static final RegistrySupplier<Potion> TELEPORTATION_POTION = POTIONS.register("teleportation", () -> new Potion("teleportation", new MobEffectInstance(ModEffects.TELEPORTATION.get(), 300)));
+    //Extension
+    //public static final RegistrySupplier<Potion> EXTENSION = POTIONS.register("extension", () -> new Potion("extension", new MobEffectInstance(ModEffects.EXTENSION.get(), 1)));
+    //Levitation
+    public static final RegistrySupplier<Potion> LEVITATION_POTION = POTIONS.register("levitation", () -> new Potion("levitation", new MobEffectInstance(MobEffects.LEVITATION, 200)));
+    public static final RegistrySupplier<Potion> LONG_LEVITATION_POTION = POTIONS.register("long_levitation", () -> new Potion("levitation", new MobEffectInstance(MobEffects.LEVITATION, 300)));
 }

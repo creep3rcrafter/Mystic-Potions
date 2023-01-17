@@ -21,29 +21,27 @@ import java.util.List;
 import java.util.Random;
 
 public class Utils {
-    public static void lightning(LivingEntity livingEntity, ServerLevel serverWorld, int amplifier) {
-        lightning(livingEntity, serverWorld);
-        if (!livingEntity.isSpectator() && serverWorld != null) {
-            for (int i = 0; i < amplifier; i++) {
-                Random random = new Random();
-                BlockPos entityPos = livingEntity.blockPosition();
-                BlockPos blockPos = entityPos.offset(random.nextInt(amplifier) - (amplifier / 2), random.nextInt(amplifier) - (amplifier / 2), random.nextInt(amplifier) - (amplifier / 2));
-                LightningBolt lightningbolt = EntityType.LIGHTNING_BOLT.create(serverWorld);
-                lightningbolt.moveTo(Vec3.atBottomCenterOf(blockPos));
-                lightningbolt.setCause(livingEntity instanceof ServerPlayer ? (ServerPlayer) livingEntity : null);
-                serverWorld.addFreshEntity(lightningbolt);
-            }
+    public static void lightning(LivingEntity livingEntity, ServerLevel serverLevel, int amplifier) {
+        lightning(livingEntity, serverLevel);
+        for (int i = 0; i < amplifier; i++) {
+            System.out.println("2");
+            Random random = new Random();
+            BlockPos entityPos = livingEntity.blockPosition();
+            BlockPos blockPos = entityPos.offset(random.nextInt(amplifier) - (amplifier / 2), random.nextInt(amplifier) - (amplifier / 2), random.nextInt(amplifier) - (amplifier / 2));
+            LightningBolt lightningbolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+            lightningbolt.moveTo(Vec3.atBottomCenterOf(blockPos));
+            lightningbolt.setCause(livingEntity instanceof ServerPlayer ? (ServerPlayer) livingEntity : null);
+            serverLevel.addFreshEntity(lightningbolt);
         }
     }
 
-    public static void lightning(LivingEntity livingEntity, ServerLevel level) {
-        if (!livingEntity.isSpectator() && level != null) {
-            BlockPos entityPos = livingEntity.blockPosition();
-            LightningBolt LightningBolt = EntityType.LIGHTNING_BOLT.create(level);
-            LightningBolt.moveTo(Vec3.atBottomCenterOf(entityPos));
-            LightningBolt.setCause(livingEntity instanceof ServerPlayer ? (ServerPlayer) livingEntity : null);
-            level.addFreshEntity(LightningBolt);
-        }
+    public static void lightning(LivingEntity livingEntity, ServerLevel serverLevel) {
+        System.out.println("1");
+        BlockPos entityPos = livingEntity.blockPosition();
+        LightningBolt LightningBolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+        LightningBolt.moveTo(Vec3.atBottomCenterOf(entityPos));
+        LightningBolt.setCause(livingEntity instanceof ServerPlayer ? (ServerPlayer) livingEntity : null);
+        serverLevel.addFreshEntity(LightningBolt);
     }
 
     public static void explode(Level level, BlockPos blockPos) {

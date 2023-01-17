@@ -8,9 +8,17 @@ accessible field net/minecraft/world/entity/Entity wasEyeInWater Z
 accessible field net/minecraft/world/entity/Entity wasTouchingWater Z
 accessible field net/minecraft/world/entity/LivingEntity SPEED_MODIFIER_SPRINTING_UUID Ljava/util/UUID;
 accessible field net/minecraft/world/entity/LivingEntity SPEED_MODIFIER_SPRINTING Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;
+accessible field net/minecraft/world/item/alchemy/PotionBrewing POTION_MIXES Ljava/util/List;
+accessible field net/minecraft/world/item/alchemy/PotionBrewing CONTAINER_MIXES Ljava/util/List;
 accessible method net/minecraft/world/item/alchemy/PotionBrewing addMix (Lnet/minecraft/world/item/alchemy/Potion;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/alchemy/Potion;)V
 accessible method net/minecraft/world/item/alchemy/Potions register (Ljava/lang/String;Lnet/minecraft/world/item/alchemy/Potion;)Lnet/minecraft/world/item/alchemy/Potion;
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
 accessible method net/minecraft/server/level/ServerPlayer isReachableBedBlock (Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/server/level/ServerPlayer bedBlocked (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z
-# extendable method net/minecraft/world/entity/LivingEntity checkTotemDeathProtection (Lnet/minecraft/world/damagesource/DamageSource;)Z
+accessible class net/minecraft/world/item/alchemy/PotionBrewing$Mix
+extendable class net/minecraft/world/item/crafting/Ingredient
+accessible method net/minecraft/world/item/crafting/Ingredient <init> (Ljava/util/stream/Stream;)V
+extendable class net/minecraft/world/item/crafting/Ingredient$Value
+extendable class net/minecraft/world/item/crafting/Ingredient$ItemValue
+accessible method net/minecraft/world/item/crafting/Ingredient$ItemValue <init> (Lnet/minecraft/world/item/ItemStack;)V
+accessible method net/minecraft/world/item/crafting/Ingredient fromValues (Ljava/util/stream/Stream;)Lnet/minecraft/world/item/crafting/Ingredient;

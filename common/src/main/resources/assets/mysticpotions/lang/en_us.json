@@ -91,5 +91,11 @@
   "item.minecraft.potion.effect.dolphins_grace": "Potion of Dolphins Grace",
   "item.minecraft.splash_potion.effect.dolphins_grace": "Splash Potion of Dolphins Grace",
   "item.minecraft.lingering_potion.effect.dolphins_grace": "Lingering Potion of Dolphins Grace",
-  "item.minecraft.tipped_arrow.effect.dolphins_grace": "Arrow of Dolphins Grace"
+  "item.minecraft.tipped_arrow.effect.dolphins_grace": "Arrow of Dolphins Grace",
+
+  "effect.mysticpotions.teleportation": "Teleportation",
+  "item.minecraft.potion.effect.teleportation": "Potion of Teleportation",
+  "item.minecraft.splash_potion.effect.teleportation": "Splash Potion of Teleportation",
+  "item.minecraft.lingering_potion.effect.teleportation": "Lingering Potion of Teleportation",
+  "item.minecraft.tipped_arrow.effect.teleportation": "Arrow of Teleportation"
 }

@@ -5,6 +5,7 @@
   "client": [
   ],
   "mixins": [
+    "EntityMixin",
     "LightningRodBlockMixin",
     "LivingEntityMixin",
     "MobEffectMixin"
