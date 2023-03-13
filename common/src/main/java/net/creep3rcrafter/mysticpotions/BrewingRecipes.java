@@ -80,18 +80,4 @@ public class BrewingRecipes {
 
 
     }
-    public static void addMix(Potion potionIn, Potion potionIn2, Potion potionOut) {
-        PotionBrewing.POTION_MIXES.add(new Mix(potionIn, potionIn2, potionOut));
-    }
-    public static class Mix<T> {
-        final T from;
-        final T from2;
-        final T to;
-
-        public Mix(T object, T from2, T object2) {
-            this.from = object;
-            this.from2 = from2;
-            this.to = object2;
-        }
-    }
 }
