@@ -67,7 +67,12 @@ public class BrewingRecipes {
         //Undying
         PotionBrewing.addMix(Potions.AWKWARD, Items.TOTEM_OF_UNDYING, ModPotions.UNDYING_POTION.get());
         //Nullifier
-        PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION_1.get());
+        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_1.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_2.get());
+        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_2.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_3.get());
+        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_4.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_4.get());
+        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_4.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_5.get());
+        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_5.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_6.get());
         //Dolphins Grace
         PotionBrewing.addMix(Potions.AWKWARD, Items.NAUTILUS_SHELL, ModPotions.DOLPHINS_GRACE_POTION.get());
         //Air Swim

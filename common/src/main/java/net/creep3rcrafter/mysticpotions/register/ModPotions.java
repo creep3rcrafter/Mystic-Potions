@@ -51,7 +51,12 @@ public class ModPotions {
     //Air Swim
     public static final RegistrySupplier<Potion> AIR_SWIM_POTION = POTIONS.register("air_swim", () -> new Potion("air_swim", new MobEffectInstance(ModEffects.AIR_SWIM.get(), 1200)));
     //Nullifier
-    public static final RegistrySupplier<Potion> NULLIFIER_POTION = POTIONS.register("nullifier", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 600)));
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION_1 = POTIONS.register("nullifier_1", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 600, 0)));
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION_2 = POTIONS.register("nullifier_2", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 500, 1)));
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION_3 = POTIONS.register("nullifier_3", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 400, 2)));
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION_4 = POTIONS.register("nullifier_4", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 300, 3)));
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION_5 = POTIONS.register("nullifier_5", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 200, 4)));
+    public static final RegistrySupplier<Potion> NULLIFIER_POTION_6 = POTIONS.register("nullifier_6", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 100, 5)));
     //Dolphins Grace
     public static final RegistrySupplier<Potion> DOLPHINS_GRACE_POTION = POTIONS.register("dolphins_grace", () -> new Potion("dolphins_grace", new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 600)));
     //Teleportation

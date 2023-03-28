@@ -99,7 +99,7 @@ public class ModEffects {
         }
     });//New
     public static final RegistrySupplier<MobEffect> AIR_SWIM = EFFECTS.register("air_swim", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 24991) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
             if (livingEntity.isSprinting()) {
                 if (!livingEntity.isPassenger()) {
                     if (!livingEntity.hasEffect(MobEffects.DOLPHINS_GRACE)) {
@@ -134,11 +134,12 @@ public class ModEffects {
         }
     });//New
     public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            for (int i = 0; i < livingEntity.getActiveEffects().size(); i++) {
-                if (((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).getEffect() != NULLIFIER.get()) {
-                    ((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).duration = 0;
-                    ((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).amplifier = 0;
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            for (MobEffectInstance mobEffectInstance: livingEntity.getActiveEffects()){
+                if (mobEffectInstance.getEffect() != NULLIFIER.get()){
+                    if (mobEffectInstance.getAmplifier() <= amplifier){
+                        livingEntity.removeEffect(mobEffectInstance.getEffect());
+                    }
                 }
             }
         }
@@ -152,7 +153,7 @@ public class ModEffects {
         }
     });//New
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
             livingEntity.setTicksFrozen(0);
             if (livingEntity instanceof SnowGolem && livingEntity.getLevel() != null && livingEntity.getLevel().getServer().getTickCount() % 20 == 0) {
                 livingEntity.hurt(DamageSource.MAGIC, amplifier + 1);
