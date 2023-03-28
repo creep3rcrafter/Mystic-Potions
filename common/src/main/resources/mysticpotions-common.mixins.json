@@ -8,6 +8,7 @@
     "EntityMixin",
     "LightningRodBlockMixin",
     "LivingEntityMixin",
+    "MobEffectInstanceMixin",
     "MobEffectMixin"
   ],
   "injectors": {

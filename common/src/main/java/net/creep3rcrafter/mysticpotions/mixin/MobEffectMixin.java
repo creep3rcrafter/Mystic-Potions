@@ -15,11 +15,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MobEffect.class)
 public abstract class MobEffectMixin {
-
-    @Inject(method = "applyInstantenousEffect(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/LivingEntity;ID)V", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "applyEffectTick", at = @At("HEAD"), cancellable = true)
+    public void inject2(LivingEntity livingEntity, int i, CallbackInfo ci) {
+        int nullAmplifier = 0;
+        if (livingEntity.hasEffect(ModEffects.NULLIFIER.get()) && livingEntity.getEffect(ModEffects.NULLIFIER.get()) != null){
+            nullAmplifier = livingEntity.getEffect(ModEffects.NULLIFIER.get()).amplifier;
+            if (nullAmplifier >= i){
+                ci.cancel();
+            }
+        }
+    }
+    @Inject(method = "applyInstantenousEffect", at = @At("HEAD"), cancellable = true)
     public void inject2(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int i, double d, CallbackInfo ci) {
-        if (livingEntity.hasEffect(ModEffects.NULLIFIER.get())){
-            ci.cancel();
+        int nullAmplifier = 0;
+        if (livingEntity.hasEffect(ModEffects.NULLIFIER.get()) && livingEntity.getEffect(ModEffects.NULLIFIER.get()) != null){
+            nullAmplifier = livingEntity.getEffect(ModEffects.NULLIFIER.get()).amplifier;
+            if (nullAmplifier >= i){
+                ci.cancel();
+            }
         }
     }
 }

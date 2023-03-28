@@ -54,7 +54,6 @@ import java.util.function.Supplier;
 public class ModEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
 
-
     /* IDEAS
     Inversion - Swaps good/bad potions with eachother
     Luminous - things glow
@@ -91,7 +90,7 @@ public class ModEffects {
         }
 
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
         public boolean isInstantenous() {
@@ -99,7 +98,9 @@ public class ModEffects {
         }
     });//New
     public static final RegistrySupplier<MobEffect> AIR_SWIM = EFFECTS.register("air_swim", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 24991) {
+        @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             if (livingEntity.isSprinting()) {
                 if (!livingEntity.isPassenger()) {
                     if (!livingEntity.hasEffect(MobEffects.DOLPHINS_GRACE)) {
@@ -124,17 +125,20 @@ public class ModEffects {
             }
             //livingEntity.updateSwimming();
         }
-
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });//New
     public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
+        @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             for (MobEffectInstance mobEffectInstance: livingEntity.getActiveEffects()){
                 if (mobEffectInstance.getEffect() != NULLIFIER.get()){
                     if (mobEffectInstance.getAmplifier() <= amplifier){
@@ -143,102 +147,40 @@ public class ModEffects {
                 }
             }
         }
-
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
-
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });//New
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
+        @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             livingEntity.setTicksFrozen(0);
             if (livingEntity instanceof SnowGolem && livingEntity.getLevel() != null && livingEntity.getLevel().getServer().getTickCount() % 20 == 0) {
                 livingEntity.hurt(DamageSource.MAGIC, amplifier + 1);
             }
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });
-    /*
-    public static final RegistrySupplier<MobEffect> EXTENSION = EFFECTS.register("extension", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16711935) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.getActiveEffects().size() > 0) {
-                boolean hasCooldown = false;
-                int duration = 0;
-                for (int i = 0; i < livingEntity.getActiveEffects().size(); i++) {
-                    if(((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).getEffect() == ModEffects.EXTENSION_COOLDOWN.get()){
-                        hasCooldown = true;
-                    }
-                }
-                if (!hasCooldown){
-                    for (int i = 0; i < livingEntity.getActiveEffects().size(); i++) {
-                        MobEffectInstance effect = (MobEffectInstance) livingEntity.getActiveEffects().toArray()[i];
-                        if (!(effect.getEffect() == ModEffects.EXTENSION_COOLDOWN.get())) {
-                            if (!effect.getEffect().isInstantenous()) {
-                                int a = (effect.duration * 2);
-                                int b = (effect.duration / 3);
-                                effect.duration = a - b;
-                                if ((a-b) > duration){
-                                    duration = a - b;
-                                }
-                                effect.update(effect);
-                            }
-                        }
-                    }
-                    livingEntity.addEffect(new MobEffectInstance(ModEffects.EXTENSION_COOLDOWN.get(), duration + 120));
-                }
-            }
-        }
-
-        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int amplifier, double damage) {
-            if (livingEntity.getActiveEffects().size() > 0) {
-                boolean hasCooldown = false;
-                int duration = 0;
-                for (int i = 0; i < livingEntity.getActiveEffects().size(); i++) {
-                    if(((MobEffectInstance) livingEntity.getActiveEffects().toArray()[i]).getEffect() == ModEffects.EXTENSION_COOLDOWN.get()){
-                        hasCooldown = true;
-                    }
-                }
-                if (!hasCooldown){
-                    for (int i = 0; i < livingEntity.getActiveEffects().size(); i++) {
-                        MobEffectInstance effect = (MobEffectInstance) livingEntity.getActiveEffects().toArray()[i];
-                        if (!(effect.getEffect() == ModEffects.EXTENSION_COOLDOWN.get())) {
-                            if (!effect.getEffect().isInstantenous()) {
-                                int a = (effect.duration * 2);
-                                int b = (effect.duration / 3);
-                                effect.duration = a - b;
-                                if ((a-b) > duration){
-                                    duration = a - b;
-                                }
-                                effect.update(effect);
-                            }
-                        }
-                    }
-                    livingEntity.addEffect(new MobEffectInstance(ModEffects.EXTENSION_COOLDOWN.get(), duration + 120));
-                }
-            }
-        }
-
-        public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
-        }
-
-        public boolean isInstantenous() {
-            return true;
-        }
-    });//New */
     //Neutral
     public static final RegistrySupplier<MobEffect> TELEPORTATION = EFFECTS.register("teleportation", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13041919) {
+        @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             Random random = new Random();
             if (livingEntity.getLevel().getServer() != null) {
                 if (livingEntity.getLevel().getServer().getTickCount() % (20 + random.nextInt(-10, 40)) == 0) {
@@ -271,17 +213,21 @@ public class ModEffects {
             }
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });//New
     public static final RegistrySupplier<MobEffect> HOMING = EFFECTS.register("homing", () -> new MobEffect(MobEffectCategory.NEUTRAL, 16736892) {
 
-        public void applyEffectTick(LivingEntity livingEntity, int i) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             if (livingEntity instanceof ServerPlayer && !livingEntity.isSpectator()) {
                 ServerPlayer serverPlayer = ((ServerPlayer) livingEntity);
                 Vec3 pos;
@@ -298,7 +244,9 @@ public class ModEffects {
             }
         }
 
+        @Override
         public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int amplifier, double damage) {
+            super.applyInstantenousEffect(entity, entity2, livingEntity, amplifier, damage);
             if (livingEntity instanceof ServerPlayer && !livingEntity.isSpectator()) {
                 ServerPlayer serverPlayer = ((ServerPlayer) livingEntity);
                 Vec3 pos;
@@ -315,16 +263,20 @@ public class ModEffects {
             }
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return true;
         }
     });//New
     public static final RegistrySupplier<MobEffect> RECOVERY = EFFECTS.register("recovery", () -> new MobEffect(MobEffectCategory.NEUTRAL, 9044042) {
-        public void applyEffectTick(LivingEntity livingEntity, int i) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             if (livingEntity instanceof ServerPlayer && !livingEntity.isSpectator()) {
                 ServerPlayer serverPlayer = ((ServerPlayer) livingEntity);
                 System.out.println("is player");
@@ -339,7 +291,9 @@ public class ModEffects {
             }
         }
 
-        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int amplifier, double damage) {
+        @Override
+        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, @NotNull LivingEntity livingEntity, int amplifier, double damage) {
+            super.applyInstantenousEffect(entity, entity2, livingEntity, amplifier, damage);
             if (livingEntity instanceof ServerPlayer && !livingEntity.isSpectator()) {
                 ServerPlayer serverPlayer = ((ServerPlayer) livingEntity);
                 System.out.println("is player");
@@ -354,36 +308,64 @@ public class ModEffects {
             }
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return true;
         }
     });//New
     //Harmful
     public static final RegistrySupplier<MobEffect> THUNDEROUS = EFFECTS.register("thunderous", () -> new MobEffect(MobEffectCategory.HARMFUL, 14745599) {
+        @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             System.out.println("lightning");
             Utils.lightning(livingEntity, livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension()), amplifier);
         }
 
+        @Override
         public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, @NotNull LivingEntity livingEntity, int amplifier, double damage) {
+            super.applyInstantenousEffect(entity, entity2, livingEntity, amplifier, damage);
             System.out.println("lightning");
             Utils.lightning(livingEntity, livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension()), amplifier);
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return true;
         }
     });
     public static final RegistrySupplier<MobEffect> EXPLOSIVE = EFFECTS.register("explosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 4522008) {
+        @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
+            if (livingEntity.getLevel() != null) {
+                ServerLevel level = (ServerLevel) livingEntity.getLevel();
+                if (!livingEntity.isSpectator()) {
+                    if (livingEntity.getLevel().dimension() == level.NETHER) {
+                        Utils.explode(level, livingEntity.blockPosition(), amplifier, true);
+                    } else {
+                        if (amplifier > 4) {
+                            Utils.explode(level, livingEntity.blockPosition(), amplifier, true);
+                        } else {
+                            Utils.explode(level, livingEntity.blockPosition(), amplifier);
+                        }
+                    }
+                }
+            }
+        }
+        @Override
+        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, @NotNull LivingEntity livingEntity, int amplifier, double damage) {
+            super.applyInstantenousEffect(entity,entity2,livingEntity,amplifier,damage);
             if (livingEntity.getLevel() != null) {
                 ServerLevel level = (ServerLevel) livingEntity.getLevel();
                 if (!livingEntity.isSpectator()) {
@@ -400,61 +382,56 @@ public class ModEffects {
             }
         }
 
-        public void applyInstantenousEffect(@Nullable Entity entity, @Nullable Entity entity2, LivingEntity livingEntity, int amplifier, double damage) {
-            if (livingEntity.getLevel() != null) {
-                ServerLevel level = (ServerLevel) livingEntity.getLevel();
-                if (!livingEntity.isSpectator()) {
-                    if (livingEntity.getLevel().dimension() == level.NETHER) {
-                        Utils.explode(level, livingEntity.blockPosition(), amplifier, true);
-                    } else {
-                        if (amplifier > 4) {
-                            Utils.explode(level, livingEntity.blockPosition(), amplifier, true);
-                        } else {
-                            Utils.explode(level, livingEntity.blockPosition(), amplifier);
-                        }
-                    }
-                }
-            }
-        }
-
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return true;
         }
     });
     public static final RegistrySupplier<MobEffect> BURNING = EFFECTS.register("burning", () -> new MobEffect(MobEffectCategory.HARMFUL, 16740608) {
+        @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             livingEntity.setSecondsOnFire(1);
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });
     public static final RegistrySupplier<MobEffect> FREEZING = EFFECTS.register("freezing", () -> new MobEffect(MobEffectCategory.HARMFUL, 1572863) {
+        @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             if (livingEntity.canFreeze()) {
                 livingEntity.setIsInPowderSnow(true);
             }
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });
     public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        @Override
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             if (livingEntity.getLevel().getServer() != null) {
                 ServerLevel level = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
@@ -520,27 +497,14 @@ public class ModEffects {
             }
         }
 
+        @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
+            return duration > 1;
         }
 
+        @Override
         public boolean isInstantenous() {
             return false;
         }
     });
-    //Cooldown
-    /*
-    public static final RegistrySupplier<MobEffect> EXTENSION_COOLDOWN = EFFECTS.register("extension_cooldown", () -> new MobEffect(MobEffectCategory.NEUTRAL, 16711935) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        }
-
-        public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
-        }
-
-        public boolean isInstantenous() {
-            return false;
-        }
-    });//New
-     */
 }
