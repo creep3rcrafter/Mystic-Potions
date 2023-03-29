@@ -19,6 +19,7 @@ public abstract class MobEffectInstanceMixin {
     @Shadow @Final private MobEffect effect;
 
     @Shadow public int amplifier;
+    /*
 
     @Inject(method = "applyEffect", at = @At("HEAD"), cancellable = true)
     public void inject2(LivingEntity livingEntity, CallbackInfo ci) {
@@ -37,4 +38,6 @@ public abstract class MobEffectInstanceMixin {
             }
         }
     }
+
+     */
 }

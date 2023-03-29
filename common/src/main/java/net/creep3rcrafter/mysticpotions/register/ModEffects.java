@@ -135,6 +135,7 @@ public class ModEffects {
             return false;
         }
     });//New
+    /*
     public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
@@ -156,6 +157,7 @@ public class ModEffects {
             return false;
         }
     });//New
+     */
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {

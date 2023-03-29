@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MobEffect.class)
 public abstract class MobEffectMixin {
+    /*
     @Inject(method = "applyEffectTick", at = @At("HEAD"), cancellable = true)
     public void inject2(LivingEntity livingEntity, int i, CallbackInfo ci) {
         int nullAmplifier = 0;
@@ -35,4 +36,5 @@ public abstract class MobEffectMixin {
             }
         }
     }
+     */
 }

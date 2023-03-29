@@ -7,9 +7,7 @@
   "mixins": [
     "EntityMixin",
     "LightningRodBlockMixin",
-    "LivingEntityMixin",
-    "MobEffectInstanceMixin",
-    "MobEffectMixin"
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

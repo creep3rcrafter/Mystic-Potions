@@ -1,6 +1,9 @@
 package net.creep3rcrafter.mysticpotions;
 
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
+import net.minecraft.core.Registry;
+import net.minecraft.world.item.BedItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -47,25 +50,17 @@ public class BrewingRecipes {
         //Teleportation
         PotionBrewing.addMix(Potions.AWKWARD, Items.CHORUS_FRUIT, ModPotions.TELEPORTATION_POTION.get());
         //Homing
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.WHITE_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.ORANGE_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.MAGENTA_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.LIGHT_BLUE_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.YELLOW_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.LIME_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.PINK_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.GRAY_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.LIGHT_GRAY_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.CYAN_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.PURPLE_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.BROWN_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.GREEN_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.RED_BED, ModPotions.HOMING_POTION.get());
-        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.BLACK_BED, ModPotions.HOMING_POTION.get());
+        for (Item item: Registry.ITEM){
+            if (item instanceof BedItem){
+                PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), item, ModPotions.HOMING_POTION.get());
+            }
+        }
         //Recovery
         PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.RECOVERY_COMPASS, ModPotions.RECOVERY_POTION.get());
         //Undying
         PotionBrewing.addMix(Potions.AWKWARD, Items.TOTEM_OF_UNDYING, ModPotions.UNDYING_POTION.get());
+        PotionBrewing.addMix(ModPotions.UNDYING_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_UNDYING_POTION.get());
+        /*
         //Nullifier
         PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION_1.get());
         PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_1.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_2.get());
@@ -73,10 +68,14 @@ public class BrewingRecipes {
         PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_4.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_4.get());
         PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_4.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_5.get());
         PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_5.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_6.get());
+         */
         //Dolphins Grace
         PotionBrewing.addMix(Potions.AWKWARD, Items.NAUTILUS_SHELL, ModPotions.DOLPHINS_GRACE_POTION.get());
+        PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_DOLPHINS_GRACE_POTION.get());
+        PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.REDSTONE, ModPotions.STRONG_DOLPHINS_GRACE_POTION.get());
         //Air Swim
         PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.PHANTOM_MEMBRANE, ModPotions.AIR_SWIM_POTION.get());
+        PotionBrewing.addMix(ModPotions.AIR_SWIM_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_AIR_SWIM_POTION.get());
         //Levitating
         PotionBrewing.addMix(Potions.SLOW_FALLING, Items.SHULKER_SHELL, ModPotions.LEVITATION_POTION.get());
         PotionBrewing.addMix(Potions.LONG_SLOW_FALLING, Items.SHULKER_SHELL, ModPotions.LONG_LEVITATION_POTION.get());
