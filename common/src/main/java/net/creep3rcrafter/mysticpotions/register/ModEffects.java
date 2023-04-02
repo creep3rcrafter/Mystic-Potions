@@ -41,6 +41,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -497,6 +500,24 @@ public class ModEffects {
                     }
                 }
             }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration > 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    public static final RegistrySupplier<MobEffect> SPLIPPERY = EFFECTS.register("slippery", () -> new MobEffect(MobEffectCategory.HARMFUL, 1572863) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
+            //livingEntity.set
+            Blocks
         }
 
         @Override

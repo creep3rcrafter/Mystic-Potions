@@ -64,4 +64,10 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @Inject(method = "T", at = @At("HEAD"), cancellable = true)//return
+    public void inject(DamageSource damageSource, CallbackInfoReturnable callback) {
+        if (this.hasEffect(ModEffects.UNDYING.get())) {
+        }
+    }
+
 }
