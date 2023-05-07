@@ -517,7 +517,6 @@ public class ModEffects {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
             super.applyEffectTick(livingEntity, amplifier);
             //livingEntity.set
-            Blocks
         }
 
         @Override
