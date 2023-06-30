@@ -140,29 +140,6 @@ public class ModEffects {
             return false;
         }
     });//New
-    /*
-    public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
-        @Override
-        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            super.applyEffectTick(livingEntity, amplifier);
-            for (MobEffectInstance mobEffectInstance: livingEntity.getActiveEffects()){
-                if (mobEffectInstance.getEffect() != NULLIFIER.get()){
-                    if (mobEffectInstance.getAmplifier() <= amplifier){
-                        livingEntity.removeEffect(mobEffectInstance.getEffect());
-                    }
-                }
-            }
-        }
-        @Override
-        public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration > 1;
-        }
-        @Override
-        public boolean isInstantenous() {
-            return false;
-        }
-    });//New
-     */
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
@@ -516,10 +493,24 @@ public class ModEffects {
     });
     public static final RegistrySupplier<MobEffect> SPLIPPERY = EFFECTS.register("slippery", () -> new MobEffect(MobEffectCategory.HARMFUL, 1572863) {
         @Override
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
             super.applyEffectTick(livingEntity, amplifier);
+        }
 
-            livingEntity.setDeltaMovement(vec37.x * (double)f, q * 0.9800000190734863, vec37.z * (double)f);
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration > 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    public static final RegistrySupplier<MobEffect> GRAVITATION = EFFECTS.register("gravitation", () -> new MobEffect(MobEffectCategory.HARMFUL, 1572863) {
+        @Override
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            super.applyEffectTick(livingEntity, amplifier);
             //livingEntity.handleRelativeFrictionAndCalculateMovement(new Vec3((double)livingEntity.xxa, (double)livingEntity.yya, (double)livingEntity.zza), 0.98F);
         }
 
