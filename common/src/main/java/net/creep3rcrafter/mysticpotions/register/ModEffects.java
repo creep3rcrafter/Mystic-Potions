@@ -77,6 +77,7 @@ public class ModEffects {
     Holy Water - hurts hostile mobs and if they hurt you they also take the same ammount of damage
     fast falling
     Extension/Extension Cooldown
+    max health potion
 
     Done------------------------------------
     Undying - totem of undieing just without the item
@@ -85,6 +86,7 @@ public class ModEffects {
     Teleportation - randomly teleports you
     Nullifier - removes all potion effects and stops all potion effects from happening
     Air Swim - swim in the air
+
     */
 
     //Beneficial
@@ -516,7 +518,9 @@ public class ModEffects {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
             super.applyEffectTick(livingEntity, amplifier);
-            //livingEntity.set
+
+            livingEntity.setDeltaMovement(vec37.x * (double)f, q * 0.9800000190734863, vec37.z * (double)f);
+            //livingEntity.handleRelativeFrictionAndCalculateMovement(new Vec3((double)livingEntity.xxa, (double)livingEntity.yya, (double)livingEntity.zza), 0.98F);
         }
 
         @Override

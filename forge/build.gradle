@@ -92,12 +92,12 @@ modrinth{
     token = System.getenv("MODRINTH_TOKEN")
     versionName = "${rootProject.archives_base_name}-" + "${rootProject.version}-" + "${rootProject.minecraft_version}-Forge"
     projectId = "5UdtzIKo"
-    versionNumber = "1.0.0"
-    versionType = "release"
+    versionNumber = rootProject.mod_version
+    versionType = "beta"
     uploadFile = remapJar
-    gameVersions = ["1.19.2"]
+    gameVersions = [rootProject.minecraft_version, "1.19.3", "1.19.4"]
     loaders = ["forge"]
-    changelog = "First Upload Hope You Like It!"
+    changelog = project.changelog
     dependencies{
         required.version "cH9PCvfY"
     }

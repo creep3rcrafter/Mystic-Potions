@@ -1,6 +1,9 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
+    id "io.github.pacifistmc.forgix" version "1.2.+"
+    id "com.modrinth.minotaur" version "2.+"
+    id("io.github.themrmilchmann.curseforge-publish") version "0.4.+"
     //id "com.matyrobbrt.mc.registrationutils" version "1.19-1.3.0"
 }
 
@@ -8,7 +11,23 @@ architectury {
     minecraft = rootProject.minecraft_version
 }
 
-
+forgix {
+    group = project.maven_group
+    mergedJarName = "${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-multi.jar"
+    outputDir = "build/libs/Merged"
+    forge {
+        projectName = "forge"
+        jarLocation =  "build/libs/${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Forge.jar"
+    }
+    fabric {
+        projectName = "fabric"
+        jarLocation =  "build/libs/${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Fabric.jar"
+    }
+    quilt {
+        projectName = 'quilt'
+        jarLocation =  "build/libs/${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Quilt.jar"
+    }
+}
 
 subprojects {
     apply plugin: "dev.architectury.loom"
@@ -38,11 +57,6 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
-        // Add repositories to retrieve artifacts from in here.
-        // You should only use this when depending on other mods because
-        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-        // for more information about repositories.
         maven {
             url = "https://maven.parchmentmc.org"
         }
@@ -55,5 +69,22 @@ allprojects {
 
     java {
         withSourcesJar()
+    }
+}
+tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':quilt:modrinth', ':fabric:modrinth', ':forge:modrinth')
+
+modrinth{
+    token = System.getenv("MODRINTH_TOKEN")
+    versionName = "${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Multi"
+    projectId = "5UdtzIKo"
+    versionNumber = project.mod_version
+    versionType = "alpha"
+    uploadFile = forgix.getOutputDir() + "/" + forgix.getMergedJarName()
+    gameVersions = [rootProject.minecraft_version, "1.19.3", "1.19.4"]
+    loaders = ["forge", "fabric", "quilt"]
+    changelog = project.changelog
+    dependencies{
+        optional.version "cH9PCvfY"
+        optional.version "xjWpId6m"
     }
 }

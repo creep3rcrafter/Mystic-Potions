@@ -22,3 +22,4 @@ extendable class net/minecraft/world/item/crafting/Ingredient$Value
 extendable class net/minecraft/world/item/crafting/Ingredient$ItemValue
 accessible method net/minecraft/world/item/crafting/Ingredient$ItemValue <init> (Lnet/minecraft/world/item/ItemStack;)V
 accessible method net/minecraft/world/item/crafting/Ingredient fromValues (Ljava/util/stream/Stream;)Lnet/minecraft/world/item/crafting/Ingredient;
+accessible method net/minecraft/world/entity/Entity getBlockPosBelowThatAffectsMyMovement ()Lnet/minecraft/core/BlockPos;

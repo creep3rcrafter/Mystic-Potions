@@ -12,12 +12,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -50,7 +52,9 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow public abstract boolean removeEffect(MobEffect mobEffect);
 
-    @Inject(method = "checkTotemDeathProtection(Lnet/minecraft/world/damagesource/DamageSource;)Z", at = @At("HEAD"), cancellable = true)//return
+    @Shadow public abstract Vec3 handleRelativeFrictionAndCalculateMovement(Vec3 vec3, float f);
+
+    @Inject(method = "checkTotemDeathProtection", at = @At("HEAD"), cancellable = true)//return
     public void inject(DamageSource damageSource, CallbackInfoReturnable<Boolean> callback) {
         if (this.hasEffect(ModEffects.UNDYING.get())) {
             this.setHealth(1.0F);
@@ -64,9 +68,9 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
-    @ModifyVariable(method = "travel", at = @At(value = "STORE"), ordinal = 2)//return
-    public float inject2(float value) {
-        return 0.1F;
+    @Inject(method = "travel", at = @At("HEAD"), cancellable = true)//return
+    public void inject2(Vec3 vec3, CallbackInfo ci) {
+        //this.handleRelativeFrictionAndCalculateMovement()
     }
 
 }
