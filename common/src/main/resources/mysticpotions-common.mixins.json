@@ -5,9 +5,11 @@
   "client": [
   ],
   "mixins": [
+    "BlockBehaviourMixin",
     "EntityMixin",
     "LightningRodBlockMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

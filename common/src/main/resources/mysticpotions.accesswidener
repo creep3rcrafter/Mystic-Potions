@@ -23,3 +23,8 @@ extendable class net/minecraft/world/item/crafting/Ingredient$ItemValue
 accessible method net/minecraft/world/item/crafting/Ingredient$ItemValue <init> (Lnet/minecraft/world/item/ItemStack;)V
 accessible method net/minecraft/world/item/crafting/Ingredient fromValues (Ljava/util/stream/Stream;)Lnet/minecraft/world/item/crafting/Ingredient;
 accessible method net/minecraft/world/entity/Entity getBlockPosBelowThatAffectsMyMovement ()Lnet/minecraft/core/BlockPos;
+accessible method net/minecraft/client/Camera setRotation (FF)V
+accessible method net/minecraft/client/Camera setPosition (DDD)V
+accessible method net/minecraft/client/Camera setPosition (Lnet/minecraft/world/phys/Vec3;)V
+accessible method net/minecraft/client/Camera move (DDD)V
+extendable method net/minecraft/world/entity/LivingEntity getEyeHeight (Lnet/minecraft/world/entity/Pose;Lnet/minecraft/world/entity/EntityDimensions;)F
