@@ -67,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity {
                 return 0.08D;
             }
             else{
-                return -0.08;
+                return -0.04;
             }
         }
         return value;

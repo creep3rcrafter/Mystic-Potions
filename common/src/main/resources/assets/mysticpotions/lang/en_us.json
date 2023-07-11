@@ -97,5 +97,23 @@
   "item.minecraft.potion.effect.teleportation": "Potion of Teleportation",
   "item.minecraft.splash_potion.effect.teleportation": "Splash Potion of Teleportation",
   "item.minecraft.lingering_potion.effect.teleportation": "Lingering Potion of Teleportation",
-  "item.minecraft.tipped_arrow.effect.teleportation": "Arrow of Teleportation"
+  "item.minecraft.tipped_arrow.effect.teleportation": "Arrow of Teleportation",
+
+  "effect.mysticpotions.iron_fist": "Iron Fist",
+  "item.minecraft.potion.effect.iron_fist": "Potion of Iron Fist",
+  "item.minecraft.splash_potion.effect.iron_fist": "Splash Potion of Iron Fist",
+  "item.minecraft.lingering_potion.effect.iron_fist": "Lingering Potion of Iron Fist",
+  "item.minecraft.tipped_arrow.effect.iron_fist": "Arrow of Iron Fist",
+
+  "effect.mysticpotions.gravitation": "Gravitation",
+  "item.minecraft.potion.effect.gravitation": "Potion of Gravitation",
+  "item.minecraft.splash_potion.effect.gravitation": "Splash Potion of Gravitation",
+  "item.minecraft.lingering_potion.effect.gravitation": "Lingering Potion of Gravitation",
+  "item.minecraft.tipped_arrow.effect.gravitation": "Arrow of Gravitation",
+
+  "effect.mysticpotions.slippery": "Slippery",
+  "item.minecraft.potion.effect.slippery": "Potion of Slippery",
+  "item.minecraft.splash_potion.effect.slippery": "Splash Potion of Slippery",
+  "item.minecraft.lingering_potion.effect.slippery": "Lingering Potion of Slippery",
+  "item.minecraft.tipped_arrow.effect.slippery": "Arrow of Slippery"
 }

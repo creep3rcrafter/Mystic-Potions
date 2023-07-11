@@ -461,7 +461,7 @@ public class ModEffects {
             return false;
         }
     });
-    public static final RegistrySupplier<MobEffect> GRAVITATION = EFFECTS.register("gravitation", () -> new MobEffect(MobEffectCategory.HARMFUL, 1572863) {
+    public static final RegistrySupplier<MobEffect> GRAVITATION = EFFECTS.register("gravitation", () -> new MobEffect(MobEffectCategory.HARMFUL, 11350783) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
         }

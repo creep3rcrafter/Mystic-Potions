@@ -80,7 +80,7 @@ modrinth{
     versionNumber = project.mod_version
     versionType = "alpha"
     uploadFile = forgix.getOutputDir() + "/" + forgix.getMergedJarName()
-    gameVersions = [rootProject.minecraft_version, "1.19.3", "1.19.4"]
+    gameVersions = [rootProject.minecraft_version]
     loaders = ["forge", "fabric", "quilt"]
     changelog = project.changelog
     dependencies{

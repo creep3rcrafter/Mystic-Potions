@@ -39,9 +39,7 @@ public class BrewingRecipes {
         PotionBrewing.addMix(ModPotions.LONG_FREEZING_POTION.get(), Items.BLAZE_POWDER, ModPotions.LONG_WARMING_POTION.get());
         //Burning
         PotionBrewing.addMix(ModPotions.WARMING_POTION.get(), Items.BLAZE_POWDER, ModPotions.BURNING_POTION.get());
-        PotionBrewing.addMix(ModPotions.WARMING_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.BURNING_POTION.get());
         PotionBrewing.addMix(ModPotions.LONG_WARMING_POTION.get(), Items.BLAZE_POWDER, ModPotions.LONG_BURNING_POTION.get());
-        PotionBrewing.addMix(ModPotions.LONG_WARMING_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_BURNING_POTION.get());
         //Corrosive
         PotionBrewing.addMix(Potions.STRONG_POISON, Items.GHAST_TEAR, ModPotions.CORROSIVE_POTION.get());
         PotionBrewing.addMix(ModPotions.CORROSIVE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.STRONG_CORROSIVE_POTION.get());
@@ -49,6 +47,7 @@ public class BrewingRecipes {
         PotionBrewing.addMix(ModPotions.THUNDEROUS_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.STRONG_THUNDEROUS_POTION.get());
         //Teleportation
         PotionBrewing.addMix(Potions.AWKWARD, Items.CHORUS_FRUIT, ModPotions.TELEPORTATION_POTION.get());
+        PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.REDSTONE, ModPotions.LONG_TELEPORTATION_POTION.get());
         //Homing
         for (Item item: Registry.ITEM){
             if (item instanceof BedItem){
@@ -59,7 +58,7 @@ public class BrewingRecipes {
         PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.RECOVERY_COMPASS, ModPotions.RECOVERY_POTION.get());
         //Undying
         PotionBrewing.addMix(Potions.AWKWARD, Items.TOTEM_OF_UNDYING, ModPotions.UNDYING_POTION.get());
-        PotionBrewing.addMix(ModPotions.UNDYING_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_UNDYING_POTION.get());
+        PotionBrewing.addMix(ModPotions.UNDYING_POTION.get(), Items.REDSTONE, ModPotions.LONG_UNDYING_POTION.get());
         /*
         //Nullifier
         PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION_1.get());
@@ -71,17 +70,23 @@ public class BrewingRecipes {
          */
         //Dolphins Grace
         PotionBrewing.addMix(Potions.AWKWARD, Items.NAUTILUS_SHELL, ModPotions.DOLPHINS_GRACE_POTION.get());
-        PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_DOLPHINS_GRACE_POTION.get());
-        PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.REDSTONE, ModPotions.STRONG_DOLPHINS_GRACE_POTION.get());
+        PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.REDSTONE, ModPotions.LONG_DOLPHINS_GRACE_POTION.get());
+        PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.STRONG_DOLPHINS_GRACE_POTION.get());
         //Air Swim
         PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.PHANTOM_MEMBRANE, ModPotions.AIR_SWIM_POTION.get());
-        PotionBrewing.addMix(ModPotions.AIR_SWIM_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_AIR_SWIM_POTION.get());
+        PotionBrewing.addMix(ModPotions.AIR_SWIM_POTION.get(), Items.REDSTONE, ModPotions.LONG_AIR_SWIM_POTION.get());
         //Levitating
         PotionBrewing.addMix(Potions.SLOW_FALLING, Items.SHULKER_SHELL, ModPotions.LEVITATION_POTION.get());
         PotionBrewing.addMix(Potions.LONG_SLOW_FALLING, Items.SHULKER_SHELL, ModPotions.LONG_LEVITATION_POTION.get());
-        PotionBrewing.addMix(ModPotions.LEVITATION_POTION.get(), Items.REDSTONE, ModPotions.LEVITATION_POTION.get());
-
-
-
+        PotionBrewing.addMix(ModPotions.LEVITATION_POTION.get(), Items.REDSTONE, ModPotions.LONG_LEVITATION_POTION.get());
+        //Iron Fist
+        PotionBrewing.addMix(Potions.AWKWARD, Items.IRON_PICKAXE, ModPotions.IRON_FIST_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.IRON_AXE, ModPotions.IRON_FIST_POTION.get());
+        PotionBrewing.addMix(ModPotions.IRON_FIST_POTION.get(), Items.REDSTONE, ModPotions.LONG_IRON_FIST_POTION.get());
+        //Gravitation
+        PotionBrewing.addMix(ModPotions.LEVITATION_POTION.get(), Items.NETHER_STAR, ModPotions.GRAVITATION_POTION.get());
+        //Slippery
+        PotionBrewing.addMix(Potions.AWKWARD, Items.BLUE_ICE, ModPotions.SlIPPERY_POTION.get());
+        PotionBrewing.addMix(ModPotions.SlIPPERY_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_SlIPPERY_POTION.get());
     }
 }
