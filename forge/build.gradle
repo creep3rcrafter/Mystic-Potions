@@ -90,15 +90,37 @@ publishing {
 }
 modrinth{
     token = System.getenv("MODRINTH_TOKEN")
-    versionName = "${rootProject.archives_base_name}-" + "${rootProject.version}-" + "${rootProject.minecraft_version}-Forge"
+    versionName = "${project.archives_base_name}-" + "${project.version}-" + "${project.minecraft_version}-Forge"
     projectId = "5UdtzIKo"
-    versionNumber = rootProject.mod_version
-    versionType = "beta"
+    versionNumber = project.mod_version
+    versionType = "release"
     uploadFile = remapJar
-    gameVersions = [rootProject.minecraft_version, "1.19.3", "1.19.4"]
+    gameVersions = [project.minecraft_version]
     loaders = ["forge"]
     changelog = project.changelog
     dependencies{
-        required.version "cH9PCvfY"
+        required.version "ns7Xs1B6"
+    }
+    debugMode = false
+}
+
+tasks.getByName('curseforge').dependsOn(':build', ':forge:remapJar')
+curseforge{
+    apiKey = System.getenv("CURSEFORGE_API")
+    project {
+        id = '682855'
+        changelog = project.changelog
+        releaseType = 'release'
+        addGameVersion 'Forge'
+        addGameVersion project.minecraft_version
+        relations {
+            requiredDependency 'architectury-api'
+        }
+        mainArtifact(remapJar){
+            displayName = "${project.archives_base_name}-" + "${project.mod_version}-" + "${project.minecraft_version}-Forge"
+        }
+    }
+    options{
+        debug = false
     }
 }

@@ -36,6 +36,7 @@ import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -80,8 +81,6 @@ public class ModEffects {
     fast falling
     Extension/Extension Cooldown
     max health potion
-    hi baby
-    hi babeeee ur cuteee
 
     Done------------------------------------
     Undying - totem of undieing just without the item
@@ -476,4 +475,27 @@ public class ModEffects {
             return false;
         }
     });
+    /*
+    public static final RegistrySupplier<MobEffect> HOLY_WATER = EFFECTS.register("holy_water", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 12989085) {
+        @Override
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            if (livingEntity instanceof Zombie){
+                livingEntity.hurt(DamageSource.MAGIC, 5f);
+            }
+            if (livingEntity instanceof Player){
+                livingEntity.heal(5f);
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+     */
 }

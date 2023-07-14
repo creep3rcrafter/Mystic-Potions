@@ -24,13 +24,13 @@ side = "BOTH"
 [[dependencies.mysticpotions]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.2,)"
+versionRange = "[1.19.2,1.20.1)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.mysticpotions]]
 modId = "architectury"
 mandatory = true
-versionRange = "[6.2.43,)"
+versionRange = "[6.5.85,)"
 ordering = "AFTER"
 side = "BOTH"
