@@ -99,6 +99,29 @@ modrinth{
     loaders = ["forge"]
     changelog = project.changelog
     dependencies{
+        required.version "ns7Xs1B6"
+    }
+    debugMode = false
+}
+
+tasks.getByName('curseforge').dependsOn(':build', ':forge:remapJar')
+curseforge{
+    apiKey = System.getenv("CURSEFORGE_API")
+    project {
+        id = '682855'
+        changelog = project.changelog
+        releaseType = 'release'
+        addGameVersion 'Forge'
+        addGameVersion project.minecraft_version
+        relations {
+            requiredDependency 'architectury-api'
+        }
+        mainArtifact(remapJar){
+            displayName = "${project.archives_base_name}-" + "${project.mod_version}-" + "${project.minecraft_version}-Forge"
+        }
+    }
+    options{
+        debug = false
         required.version "lReYANwU"
     }
     debugMode = false
