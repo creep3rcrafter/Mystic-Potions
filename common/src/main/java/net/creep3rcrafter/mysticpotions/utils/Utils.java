@@ -6,6 +6,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -53,7 +55,7 @@ public class Utils {
     }
 
     public static void explode(Level level, BlockPos blockPos, float radius, boolean fire) {
-        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Explosion.BlockInteraction.BREAK);
+        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Level.ExplosionInteraction.MOB);
     }
 
     public static void explode(ServerLevel level, BlockPos blockPos) {
@@ -65,7 +67,7 @@ public class Utils {
     }
 
     public static void explode(ServerLevel level, BlockPos blockPos, float radius, boolean fire) {
-        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Explosion.BlockInteraction.BREAK);
+        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Level.ExplosionInteraction.MOB);
     }
 
     public static int cropAgeToIndex(int age) {

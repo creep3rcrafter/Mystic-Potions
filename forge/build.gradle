@@ -99,7 +99,7 @@ modrinth{
     loaders = ["forge"]
     changelog = project.changelog
     dependencies{
-        required.version "ns7Xs1B6"
+        required.version "lReYANwU"
     }
     debugMode = false
 }

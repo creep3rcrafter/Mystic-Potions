@@ -84,8 +84,8 @@ modrinth{
     loaders = ["forge", "fabric", "quilt"]
     changelog = project.changelog
     dependencies{
-        optional.version "ns7Xs1B6"
-        optional.version "HoIJp48v"
+        optional.version "lReYANwU"
+        optional.version "OFLHUcGo"
     }
     debugMode = false
 }

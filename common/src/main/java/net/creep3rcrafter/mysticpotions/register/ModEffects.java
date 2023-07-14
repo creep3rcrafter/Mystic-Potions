@@ -8,6 +8,7 @@ import net.minecraft.advancements.critereon.UsedTotemTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
@@ -58,7 +59,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public class ModEffects {
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registries.MOB_EFFECT);
 
     /* IDEAS
     Inversion - Swaps good/bad potions with eachother
@@ -385,7 +386,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()){
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
                 if (!livingEntity.isSpectator() && serverLevel.getServer().getTickCount() % 10 == 0) {

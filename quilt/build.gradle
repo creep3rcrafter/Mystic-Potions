@@ -104,7 +104,7 @@ modrinth{
     loaders = ["quilt"]
     changelog = project.changelog
     dependencies{
-        required.version "HoIJp48v"
+        required.version "OFLHUcGo"
     }
     debugMode = false
 }
