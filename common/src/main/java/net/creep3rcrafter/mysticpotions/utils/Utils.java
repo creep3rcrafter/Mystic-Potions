@@ -1,6 +1,9 @@
 package net.creep3rcrafter.mysticpotions.utils;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -53,7 +56,7 @@ public class Utils {
     }
 
     public static void explode(Level level, BlockPos blockPos, float radius, boolean fire) {
-        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Explosion.BlockInteraction.BREAK);
+        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Level.ExplosionInteraction.MOB);
     }
 
     public static void explode(ServerLevel level, BlockPos blockPos) {
@@ -65,7 +68,7 @@ public class Utils {
     }
 
     public static void explode(ServerLevel level, BlockPos blockPos, float radius, boolean fire) {
-        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Explosion.BlockInteraction.BREAK);
+        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), radius, fire, Level.ExplosionInteraction.MOB);
     }
 
     public static int cropAgeToIndex(int age) {
@@ -150,11 +153,11 @@ public class Utils {
         if (recipeType == RecipeType.SMITHING) {
             server.getRecipeManager().getAllRecipesFor((RecipeType.SMITHING)).forEach(recipe -> {
                 for (Item item : containsList) {
-                    if (recipe.base.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem().getItem());
+                    if (recipe.isBaseIngredient(new ItemStack(item))) {
+                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
                     }
-                    if (recipe.addition.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem().getItem());
+                    if (recipe.isAdditionIngredient(new ItemStack(item))) {
+                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
                     }
                 }
             });
@@ -163,7 +166,7 @@ public class Utils {
                 recipe.getIngredients().forEach(ingredient -> {
                     for (Item item : containsList) {
                         if (ingredient.test(new ItemStack(item))) {
-                            results.add(recipe.getResultItem().getItem());
+                            results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
                         }
                     }
                 });

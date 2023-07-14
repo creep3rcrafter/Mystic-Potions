@@ -94,7 +94,7 @@ modrinth{
     loaders = ["fabric"]
     changelog = project.changelog
     dependencies{
-        required.version "HoIJp48v"
+        required.version "6bcAfgt2"
     }
     debugMode = false
 }

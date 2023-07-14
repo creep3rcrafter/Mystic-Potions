@@ -8,6 +8,7 @@ import net.minecraft.advancements.critereon.UsedTotemTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
@@ -20,6 +21,8 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -58,7 +61,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public class ModEffects {
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registries.MOB_EFFECT);
 
     /* IDEAS
     Inversion - Swaps good/bad potions with eachother
@@ -162,7 +165,7 @@ public class ModEffects {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 livingEntity.setTicksFrozen(0);
                 if (livingEntity instanceof SnowGolem && serverLevel.getServer().getTickCount() % 20 == 0) {
-                    livingEntity.hurt(DamageSource.MAGIC, amplifier + 1);
+                    livingEntity.hurt(livingEntity.damageSources().magic(), amplifier + 1);
                 }
             }
         }
@@ -385,7 +388,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()){
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
                 if (!livingEntity.isSpectator() && serverLevel.getServer().getTickCount() % 10 == 0) {
@@ -425,7 +428,7 @@ public class ModEffects {
                             }
                         }
                     } else if (livingEntity instanceof IronGolem) {
-                        livingEntity.hurt(DamageSource.MAGIC, 1f + amplifier);//take iron damage
+                        livingEntity.hurt(livingEntity.damageSources().magic(), 1f + amplifier);//take iron damage
                     } else {
                         if (livingEntity.hasItemInSlot(EquipmentSlot.MAINHAND)) {
                             Utils.damageItem(livingEntity, EquipmentSlot.MAINHAND, 1 + amplifier);
