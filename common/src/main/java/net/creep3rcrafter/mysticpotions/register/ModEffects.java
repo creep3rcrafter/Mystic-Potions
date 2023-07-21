@@ -385,7 +385,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()){
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
                 if (!livingEntity.isSpectator() && serverLevel.getServer().getTickCount() % 10 == 0) {

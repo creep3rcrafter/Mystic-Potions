@@ -1,6 +1,6 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.0.+" apply false
     id "io.github.pacifistmc.forgix" version "1.2.+"
     id "com.modrinth.minotaur" version "2.+"
     id("com.matthewprenger.cursegradle") version "1.4.+"
@@ -12,19 +12,19 @@ architectury {
 
 forgix {
     group = project.maven_group
-    mergedJarName = "${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Multi.jar"
+    mergedJarName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}.jar"
     outputDir = "build/libs/merged"
     forge {
         projectName = "forge"
-        jarLocation =  "build/libs/${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Forge.jar"
+        jarLocation =  "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}.jar"
     }
     fabric {
         projectName = "fabric"
-        jarLocation =  "build/libs/${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Fabric.jar"
+        jarLocation =  "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}.jar"
     }
     quilt {
         projectName = 'quilt'
-        jarLocation =  "build/libs/${rootProject.archives_base_name}-" + "${project.mod_version}-" + "${rootProject.minecraft_version}-Quilt.jar"
+        jarLocation =  "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.quilt_suffix}.jar"
     }
 }
 
@@ -72,44 +72,41 @@ allprojects {
     }
 }
 tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':quilt:modrinth', ':fabric:modrinth', ':forge:modrinth')
-
 modrinth{
     token = System.getenv("MODRINTH_TOKEN")
-    versionName = "${project.archives_base_name}-" + "${project.mod_version}-" + "${project.minecraft_version}-Multi"
-    projectId = "5UdtzIKo"
+    versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}"
+    projectId = modrinth_id
     versionNumber = project.mod_version
-    versionType = "release"
+    versionType = multi_release_type
     uploadFile = forgix.getOutputDir() + "/" + forgix.getMergedJarName()
     gameVersions = [project.minecraft_version]
-    loaders = ["forge", "fabric", "quilt"]
+    loaders = enabled_platforms.split(',').toList()
     changelog = project.changelog
     dependencies{
-        optional.version "ns7Xs1B6"
-        optional.version "HoIJp48v"
+        optional.version forge_modrinth_dependancies
+        optional.version fabric_modrinth_dependancies
     }
-    debugMode = false
+    debugMode = multi_debug.toBoolean()
 }
-
-//tasks.curseforge.dependsOn(':build', ':mergeJars')
 curseforge{
     apiKey = System.getenv("CURSEFORGE_API")
     project {
-        id = '682855'
+        id = project.curseforge_id
         changelog = project.changelog
-        releaseType = 'release'
+        releaseType = project.multi_release_type
         addGameVersion 'Forge'
         addGameVersion 'Fabric'
         addGameVersion 'Quilt'
         addGameVersion project.minecraft_version
         relations {
-            requiredDependency 'architectury-api'
+            requiredDependency project.curseforge_dependency
         }
         mainArtifact(forgix.getOutputDir() + "/" + forgix.getMergedJarName()){
-            displayName = "${project.archives_base_name}-" + "${project.mod_version}-" + "${project.minecraft_version}-Multi"
+            displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}"
         }
 
     }
     options{
-        debug = false
+        debug = project.multi_debug.toBoolean()
     }
 }
