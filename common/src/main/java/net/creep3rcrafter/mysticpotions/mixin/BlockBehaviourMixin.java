@@ -4,6 +4,7 @@ import net.creep3rcrafter.mysticpotions.register.ModEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.class)
 public class BlockBehaviourMixin {
+
+    /*
     @Inject(method = "getDestroyProgress", at = @At("RETURN"), cancellable = true)
     public void inject1(BlockState blockState, Player player, BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<Float> cir) {
         float f = blockState.getDestroySpeed(blockGetter, blockPos);
@@ -29,4 +32,5 @@ public class BlockBehaviourMixin {
             }
         }
     }
+     */
 }
