@@ -6,6 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
@@ -17,21 +19,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
-    @Shadow @Final private Inventory inventory;
 
     @Shadow public abstract Inventory getInventory();
-
-    @Shadow public abstract float getDestroySpeed(BlockState blockState);
 
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(method = "hasCorrectToolForDrops", at = @At("RETURN"), cancellable = true)
-    public void inject2(BlockState blockState, CallbackInfoReturnable<Boolean> cir) {
-        if ((this.hasEffect(ModEffects.IRON_FIST.get()) && (this.getInventory().getSelected().isEmpty() || this.getInventory().getSelected().getItem() instanceof BlockItem))
-                || cir.getReturnValue()){
+    public void inject(BlockState blockState, CallbackInfoReturnable<Boolean> cir) {
+        ItemStack selected = this.getInventory().getSelected();
+        if ((this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)) || cir.getReturnValue()){
             cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(method = "getDestroySpeed", at = @At("RETURN"), cancellable = true)
+    public void inject2(BlockState blockState, CallbackInfoReturnable<Float> cir) {
+        ItemStack selected = this.getInventory().getSelected();
+        if (this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)){
+            int i = this.getEffect(ModEffects.IRON_FIST.get()).amplifier;
+            cir.setReturnValue(cir.getReturnValue() + 100f);
         }
     }
 }
