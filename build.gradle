@@ -38,11 +38,6 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
-        //mappings "net.fabricmc:yarn:1.19.2+build.3:v2"
-        //mappings loom.layered() {
-        //    officialMojangMappings()
-        //    parchment("org.parchmentmc.data:parchment-1.19.2:2022.08.10@zip")
-        //}
     }
 }
 
