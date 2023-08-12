@@ -47,14 +47,14 @@ public abstract class LivingEntityMixin extends Entity {
             this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900, 1));
             this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
             this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
-            this.level.broadcastEntityEvent(this, (byte) 35);
+            this.level().broadcastEntityEvent(this, (byte) 35);
             callback.setReturnValue(true);
         }
     }
 
     @ModifyVariable(method = "travel", at = @At("LOAD"), name = "f2", ordinal = 0, index = 8)//return
     public float inject2(float value) {
-        if (this.hasEffect(ModEffects.SPLIPPERY.get()) && this.isOnGround()) {
+        if (this.hasEffect(ModEffects.SPLIPPERY.get()) && this.onGround()) {
             int amplifier = this.getEffect(ModEffects.SPLIPPERY.get()).amplifier;
             return (((amplifier/(-300f))+1)*0.98f);
         }
