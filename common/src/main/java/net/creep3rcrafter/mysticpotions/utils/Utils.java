@@ -127,7 +127,6 @@ public class Utils {
 
     public static void damageItem(LivingEntity livingEntity, EquipmentSlot equipmentSlot, int damage) {
         if (livingEntity.getItemBySlot(equipmentSlot).isDamageableItem()) {
-            //Item item = livingEntity.getItemBySlot(equipmentSlot).getItem();
             livingEntity.getItemBySlot(equipmentSlot).hurtAndBreak(damage, livingEntity, source -> {
                 source.broadcastBreakEvent(equipmentSlot);
             });
@@ -143,13 +142,9 @@ public class Utils {
     }
 
     public static <C extends Container, T extends Recipe<C>> List<Item> recipesContainsItems(MinecraftServer server, RecipeType<T> recipeType, List<Item> containsList) {
-        List<Item> results = new ArrayList<Item>();
-        server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
+        List<Item> results = new ArrayList<Item>();server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
             recipe.getIngredients().forEach(ingredient -> {
                 for (Item item : containsList) {
-                    if (ingredient.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
-                    }
                     if (ingredient.test(new ItemStack(item))) {
                         results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
                     }
