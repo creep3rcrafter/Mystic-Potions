@@ -19,7 +19,7 @@ public class MysticPotionsForge {
         eventBus.addListener(this::commonSetupEvent);
     }
 
-    private void commonSetupEvent(FMLCommonSetupEvent event){
+    private void commonSetupEvent(FMLCommonSetupEvent event) {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.register(new BrewingRecipes());
     }

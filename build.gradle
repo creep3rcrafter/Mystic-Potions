@@ -16,15 +16,15 @@ forgix {
     outputDir = "build/libs/merged"
     forge {
         projectName = "forge"
-        jarLocation =  "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}.jar"
+        jarLocation = "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}.jar"
     }
     fabric {
         projectName = "fabric"
-        jarLocation =  "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}.jar"
+        jarLocation = "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}.jar"
     }
     quilt {
         projectName = 'quilt'
-        jarLocation =  "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.quilt_suffix}.jar"
+        jarLocation = "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.quilt_suffix}.jar"
     }
 }
 
@@ -67,7 +67,7 @@ allprojects {
     }
 }
 tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':quilt:modrinth', ':fabric:modrinth', ':forge:modrinth')
-modrinth{
+modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}"
     projectId = modrinth_id
@@ -77,13 +77,13 @@ modrinth{
     gameVersions = [project.minecraft_version]
     loaders = enabled_platforms.split(',').toList()
     changelog = project.changelog
-    dependencies{
+    dependencies {
         optional.version forge_modrinth_dependancies
         optional.version fabric_modrinth_dependancies
     }
     debugMode = multi_debug.toBoolean()
 }
-curseforge{
+curseforge {
     apiKey = System.getenv("CURSEFORGE_API")
     project {
         id = project.curseforge_id
@@ -93,15 +93,16 @@ curseforge{
         addGameVersion 'Fabric'
         addGameVersion 'Quilt'
         addGameVersion project.minecraft_version
+        addGameVersion project.minecraft_version
         relations {
             requiredDependency project.curseforge_dependency
         }
-        mainArtifact(forgix.getOutputDir() + "/" + forgix.getMergedJarName()){
+        mainArtifact(forgix.getOutputDir() + "/" + forgix.getMergedJarName()) {
             displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}"
         }
 
     }
-    options{
+    options {
         debug = project.multi_debug.toBoolean()
     }
 }

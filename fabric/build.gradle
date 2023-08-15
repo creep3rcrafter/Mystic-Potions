@@ -83,7 +83,7 @@ publishing {
         // Add repositories to publish to here.
     }
 }
-modrinth{
+modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}"
     projectId = project.modrinth_id
@@ -93,13 +93,13 @@ modrinth{
     gameVersions = [project.minecraft_version]
     loaders = ['fabric']
     changelog = project.changelog
-    dependencies{
+    dependencies {
         required.version project.fabric_modrinth_dependancies
     }
     debugMode = fabric_debug.toBoolean()
 }
 tasks.getByName('curseforge').dependsOn(':build', ':fabric:remapJar')
-curseforge{
+curseforge {
     apiKey = System.getenv("CURSEFORGE_API")
     project {
         id = project.curseforge_id
@@ -110,12 +110,12 @@ curseforge{
         relations {
             requiredDependency project.curseforge_dependency
         }
-        mainArtifact(remapJar){
+        mainArtifact(remapJar) {
             displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}"
         }
 
     }
-    options{
+    options {
         debug = project.fabric_debug.toBoolean()
     }
 }
