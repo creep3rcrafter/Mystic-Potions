@@ -5,7 +5,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,7 +49,7 @@ public abstract class LivingEntityMixin extends Entity {
             this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900, 1));
             this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
             this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
-            this.level.broadcastEntityEvent(this, (byte) 35);
+            this.getLevel().broadcastEntityEvent(this, (byte) 35);
             callback.setReturnValue(true);
         }
     }

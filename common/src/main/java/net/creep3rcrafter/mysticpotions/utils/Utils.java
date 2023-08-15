@@ -23,7 +23,6 @@ public class Utils {
     public static void lightning(LivingEntity livingEntity, ServerLevel serverLevel, int amplifier) {
         lightning(livingEntity, serverLevel);
         for (int i = 0; i < amplifier; i++) {
-            System.out.println("2");
             Random random = new Random();
             BlockPos entityPos = livingEntity.blockPosition();
             BlockPos blockPos = entityPos.offset(random.nextInt(amplifier) - (amplifier / 2), random.nextInt(amplifier) - (amplifier / 2), random.nextInt(amplifier) - (amplifier / 2));
@@ -35,7 +34,6 @@ public class Utils {
     }
 
     public static void lightning(LivingEntity livingEntity, ServerLevel serverLevel) {
-        System.out.println("1");
         BlockPos entityPos = livingEntity.blockPosition();
         LightningBolt LightningBolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
         LightningBolt.moveTo(Vec3.atBottomCenterOf(entityPos));
@@ -171,26 +169,4 @@ public class Utils {
         List<Item> resultsWithoutDuplicates = new ArrayList<Item>(new HashSet<>(results));
         return resultsWithoutDuplicates;
     }
-
-    /*
-                    server.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).forEach(craftingRecipe -> {
-                        craftingRecipe.getIngredients().forEach(ingredient -> {
-                            if (ingredient.test(new ItemStack(Items.IRON_INGOT))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Iron Ingot!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.IRON_NUGGET))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Iron Nugget!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.NETHERITE_SCRAP))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Netherite Scrap!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.NETHERITE_INGOT))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Netherite Ingot!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.COPPER_INGOT))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Copper Ingot!");
-                            }
-                        });
-                    });
-     */
 }
