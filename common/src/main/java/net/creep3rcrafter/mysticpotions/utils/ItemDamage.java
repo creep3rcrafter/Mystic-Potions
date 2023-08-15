@@ -1,10 +1,5 @@
 package net.creep3rcrafter.mysticpotions.utils;
 
-import com.google.common.base.Suppliers;
-import dev.architectury.registry.registries.Registrar;
-//import dev.architectury.registry.registries.Registries;
-import net.creep3rcrafter.mysticpotions.MysticPotions;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -13,12 +8,10 @@ import net.minecraft.world.item.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ItemDamage {
 
     public static List<Item> items = new ArrayList<Item>();
-    //public static final Supplier<Registrar> REGISTRIES = Suppliers.memoize(() -> Registrar.get(MysticPotions.MOD_ID));
 
     public static List<Item> getItems(){
         items.add(Items.ACTIVATOR_RAIL);
@@ -57,17 +50,6 @@ public class ItemDamage {
         }
     }
 
-    public void testing(MinecraftServer server){
-        //server.getRecipeManager().getAllRecipesFor()
-        server.getRecipeManager().getRecipes().forEach(recipe ->{
-            recipe.getIngredients().forEach(ingredient -> {
-                if (ingredient.getItems()[0].getItem() == Items.IRON_INGOT){
-                    System.out.println(ingredient);
-                }
-            });
-        });
-    }
-
     public static ItemDamageType getItemDamageType(Item item) {
         if (item instanceof ArmorItem) {
             if (((ArmorItem) item).getMaterial() == ArmorMaterials.IRON || ((ArmorItem) item).getMaterial() == ArmorMaterials.CHAIN) {
@@ -87,13 +69,6 @@ public class ItemDamage {
                 || item instanceof CrossbowItem
                 || item instanceof FlintAndSteelItem
                 || item instanceof ShearsItem) {
-            return ItemDamageType.IRON;
-        }
-        return null;
-    }
-
-    public static ItemDamageType getEntityDamageType(LivingEntity livingEntity) {
-        if (livingEntity instanceof IronGolem || (Entity)livingEntity instanceof AbstractMinecart) {
             return ItemDamageType.IRON;
         }
         return null;
