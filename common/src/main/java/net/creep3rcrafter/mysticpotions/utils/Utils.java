@@ -144,33 +144,6 @@ public class Utils {
 
     public static <C extends Container, T extends Recipe<C>> List<Item> recipesContainsItems(MinecraftServer server, RecipeType<T> recipeType, List<Item> containsList) {
         List<Item> results = new ArrayList<Item>();
-        /*
-        if (recipeType == RecipeType.SMITHING) {
-            server.getRecipeManager().getAllRecipesFor((RecipeType.SMITHING)).forEach(recipe -> {
-                for (Item item : containsList) {
-                    if (recipe.isBaseIngredient(new ItemStack(item))) {
-                        results.add(recipe.getResultItem(RegistryAccess.ImmutableRegistryAccess.EMPTY).getItem());
-                    }
-                    if (recipe.isAdditionIngredient(new ItemStack(item))) {
-                        results.add(recipe.getResultItem().getItem());
-                    }
-                }
-            });
-        } else {
-            server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
-                recipe.getIngredients().forEach(ingredient -> {
-                    for (Item item : containsList) {
-                        if (ingredient.test(new ItemStack(item))) {
-                            results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
-                        }
-                        if (ingredient.test(new ItemStack(item))) {
-                            results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
-                        }
-                    }
-                });
-            });
-        }
-         */
         server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
             recipe.getIngredients().forEach(ingredient -> {
                 for (Item item : containsList) {
@@ -183,29 +156,6 @@ public class Utils {
                 }
             });
         });
-        List<Item> resultsWithoutDuplicates = new ArrayList<Item>(new HashSet<>(results));
-        return resultsWithoutDuplicates;
+        return new ArrayList<Item>(new HashSet<>(results));
     }
-
-    /*
-                    server.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).forEach(craftingRecipe -> {
-                        craftingRecipe.getIngredients().forEach(ingredient -> {
-                            if (ingredient.test(new ItemStack(Items.IRON_INGOT))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Iron Ingot!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.IRON_NUGGET))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Iron Nugget!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.NETHERITE_SCRAP))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Netherite Scrap!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.NETHERITE_INGOT))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Netherite Ingot!");
-                            }
-                            if (ingredient.test(new ItemStack(Items.COPPER_INGOT))){
-                                System.out.println(craftingRecipe.getResultItem().getItem().toString()+": Has Copper Ingot!");
-                            }
-                        });
-                    });
-     */
 }

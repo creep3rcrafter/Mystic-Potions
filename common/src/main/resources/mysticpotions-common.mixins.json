@@ -5,7 +5,6 @@
   "client": [
   ],
   "mixins": [
-    "BlockBehaviourMixin",
     "EntityMixin",
     "LightningRodBlockMixin",
     "LivingEntityMixin",
