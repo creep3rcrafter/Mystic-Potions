@@ -51,7 +51,7 @@ remapJar {
     injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier "${rootProject.minecraft_version}-Fabric"
+    classifier "${minecraft_version}-${fabric_suffix}"
 }
 
 jar {
@@ -85,36 +85,37 @@ publishing {
 }
 modrinth{
     token = System.getenv("MODRINTH_TOKEN")
-    versionName = "${project.archives_base_name}-" + "${project.version}-" + "${project.minecraft_version}-Fabric"
-    projectId = "5UdtzIKo"
+    versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}"
+    projectId = project.modrinth_id
     versionNumber = project.mod_version
-    versionType = "release"
+    versionType = project.fabric_release_type
     uploadFile = remapJar
     gameVersions = [project.minecraft_version]
-    loaders = ["fabric"]
+    loaders = ['fabric']
     changelog = project.changelog
     dependencies{
-        required.version "6bcAfgt2"
+        required.version project.fabric_modrinth_dependancies
     }
-    debugMode = false
+    debugMode = fabric_debug.toBoolean()
 }
 tasks.getByName('curseforge').dependsOn(':build', ':fabric:remapJar')
 curseforge{
     apiKey = System.getenv("CURSEFORGE_API")
     project {
-        id = '682855'
+        id = project.curseforge_id
         changelog = project.changelog
-        releaseType = 'release'
+        releaseType = project.fabric_release_type
         addGameVersion 'Fabric'
         addGameVersion project.minecraft_version
         relations {
-            requiredDependency 'architectury-api'
+            requiredDependency project.curseforge_dependency
         }
-        mainArtifact(remapJar) {
-            displayName = "${project.archives_base_name}-" + "${project.mod_version}-" + "${project.minecraft_version}-Fabric"
+        mainArtifact(remapJar){
+            displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}"
         }
+
     }
     options{
-        debug = false
+        debug = project.fabric_debug.toBoolean()
     }
 }

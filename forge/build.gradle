@@ -56,7 +56,7 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier "${rootProject.minecraft_version}-Forge"
+    classifier "${minecraft_version}-${forge_suffix}"
 }
 
 jar {
@@ -90,37 +90,37 @@ publishing {
 }
 modrinth{
     token = System.getenv("MODRINTH_TOKEN")
-    versionName = "${project.archives_base_name}-" + "${project.version}-" + "${project.minecraft_version}-Forge"
-    projectId = "5UdtzIKo"
+    versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}"
+    projectId = modrinth_id
     versionNumber = project.mod_version
-    versionType = "release"
+    versionType = project.forge_release_type
     uploadFile = remapJar
     gameVersions = [project.minecraft_version]
     loaders = ["forge"]
     changelog = project.changelog
     dependencies{
-        required.version "8y4xVR6z"
+        required.version forge_modrinth_dependancies
     }
-    debugMode = false
+    debugMode = project.forge_debug.toBoolean()
 }
-
 tasks.getByName('curseforge').dependsOn(':build', ':forge:remapJar')
 curseforge{
     apiKey = System.getenv("CURSEFORGE_API")
     project {
-        id = '682855'
+        id = project.curseforge_id
         changelog = project.changelog
-        releaseType = 'release'
+        releaseType = project.forge_release_type
         addGameVersion 'Forge'
         addGameVersion project.minecraft_version
         relations {
-            requiredDependency 'architectury-api'
+            requiredDependency project.curseforge_dependency
         }
         mainArtifact(remapJar){
-            displayName = "${project.archives_base_name}-" + "${project.mod_version}-" + "${project.minecraft_version}-Forge"
+            displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}"
         }
+
     }
     options{
-        debug = false
+        debug = project.forge_debug.toBoolean()
     }
 }
