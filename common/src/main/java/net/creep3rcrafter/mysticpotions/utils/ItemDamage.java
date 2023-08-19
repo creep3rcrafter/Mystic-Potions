@@ -1,9 +1,5 @@
 package net.creep3rcrafter.mysticpotions.utils;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.*;
 
 import java.util.ArrayList;
@@ -13,7 +9,7 @@ public class ItemDamage {
 
     public static List<Item> items = new ArrayList<Item>();
 
-    public static List<Item> getItems(){
+    public static List<Item> getItems() {
         items.add(Items.ACTIVATOR_RAIL);
         items.add(Items.ANVIL);
         items.add(Items.BLAST_FURNACE);
@@ -40,16 +36,6 @@ public class ItemDamage {
         return items;
     }
 
-    public enum ItemDamageType {
-        IRON(10),
-        NETHERITE(20);
-        public final int damage;
-
-        ItemDamageType(int damage) {
-            this.damage = damage;
-        }
-    }
-
     public static ItemDamageType getItemDamageType(Item item) {
         if (item instanceof ArmorItem) {
             if (((ArmorItem) item).getMaterial() == ArmorMaterials.IRON || ((ArmorItem) item).getMaterial() == ArmorMaterials.CHAIN) {
@@ -72,5 +58,15 @@ public class ItemDamage {
             return ItemDamageType.IRON;
         }
         return null;
+    }
+
+    public enum ItemDamageType {
+        IRON(10),
+        NETHERITE(20);
+        public final int damage;
+
+        ItemDamageType(int damage) {
+            this.damage = damage;
+        }
     }
 }
