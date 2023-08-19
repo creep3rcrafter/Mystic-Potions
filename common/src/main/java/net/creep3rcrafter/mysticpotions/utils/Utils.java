@@ -88,25 +88,6 @@ public class Utils {
         }
     }
 
-    public int getDistanceToEntity(LivingEntity livingEntity, BlockPos pos) {
-        double deltaX = livingEntity.getX() - pos.getX();
-        double deltaY = livingEntity.getY() - pos.getY();
-        double deltaZ = livingEntity.getZ() - pos.getZ();
-        return (int) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY) + (deltaZ * deltaZ));
-    }
-
-    public List<BlockPos> getNearbyBlocks(LivingEntity livingEntity, int radius) {
-        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
-        for (int x = livingEntity.blockPosition().getX() - radius; x <= livingEntity.blockPosition().getX() + radius; x++) {
-            for (int y = livingEntity.blockPosition().getY() - radius; y <= livingEntity.blockPosition().getY() + radius; y++) {
-                for (int z = livingEntity.blockPosition().getZ() - radius; z <= livingEntity.blockPosition().getZ() + radius; z++) {
-                    blockPositions.add(new BlockPos(x, y, z));
-                }
-            }
-        }
-        return blockPositions;
-    }
-
     public static void damageItem(LivingEntity livingEntity, EquipmentSlot equipmentSlot, int amplifier, Random random) {
         if (livingEntity.getItemBySlot(equipmentSlot).isDamageableItem()) {
             int chance = random.nextInt(10);
@@ -170,6 +151,25 @@ public class Utils {
         }
         List<Item> resultsWithoutDuplicates = new ArrayList<Item>(new HashSet<>(results));
         return resultsWithoutDuplicates;
+    }
+
+    public int getDistanceToEntity(LivingEntity livingEntity, BlockPos pos) {
+        double deltaX = livingEntity.getX() - pos.getX();
+        double deltaY = livingEntity.getY() - pos.getY();
+        double deltaZ = livingEntity.getZ() - pos.getZ();
+        return (int) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY) + (deltaZ * deltaZ));
+    }
+
+    public List<BlockPos> getNearbyBlocks(LivingEntity livingEntity, int radius) {
+        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
+        for (int x = livingEntity.blockPosition().getX() - radius; x <= livingEntity.blockPosition().getX() + radius; x++) {
+            for (int y = livingEntity.blockPosition().getY() - radius; y <= livingEntity.blockPosition().getY() + radius; y++) {
+                for (int z = livingEntity.blockPosition().getZ() - radius; z <= livingEntity.blockPosition().getZ() + radius; z++) {
+                    blockPositions.add(new BlockPos(x, y, z));
+                }
+            }
+        }
+        return blockPositions;
     }
 
     /*

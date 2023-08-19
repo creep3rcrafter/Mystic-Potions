@@ -4,12 +4,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.creep3rcrafter.mysticpotions.MysticPotions;
 import net.creep3rcrafter.mysticpotions.utils.Utils;
-import net.minecraft.advancements.critereon.UsedTotemTrigger;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,44 +13,31 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 public class ModEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
@@ -145,6 +127,7 @@ public class ModEffects {
             }
             //livingEntity.updateSwimming();
         }
+
         @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
             return duration >= 1;
@@ -158,7 +141,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 livingEntity.setTicksFrozen(0);
                 if (livingEntity instanceof SnowGolem && serverLevel.getServer().getTickCount() % 20 == 0) {
@@ -181,7 +164,7 @@ public class ModEffects {
 
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 if (livingEntity instanceof ServerPlayer serverPlayer && !livingEntity.isSpectator()) {
                     Vec3 pos;
                     if (serverPlayer.getRespawnPosition() != null && (serverPlayer.getLevel().getBlockState(serverPlayer.getRespawnPosition()).getBlock() instanceof BedBlock)) {
@@ -211,7 +194,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> RECOVERY = EFFECTS.register("recovery", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 9044042) {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 if (livingEntity instanceof ServerPlayer serverPlayer && !livingEntity.isSpectator()) {
                     System.out.println("is player");
                     if (serverPlayer.getLastDeathLocation().isPresent()) {
@@ -240,7 +223,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> TELEPORTATION = EFFECTS.register("teleportation", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13041919) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 if (livingEntity.getLevel().getServer() != null) {
                     if (livingEntity.getLevel().getServer().getTickCount() % (20 + livingEntity.getRandom().nextInt(-10, 40)) == 0) {
                         ServerLevel level = livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension());
@@ -301,7 +284,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> THUNDEROUS = EFFECTS.register("thunderous", () -> new MobEffect(MobEffectCategory.HARMFUL, 14745599) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Utils.lightning(livingEntity, serverLevel, amplifier);
             }
@@ -320,7 +303,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> EXPLOSIVE = EFFECTS.register("explosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 4522008) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 if (!livingEntity.isSpectator()) {
                     if (livingEntity.getLevel().dimension() == Level.NETHER) {
@@ -349,7 +332,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> BURNING = EFFECTS.register("burning", () -> new MobEffect(MobEffectCategory.HARMFUL, 16740608) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.isInWaterRainOrBubble()){
+            if (!livingEntity.isInWaterRainOrBubble()) {
                 livingEntity.setSecondsOnFire(1);
             }
         }
@@ -385,7 +368,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
                 if (!livingEntity.isSpectator() && serverLevel.getServer().getTickCount() % 10 == 0) {

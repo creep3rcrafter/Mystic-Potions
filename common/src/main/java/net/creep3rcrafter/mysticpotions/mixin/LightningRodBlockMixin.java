@@ -1,15 +1,15 @@
 package net.creep3rcrafter.mysticpotions.mixin;
 
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
-import org.spongepowered.asm.mixin.Mixin;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LightningRodBlock;
+import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;

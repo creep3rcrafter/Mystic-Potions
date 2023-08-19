@@ -16,10 +16,10 @@ import java.util.function.Supplier;
 
 public class ItemDamage {
 
-    public static List<Item> items = new ArrayList<Item>();
     public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MysticPotions.MOD_ID));
+    public static List<Item> items = new ArrayList<Item>();
 
-    public static List<Item> getItems(){
+    public static List<Item> getItems() {
         items.add(Items.ACTIVATOR_RAIL);
         items.add(Items.ANVIL);
         items.add(Items.BLAST_FURNACE);
@@ -44,27 +44,6 @@ public class ItemDamage {
         items.add(Items.STONECUTTER);
         items.add(Items.TRIPWIRE_HOOK);
         return items;
-    }
-
-    public enum ItemDamageType {
-        IRON(10),
-        NETHERITE(20);
-        public final int damage;
-
-        ItemDamageType(int damage) {
-            this.damage = damage;
-        }
-    }
-
-    public void testing(MinecraftServer server){
-        //server.getRecipeManager().getAllRecipesFor()
-        server.getRecipeManager().getRecipes().forEach(recipe ->{
-            recipe.getIngredients().forEach(ingredient -> {
-                if (ingredient.getItems()[0].getItem() == Items.IRON_INGOT){
-                    System.out.println(ingredient);
-                }
-            });
-        });
     }
 
     public static ItemDamageType getItemDamageType(Item item) {
@@ -92,9 +71,30 @@ public class ItemDamage {
     }
 
     public static ItemDamageType getEntityDamageType(LivingEntity livingEntity) {
-        if (livingEntity instanceof IronGolem || (Entity)livingEntity instanceof AbstractMinecart) {
+        if (livingEntity instanceof IronGolem || (Entity) livingEntity instanceof AbstractMinecart) {
             return ItemDamageType.IRON;
         }
         return null;
+    }
+
+    public void testing(MinecraftServer server) {
+        //server.getRecipeManager().getAllRecipesFor()
+        server.getRecipeManager().getRecipes().forEach(recipe -> {
+            recipe.getIngredients().forEach(ingredient -> {
+                if (ingredient.getItems()[0].getItem() == Items.IRON_INGOT) {
+                    System.out.println(ingredient);
+                }
+            });
+        });
+    }
+
+    public enum ItemDamageType {
+        IRON(10),
+        NETHERITE(20);
+        public final int damage;
+
+        ItemDamageType(int damage) {
+            this.damage = damage;
+        }
     }
 }

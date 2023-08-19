@@ -1,12 +1,17 @@
 # Mystic Potions (Forge / Fabric / Quilt)
-## About: 
+
+## About:
+
 - Adds New Potions To Minecraft & Makes Some Minecraft Potions Brewable!
 - All require **Architectury Api** for respective versions.
 - Have new ideas for potions? Leave me a comment.
+
 ### Potions/Effects:
+
 - **Thunderous Potion**
     - Instantly strikes lighting on Mobs/Players.
-    - Brewed by putting a Lightning Rod on top of a Brewing Stand and Awkward Potions in the empty slots when the lightning rod is struck the Thunderous Potions will be created.
+    - Brewed by putting a Lightning Rod on top of a Brewing Stand and Awkward Potions in the empty slots when the
+      lightning rod is struck the Thunderous Potions will be created.
     - Can be powered up by mixing Glowstone.
 - **Explosive Potion**
     - Instantly explodes Mobs/Players when used.
@@ -39,7 +44,9 @@
     - Brewed by mixing an Awkward Potion with a Wither Skull
     - Can be Lengthened by mixing with Redstone.
     - Can be Powered up by mixing Glowstone.
+
 ### What they can be made into
+
 - **All Potions/Effects available in...**
     - Regular Potions
     - Splash Potions
