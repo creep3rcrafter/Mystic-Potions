@@ -70,24 +70,6 @@ public class ItemDamage {
         return null;
     }
 
-    public static ItemDamageType getEntityDamageType(LivingEntity livingEntity) {
-        if (livingEntity instanceof IronGolem || (Entity) livingEntity instanceof AbstractMinecart) {
-            return ItemDamageType.IRON;
-        }
-        return null;
-    }
-
-    public void testing(MinecraftServer server) {
-        //server.getRecipeManager().getAllRecipesFor()
-        server.getRecipeManager().getRecipes().forEach(recipe -> {
-            recipe.getIngredients().forEach(ingredient -> {
-                if (ingredient.getItems()[0].getItem() == Items.IRON_INGOT) {
-                    System.out.println(ingredient);
-                }
-            });
-        });
-    }
-
     public enum ItemDamageType {
         IRON(10),
         NETHERITE(20);
