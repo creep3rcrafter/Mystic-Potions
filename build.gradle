@@ -93,7 +93,6 @@ curseforge {
         addGameVersion 'Fabric'
         addGameVersion 'Quilt'
         addGameVersion project.minecraft_version
-        addGameVersion project.minecraft_version
         relations {
             requiredDependency project.curseforge_dependency
         }

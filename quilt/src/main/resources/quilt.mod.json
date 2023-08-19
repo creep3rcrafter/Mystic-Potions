@@ -10,7 +10,9 @@
     "version": "${version}",
     "name": "Mystic Potions (Quilt)",
     "description": "Adds New Potions To Minecraft!",
-    "authors": ["Creep3rCrafter"],
+    "authors": [
+      "Creep3rCrafter"
+    ],
     "contact": {
       "sources": "https://github.com/creep3rcrafter/Mystic-Potions"
     },
@@ -20,7 +22,7 @@
     "environment": "*",
     "entrypoints": {
       "init": [
-        "net.mysticpotions.quilt.MysticPotionsQuilt"
+        "net.creep3rcrafter.mysticpotions.quilt.MysticPotionsQuilt"
       ]
     },
     "depends": [

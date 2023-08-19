@@ -61,7 +61,7 @@ public abstract class LivingEntityMixin extends Entity {
     @ModifyVariable(method = "travel", at = @At("LOAD"), name = "f2", ordinal = 0, index = 8)//return
     public float inject2(float value) {
         if (this.hasEffect(ModEffects.SPLIPPERY.get()) && this.onGround()) {
-            int amplifier = this.getEffect(ModEffects.SPLIPPERY.get()).amplifier;
+            int amplifier = this.getEffect(ModEffects.SPLIPPERY.get()).getAmplifier();
             return (((amplifier / (-300f)) + 1) * 0.98f);
         }
         return value;
