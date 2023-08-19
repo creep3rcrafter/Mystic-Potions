@@ -126,6 +126,7 @@ public class ModEffects {
             }
             //livingEntity.updateSwimming();
         }
+
         @Override
         public boolean isDurationEffectTick(int duration, int amplifier) {
             return duration >= 1;
@@ -139,7 +140,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> WARMING = EFFECTS.register("warming", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16757504) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 livingEntity.setTicksFrozen(0);
                 if (livingEntity instanceof SnowGolem && serverLevel.getServer().getTickCount() % 20 == 0) {
@@ -162,7 +163,7 @@ public class ModEffects {
 
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 if (livingEntity instanceof ServerPlayer serverPlayer && !livingEntity.isSpectator()) {
                     Vec3 pos;
                     if (serverPlayer.getRespawnPosition() != null && (serverPlayer.getLevel().getBlockState(serverPlayer.getRespawnPosition()).getBlock() instanceof BedBlock)) {
@@ -192,7 +193,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> RECOVERY = EFFECTS.register("recovery", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 9044042) {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 if (livingEntity instanceof ServerPlayer serverPlayer && !livingEntity.isSpectator()) {
                     if (serverPlayer.getLastDeathLocation().isPresent()) {
                         if (serverPlayer.getLevel().dimension() == serverPlayer.getLastDeathLocation().get().dimension()) {
@@ -218,7 +219,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> TELEPORTATION = EFFECTS.register("teleportation", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13041919) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 if (livingEntity.getLevel().getServer() != null) {
                     if (livingEntity.getLevel().getServer().getTickCount() % (20 + livingEntity.getRandom().nextInt(-10, 40)) == 0) {
                         ServerLevel level = livingEntity.getLevel().getServer().getLevel(livingEntity.getLevel().dimension());
@@ -279,7 +280,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> THUNDEROUS = EFFECTS.register("thunderous", () -> new MobEffect(MobEffectCategory.HARMFUL, 14745599) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Utils.lightning(livingEntity, serverLevel, amplifier);
             }
@@ -298,7 +299,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> EXPLOSIVE = EFFECTS.register("explosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 4522008) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 if (!livingEntity.isSpectator()) {
                     if (livingEntity.getLevel().dimension() == Level.NETHER) {
@@ -327,7 +328,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> BURNING = EFFECTS.register("burning", () -> new MobEffect(MobEffectCategory.HARMFUL, 16740608) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.isInWaterRainOrBubble()){
+            if (!livingEntity.isInWaterRainOrBubble()) {
                 livingEntity.setSecondsOnFire(1);
             }
         }
@@ -363,7 +364,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> CORROSIVE = EFFECTS.register("corrosive", () -> new MobEffect(MobEffectCategory.HARMFUL, 10157824) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
-            if (!livingEntity.getLevel().isClientSide()){
+            if (!livingEntity.getLevel().isClientSide()) {
                 ServerLevel serverLevel = (ServerLevel) livingEntity.getLevel();
                 Random random = new Random();
                 if (!livingEntity.isSpectator() && serverLevel.getServer().getTickCount() % 10 == 0) {

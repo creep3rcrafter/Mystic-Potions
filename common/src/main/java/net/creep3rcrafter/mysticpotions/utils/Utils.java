@@ -86,25 +86,6 @@ public class Utils {
         }
     }
 
-    public int getDistanceToEntity(LivingEntity livingEntity, BlockPos pos) {
-        double deltaX = livingEntity.getX() - pos.getX();
-        double deltaY = livingEntity.getY() - pos.getY();
-        double deltaZ = livingEntity.getZ() - pos.getZ();
-        return (int) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY) + (deltaZ * deltaZ));
-    }
-
-    public List<BlockPos> getNearbyBlocks(LivingEntity livingEntity, int radius) {
-        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
-        for (int x = livingEntity.blockPosition().getX() - radius; x <= livingEntity.blockPosition().getX() + radius; x++) {
-            for (int y = livingEntity.blockPosition().getY() - radius; y <= livingEntity.blockPosition().getY() + radius; y++) {
-                for (int z = livingEntity.blockPosition().getZ() - radius; z <= livingEntity.blockPosition().getZ() + radius; z++) {
-                    blockPositions.add(new BlockPos(x, y, z));
-                }
-            }
-        }
-        return blockPositions;
-    }
-
     public static void damageItem(LivingEntity livingEntity, EquipmentSlot equipmentSlot, int amplifier, Random random) {
         if (livingEntity.getItemBySlot(equipmentSlot).isDamageableItem()) {
             int chance = random.nextInt(10);
@@ -127,7 +108,6 @@ public class Utils {
 
     public static void damageItem(LivingEntity livingEntity, EquipmentSlot equipmentSlot, int damage) {
         if (livingEntity.getItemBySlot(equipmentSlot).isDamageableItem()) {
-            //Item item = livingEntity.getItemBySlot(equipmentSlot).getItem();
             livingEntity.getItemBySlot(equipmentSlot).hurtAndBreak(damage, livingEntity, source -> {
                 source.broadcastBreakEvent(equipmentSlot);
             });
@@ -144,29 +124,34 @@ public class Utils {
 
     public static <C extends Container, T extends Recipe<C>> List<Item> recipesContainsItems(MinecraftServer server, RecipeType<T> recipeType, List<Item> containsList) {
         List<Item> results = new ArrayList<Item>();
-        if (recipeType == RecipeType.SMITHING) {
-            server.getRecipeManager().getAllRecipesFor((RecipeType.SMITHING)).forEach(recipe -> {
+        server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
+            recipe.getIngredients().forEach(ingredient -> {
                 for (Item item : containsList) {
-                    if (recipe.isBaseIngredient(new ItemStack(item))) {
-                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
-                    }
-                    if (recipe.isAdditionIngredient(new ItemStack(item))) {
-                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
+                    if (ingredient.test(new ItemStack(item))) {
+                        results.add(recipe.getResultItem().getItem());
                     }
                 }
             });
-        } else {
-            server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
-                recipe.getIngredients().forEach(ingredient -> {
-                    for (Item item : containsList) {
-                        if (ingredient.test(new ItemStack(item))) {
-                            results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
-                        }
-                    }
-                });
-            });
+        });
+        return new ArrayList<Item>(new HashSet<>(results));
+    }
+
+    public int getDistanceToEntity(LivingEntity livingEntity, BlockPos pos) {
+        double deltaX = livingEntity.getX() - pos.getX();
+        double deltaY = livingEntity.getY() - pos.getY();
+        double deltaZ = livingEntity.getZ() - pos.getZ();
+        return (int) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY) + (deltaZ * deltaZ));
+    }
+
+    public List<BlockPos> getNearbyBlocks(LivingEntity livingEntity, int radius) {
+        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
+        for (int x = livingEntity.blockPosition().getX() - radius; x <= livingEntity.blockPosition().getX() + radius; x++) {
+            for (int y = livingEntity.blockPosition().getY() - radius; y <= livingEntity.blockPosition().getY() + radius; y++) {
+                for (int z = livingEntity.blockPosition().getZ() - radius; z <= livingEntity.blockPosition().getZ() + radius; z++) {
+                    blockPositions.add(new BlockPos(x, y, z));
+                }
+            }
         }
-        List<Item> resultsWithoutDuplicates = new ArrayList<Item>(new HashSet<>(results));
-        return resultsWithoutDuplicates;
+        return blockPositions;
     }
 }

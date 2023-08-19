@@ -31,14 +31,18 @@ public abstract class LivingEntityMixin extends Entity {
     public abstract boolean addEffect(MobEffectInstance mobEffectInstance);
 
     @Shadow
-    public void setHealth(float v) {}
+    public void setHealth(float v) {
+    }
 
     @Shadow
     public abstract boolean hasEffect(MobEffect mobEffect);
 
-    @Shadow public abstract boolean removeEffect(MobEffect mobEffect);
+    @Shadow
+    public abstract boolean removeEffect(MobEffect mobEffect);
 
-    @Shadow @Nullable public abstract MobEffectInstance getEffect(MobEffect mobEffect);
+    @Shadow
+    @Nullable
+    public abstract MobEffectInstance getEffect(MobEffect mobEffect);
 
     @Inject(method = "checkTotemDeathProtection", at = @At("HEAD"), cancellable = true)//return
     public void inject1(DamageSource damageSource, CallbackInfoReturnable<Boolean> callback) {
@@ -57,18 +61,18 @@ public abstract class LivingEntityMixin extends Entity {
     @ModifyVariable(method = "travel", at = @At("LOAD"), name = "f2", ordinal = 0, index = 8)//return
     public float inject2(float value) {
         if (this.hasEffect(ModEffects.SPLIPPERY.get()) && this.isOnGround()) {
-            int amplifier = this.getEffect(ModEffects.SPLIPPERY.get()).amplifier;
-            return (((amplifier/(-300f))+1)*0.98f);
+            int amplifier = this.getEffect(ModEffects.SPLIPPERY.get()).getAmplifier();
+            return (((amplifier / (-300f)) + 1) * 0.98f);
         }
         return value;
     }
+
     @ModifyVariable(method = "travel", at = @At("LOAD"), name = "d0", ordinal = 0, index = 2)//return
     public double inject3(double value) {
         if (this.hasEffect(ModEffects.GRAVITATION.get())) {
-            if (this.isCrouching()){
+            if (this.isCrouching()) {
                 return 0.08D;
-            }
-            else{
+            } else {
                 return -0.04;
             }
         }
