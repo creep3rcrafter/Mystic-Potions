@@ -88,7 +88,7 @@ publishing {
         // Add repositories to publish to here.
     }
 }
-modrinth{
+modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}"
     projectId = modrinth_id
@@ -98,13 +98,13 @@ modrinth{
     gameVersions = [project.minecraft_version]
     loaders = ["forge"]
     changelog = project.changelog
-    dependencies{
+    dependencies {
         required.version forge_modrinth_dependancies
     }
     debugMode = project.forge_debug.toBoolean()
 }
 tasks.getByName('curseforge').dependsOn(':build', ':forge:remapJar')
-curseforge{
+curseforge {
     apiKey = System.getenv("CURSEFORGE_API")
     project {
         id = project.curseforge_id
@@ -115,12 +115,12 @@ curseforge{
         relations {
             requiredDependency project.curseforge_dependency
         }
-        mainArtifact(remapJar){
+        mainArtifact(remapJar) {
             displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.forge_suffix}"
         }
 
     }
-    options{
+    options {
         debug = project.forge_debug.toBoolean()
     }
 }

@@ -1,13 +1,10 @@
 package net.creep3rcrafter.mysticpotions;
 
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 
@@ -51,8 +48,8 @@ public class BrewingRecipes {
         PotionBrewing.addMix(Potions.AWKWARD, Items.CHORUS_FRUIT, ModPotions.TELEPORTATION_POTION.get());
         PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), Items.REDSTONE, ModPotions.LONG_TELEPORTATION_POTION.get());
         //Homing
-        for (Item item: BuiltInRegistries.ITEM){
-            if (item instanceof BedItem){
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (item instanceof BedItem) {
                 PotionBrewing.addMix(ModPotions.TELEPORTATION_POTION.get(), item, ModPotions.HOMING_POTION.get());
             }
         }

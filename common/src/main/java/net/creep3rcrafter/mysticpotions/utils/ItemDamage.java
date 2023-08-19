@@ -1,23 +1,15 @@
 package net.creep3rcrafter.mysticpotions.utils;
 
-import com.google.common.base.Suppliers;
-import net.creep3rcrafter.mysticpotions.MysticPotions;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ItemDamage {
 
     public static List<Item> items = new ArrayList<Item>();
 
-    public static List<Item> getItems(){
+    public static List<Item> getItems() {
         items.add(Items.ACTIVATOR_RAIL);
         items.add(Items.ANVIL);
         items.add(Items.BLAST_FURNACE);
@@ -44,27 +36,6 @@ public class ItemDamage {
         return items;
     }
 
-    public enum ItemDamageType {
-        IRON(10),
-        NETHERITE(20);
-        public final int damage;
-
-        ItemDamageType(int damage) {
-            this.damage = damage;
-        }
-    }
-
-    public void testing(MinecraftServer server){
-        //server.getRecipeManager().getAllRecipesFor()
-        server.getRecipeManager().getRecipes().forEach(recipe ->{
-            recipe.getIngredients().forEach(ingredient -> {
-                if (ingredient.getItems()[0].getItem() == Items.IRON_INGOT){
-                    System.out.println(ingredient);
-                }
-            });
-        });
-    }
-
     public static ItemDamageType getItemDamageType(Item item) {
         if (item instanceof ArmorItem) {
             if (((ArmorItem) item).getMaterial() == ArmorMaterials.IRON || ((ArmorItem) item).getMaterial() == ArmorMaterials.CHAIN) {
@@ -89,10 +60,13 @@ public class ItemDamage {
         return null;
     }
 
-    public static ItemDamageType getEntityDamageType(LivingEntity livingEntity) {
-        if (livingEntity instanceof IronGolem || (Entity)livingEntity instanceof AbstractMinecart) {
-            return ItemDamageType.IRON;
+    public enum ItemDamageType {
+        IRON(10),
+        NETHERITE(20);
+        public final int damage;
+
+        ItemDamageType(int damage) {
+            this.damage = damage;
         }
-        return null;
     }
 }

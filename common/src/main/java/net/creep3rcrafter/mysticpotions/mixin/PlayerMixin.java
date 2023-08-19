@@ -18,16 +18,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
 
-    @Shadow public abstract Inventory getInventory();
-
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
+    @Shadow
+    public abstract Inventory getInventory();
+
     @Inject(method = "hasCorrectToolForDrops", at = @At("RETURN"), cancellable = true)
     public void inject(BlockState blockState, CallbackInfoReturnable<Boolean> cir) {
         ItemStack selected = this.getInventory().getSelected();
-        if ((this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)) || cir.getReturnValue()){
+        if ((this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)) || cir.getReturnValue()) {
             cir.setReturnValue(true);
         }
     }
@@ -35,7 +36,7 @@ public abstract class PlayerMixin extends LivingEntity {
     @Inject(method = "getDestroySpeed", at = @At("RETURN"), cancellable = true)
     public void inject2(BlockState blockState, CallbackInfoReturnable<Float> cir) {
         ItemStack selected = this.getInventory().getSelected();
-        if (this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)){
+        if (this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)) {
             int i = this.getEffect(ModEffects.IRON_FIST.get()).amplifier;
             cir.setReturnValue(cir.getReturnValue() + 100f);
         }
