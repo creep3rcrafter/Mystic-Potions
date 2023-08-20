@@ -13,7 +13,6 @@ import static net.creep3rcrafter.mysticpotions.MysticPotions.MOD_ID;
 @Mod(MOD_ID)
 public class MysticPotionsForge {
     public MysticPotionsForge() {
-        // Submit our event bus to let architectury register our content on the right time
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         EventBuses.registerModEventBus(MOD_ID, eventBus);
         MysticPotions.init();
