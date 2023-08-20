@@ -124,18 +124,6 @@ public class Utils {
 
     public static <C extends Container, T extends Recipe<C>> List<Item> recipesContainsItems(MinecraftServer server, RecipeType<T> recipeType, List<Item> containsList) {
         List<Item> results = new ArrayList<Item>();
-        if (recipeType == RecipeType.SMITHING) {
-            server.getRecipeManager().getAllRecipesFor((RecipeType.SMITHING)).forEach(recipe -> {
-                for (Item item : containsList) {
-                    if (recipe.base.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem().getItem());
-                    }
-                    if (recipe.addition.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem().getItem());
-                    }
-                }
-            });
-        } else {
             server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
                 recipe.getIngredients().forEach(ingredient -> {
                     for (Item item : containsList) {
@@ -145,7 +133,6 @@ public class Utils {
                     }
                 });
             });
-        }
         return new ArrayList<Item>(new HashSet<>(results));
     }
 
