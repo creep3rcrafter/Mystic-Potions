@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[43,)"
+loaderVersion = "[42,)"
 issueTrackerURL = "https://github.com/creep3rcrafter/Mystic-Potions/issues"
 license = "All Rights Reserved"
 
@@ -17,20 +17,20 @@ logoFile = "MysticPotions Logo HD720pC.png"
 [[dependencies.mysticpotions]]
 modId = "forge"
 mandatory = true
-versionRange = "[43,)"
+versionRange = "[42,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.mysticpotions]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.2,)"
+versionRange = "[1.19.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.mysticpotions]]
 modId = "architectury"
 mandatory = true
-versionRange = "[6.5.85,)"
+versionRange = "[6.3.56,)"
 ordering = "AFTER"
 side = "BOTH"

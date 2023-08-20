@@ -43,10 +43,16 @@ dependencies {
 processResources {
     inputs.property "group", rootProject.maven_group
     inputs.property "version", project.version
+    inputs.property "architecturyVersion", architectury_version
+    inputs.property "minecraftVersion", minecraft_version
+    inputs.property "quiltLoaderVersion", quilt_loader_version
 
     filesMatching("quilt.mod.json") {
         expand "group": rootProject.maven_group,
-                "version": project.version
+                "version": project.version,
+                "architecturyVersion": architectury_version,
+                "minecraftVersion": minecraft_version,
+                "quiltLoaderVersion": quilt_loader_version
     }
 }
 
