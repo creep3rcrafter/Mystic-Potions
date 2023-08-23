@@ -25,6 +25,22 @@ configurations {
 }
 
 dependencies {
+    repositories {
+        maven {
+            url "https://cursemaven.com"
+        }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
+    }
     modImplementation "org.quiltmc:quilt-loader:${rootProject.quilt_loader_version}"
     modApi "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${rootProject.quilt_fabric_api_version}"
     // Remove the next few lines if you don't want to depend on the API
@@ -33,6 +49,7 @@ dependencies {
         exclude group: "net.fabricmc"
         exclude group: "net.fabricmc.fabric-api"
     }
+    modApi "maven.modrinth:jei:11.2.0.244"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionQuilt")) { transitive false }
@@ -48,8 +65,8 @@ processResources {
     inputs.property "quiltLoaderVersion", quilt_loader_version
 
     filesMatching("quilt.mod.json") {
-        expand "group": rootProject.maven_group,
-                "version": project.version,
+        expand "group": maven_group,
+                "version": version,
                 "architecturyVersion": architectury_version,
                 "minecraftVersion": minecraft_version,
                 "quiltLoaderVersion": quilt_loader_version
