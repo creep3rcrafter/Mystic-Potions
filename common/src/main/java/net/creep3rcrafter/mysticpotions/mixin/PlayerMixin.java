@@ -17,11 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
-
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
+    /*
     @Shadow
     public abstract Inventory getInventory();
 
@@ -38,7 +38,8 @@ public abstract class PlayerMixin extends LivingEntity {
         ItemStack selected = this.getInventory().getSelected();
         if (this.hasEffect(ModEffects.IRON_FIST.get()) && (selected.isEmpty() || selected.getItem() instanceof BlockItem)) {
             int i = this.getEffect(ModEffects.IRON_FIST.get()).amplifier;
-            cir.setReturnValue(cir.getReturnValue() + 100f);
+            cir.setReturnValue(cir.getReturnValue() + 5f + i);
         }
     }
+     */
 }

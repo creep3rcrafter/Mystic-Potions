@@ -27,7 +27,7 @@
     "depends": [
       {
         "id": "quilt_loader",
-        "version": "*"
+        "version": "<=${quiltLoaderVersion}"
       },
       {
         "id": "quilt_base",

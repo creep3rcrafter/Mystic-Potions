@@ -78,10 +78,12 @@ public class BrewingRecipes {
         PotionBrewing.addMix(Potions.SLOW_FALLING, Items.SHULKER_SHELL, ModPotions.LEVITATION_POTION.get());
         PotionBrewing.addMix(Potions.LONG_SLOW_FALLING, Items.SHULKER_SHELL, ModPotions.LONG_LEVITATION_POTION.get());
         PotionBrewing.addMix(ModPotions.LEVITATION_POTION.get(), Items.REDSTONE, ModPotions.LONG_LEVITATION_POTION.get());
+        /*
         //Iron Fist
         PotionBrewing.addMix(Potions.AWKWARD, Items.IRON_PICKAXE, ModPotions.IRON_FIST_POTION.get());
         PotionBrewing.addMix(Potions.AWKWARD, Items.IRON_AXE, ModPotions.IRON_FIST_POTION.get());
         PotionBrewing.addMix(ModPotions.IRON_FIST_POTION.get(), Items.REDSTONE, ModPotions.LONG_IRON_FIST_POTION.get());
+         */
         //Gravitation
         PotionBrewing.addMix(ModPotions.LEVITATION_POTION.get(), Items.NETHER_STAR, ModPotions.GRAVITATION_POTION.get());
         //Slippery
