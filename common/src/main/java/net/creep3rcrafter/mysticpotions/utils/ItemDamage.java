@@ -1,22 +1,12 @@
 package net.creep3rcrafter.mysticpotions.utils;
 
-import com.google.common.base.Suppliers;
-import dev.architectury.registry.registries.Registries;
-import net.creep3rcrafter.mysticpotions.MysticPotions;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ItemDamage {
 
-    public static final Supplier<Registries> REGISTRIES = Suppliers.memoize(() -> Registries.get(MysticPotions.MOD_ID));
     public static List<Item> items = new ArrayList<Item>();
 
     public static List<Item> getItems() {
