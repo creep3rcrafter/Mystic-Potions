@@ -87,6 +87,7 @@ public class ModEffects {
         }
     });//New
 
+    /*
     public static final RegistrySupplier<MobEffect> IRON_FIST = EFFECTS.register("iron_fist", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16766527) {
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         }
@@ -99,6 +100,8 @@ public class ModEffects {
             return false;
         }
     });//New
+     */
+
     public static final RegistrySupplier<MobEffect> AIR_SWIM = EFFECTS.register("air_swim", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 24991) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
