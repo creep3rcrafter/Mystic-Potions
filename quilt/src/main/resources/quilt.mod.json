@@ -27,7 +27,7 @@
     "depends": [
       {
         "id": "quilt_loader",
-        "version": "*"
+        "version": "<=${quiltLoaderVersion}"
       },
       {
         "id": "quilt_base",
@@ -35,11 +35,11 @@
       },
       {
         "id": "minecraft",
-        "version": ">=1.19.2"
+        "version": ">=${minecraftVersion}"
       },
       {
         "id": "architectury",
-        "version": ">=6.5.85"
+        "version": ">=${architecturyVersion}"
       }
     ]
   }

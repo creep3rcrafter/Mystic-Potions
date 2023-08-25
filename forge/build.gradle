@@ -29,19 +29,46 @@ configurations {
 }
 
 dependencies {
+    repositories {
+        maven {
+            url "https://cursemaven.com"
+        }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
+    }
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-
+    modApi "maven.modrinth:jei:11.6.0.1018"
+    modApi "curse.maven:mod-name-tooltip-238747:3898427"
+    modApi "curse.maven:itemzoom-261725:3903160"
+    modApi "maven.modrinth:rubidium:0.6.2b"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
 
 processResources {
+    inputs.property "group", maven_group
     inputs.property "version", project.version
+    inputs.property "architecturyVersion", architectury_version
+    inputs.property "minecraftVersion", minecraft_version
+    inputs.property "forgeMajorVersion", forge_major_version
 
     filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+        expand "group": maven_group,
+                "version": version,
+                "architecturyVersion": architectury_version,
+                "minecraftVersion": minecraft_version,
+                "forgeMajorVersion": forge_major_version
     }
 }
 
