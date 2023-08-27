@@ -128,7 +128,7 @@ public class Utils {
             recipe.getIngredients().forEach(ingredient -> {
                 for (Item item : containsList) {
                     if (ingredient.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem().getItem());
+                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
                     }
                 }
             });
