@@ -74,9 +74,11 @@ public class ModPotions {
     public static final RegistrySupplier<Potion> LEVITATION_POTION = POTIONS.register("levitation", () -> new Potion("levitation", new MobEffectInstance(MobEffects.LEVITATION, 200)));
     public static final RegistrySupplier<Potion> LONG_LEVITATION_POTION = POTIONS.register("long_levitation", () -> new Potion("levitation", new MobEffectInstance(MobEffects.LEVITATION, 300)));
 
+    /*
     //Iron Fist
     public static final RegistrySupplier<Potion> IRON_FIST_POTION = POTIONS.register("iron_fist", () -> new Potion("iron_fist", new MobEffectInstance(ModEffects.IRON_FIST.get(), 300)));
     public static final RegistrySupplier<Potion> LONG_IRON_FIST_POTION = POTIONS.register("long_iron_fist", () -> new Potion("iron_fist", new MobEffectInstance(ModEffects.IRON_FIST.get(), 600)));
+     */
     //Gravitation
     public static final RegistrySupplier<Potion> GRAVITATION_POTION = POTIONS.register("gravitation", () -> new Potion("gravitation", new MobEffectInstance(ModEffects.GRAVITATION.get(), 200)));
     //Slippery
