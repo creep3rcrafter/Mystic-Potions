@@ -125,10 +125,10 @@ public class Utils {
     public static <C extends Container, T extends Recipe<C>> List<Item> recipesContainsItems(MinecraftServer server, RecipeType<T> recipeType, List<Item> containsList) {
         List<Item> results = new ArrayList<Item>();
         server.getRecipeManager().getAllRecipesFor(recipeType).forEach(recipe -> {
-            recipe.getIngredients().forEach(ingredient -> {
+            recipe.value().getIngredients().forEach(ingredient -> {
                 for (Item item : containsList) {
                     if (ingredient.test(new ItemStack(item))) {
-                        results.add(recipe.getResultItem(RegistryAccess.EMPTY).getItem());
+                        results.add(recipe.value().getResultItem(RegistryAccess.EMPTY).getItem());
                     }
                 }
             });

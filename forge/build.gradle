@@ -48,9 +48,9 @@ dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    modApi "maven.modrinth:jei:15.2.0.27"
-    modApi "curse.maven:mod-name-tooltip-238747:4652448"
-    modApi "maven.modrinth:rubidium:0.7.0a"
+    //modApi "maven.modrinth:jei:15.2.0.27"
+    //modApi "curse.maven:mod-name-tooltip-238747:4652448"
+    //modApi "maven.modrinth:rubidium:0.7.0a"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
