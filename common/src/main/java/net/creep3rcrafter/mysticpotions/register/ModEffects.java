@@ -64,6 +64,18 @@ public class ModEffects {
     Extension/Extension Cooldown
     max health potion
 
+    haste
+    mining fatige
+    lucky
+    unlucky
+    nausea
+    resistance
+    saturation
+    hunger
+    absorpsion
+    health boost
+    glowing
+
     Done------------------------------------
     Undying - totem of undieing just without the item
     Homing - teleports you to your bed
