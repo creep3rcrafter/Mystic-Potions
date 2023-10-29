@@ -16,12 +16,18 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.entity.monster.warden.WardenAi;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -30,14 +36,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ModEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
@@ -86,22 +90,6 @@ public class ModEffects {
             return false;
         }
     });//New
-
-    /*
-    public static final RegistrySupplier<MobEffect> IRON_FIST = EFFECTS.register("iron_fist", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16766527) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        }
-
-        public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
-        }
-
-        public boolean isInstantenous() {
-            return false;
-        }
-    });//New
-     */
-
     public static final RegistrySupplier<MobEffect> AIR_SWIM = EFFECTS.register("air_swim", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 24991) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
@@ -234,7 +222,7 @@ public class ModEffects {
                             double f = livingEntity.getZ();
                             for (int i = 0; i < 32; ++i) {
                                 double g = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * 32.0D;
-                                double h = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16), (double) level.getMinBuildHeight(), (double) (level.getMinBuildHeight() + ((ServerLevel) level).getLogicalHeight() - 1));
+                                double h = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16), level.getMinBuildHeight(), level.getMinBuildHeight() + level.getLogicalHeight() - 1);
                                 double j = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * 32.0D;
                                 if (livingEntity.isPassenger()) {
                                     livingEntity.stopRiding();
@@ -244,7 +232,7 @@ public class ModEffects {
                                 if (livingEntity.randomTeleport(g, h, j, true)) {
                                     level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(livingEntity));
                                     SoundEvent soundEvent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-                                    level.playSound((Player) null, d, e, f, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                                    level.playSound(null, d, e, f, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
                                     livingEntity.playSound(soundEvent, 1.0F, 1.0F);
                                     break;
                                 }
@@ -458,6 +446,100 @@ public class ModEffects {
             return false;
         }
     });
+
+    public static final RegistrySupplier<MobEffect> FATAL_POISON = EFFECTS.register("fatal_poison", () -> new MobEffect(MobEffectCategory.HARMFUL, 65280) {
+        @Override
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            livingEntity.hurt(DamageSource.MAGIC, 1.0F);
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            int k;
+            k = 25 >> amplifier;
+            if (k > 0) {
+                return duration % k == 0;
+            } else {
+                return true;
+            }
+        }
+
+                                                     });
+    public static final RegistrySupplier<MobEffect> PROTECTION = EFFECTS.register("protection", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 8751501) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            if (livingEntity.getAttributes().hasAttribute(Attributes.ARMOR)){
+                addAttributeModifier(Attributes.ARMOR, "9aa8ab7f-3f42-4c2d-acc9-30a56847c3fc", 1, AttributeModifier.Operation.ADDITION);
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    public static final RegistrySupplier<MobEffect> SILENCE = EFFECTS.register("silence", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 92) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            livingEntity.setSilent(true);
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13691391) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()){
+                if(effectInstance.getEffect() != ModEffects.NULLIFIER.get()){
+                    livingEntity.removeEffect(effectInstance.getEffect());
+                }
+            }
+        }
+
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    public static final RegistrySupplier<MobEffect> DOUBLE_JUMP = EFFECTS.register("double_jump", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 84) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            livingEntity.setOnGround(true);
+        }
+
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    //water walk
+    //sinking
     /*
     public static final RegistrySupplier<MobEffect> HOLY_WATER = EFFECTS.register("holy_water", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 12989085) {
         @Override
