@@ -1,12 +1,23 @@
 package net.creep3rcrafter.mysticpotions;
 
+import com.mojang.datafixers.types.templates.Named;
+import dev.architectury.core.fluid.SimpleArchitecturyFluidAttributes;
+import dev.architectury.registry.registries.Registries;
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
 import net.minecraft.core.Registry;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagEntry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.entity.monster.warden.WardenAi;
 import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.ItemLike;
 
 public class BrewingRecipes {
     public BrewingRecipes() {
@@ -58,15 +69,6 @@ public class BrewingRecipes {
         //Undying
         PotionBrewing.addMix(Potions.AWKWARD, Items.TOTEM_OF_UNDYING, ModPotions.UNDYING_POTION.get());
         PotionBrewing.addMix(ModPotions.UNDYING_POTION.get(), Items.REDSTONE, ModPotions.LONG_UNDYING_POTION.get());
-        /*
-        //Nullifier
-        PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION_1.get());
-        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_1.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_2.get());
-        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_2.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_3.get());
-        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_4.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_4.get());
-        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_4.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_5.get());
-        PotionBrewing.addMix(ModPotions.NULLIFIER_POTION_5.get(), Items.GLOWSTONE_DUST, ModPotions.NULLIFIER_POTION_6.get());
-         */
         //Dolphins Grace
         PotionBrewing.addMix(Potions.AWKWARD, Items.NAUTILUS_SHELL, ModPotions.DOLPHINS_GRACE_POTION.get());
         PotionBrewing.addMix(ModPotions.DOLPHINS_GRACE_POTION.get(), Items.REDSTONE, ModPotions.LONG_DOLPHINS_GRACE_POTION.get());
@@ -89,5 +91,71 @@ public class BrewingRecipes {
         //Slippery
         PotionBrewing.addMix(Potions.AWKWARD, Items.BLUE_ICE, ModPotions.SlIPPERY_POTION.get());
         PotionBrewing.addMix(ModPotions.SlIPPERY_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_SlIPPERY_POTION.get());
+        //Absorption
+        PotionBrewing.addMix(Potions.AWKWARD, Items.GOLD_INGOT, ModPotions.ABSORPTION_POTION.get());
+        PotionBrewing.addMix(ModPotions.ABSORPTION_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_ABSORPTION_POTION.get());
+        PotionBrewing.addMix(ModPotions.ABSORPTION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_ABSORPTION_POTION.get());
+        //Absorption
+        PotionBrewing.addMix(ModPotions.ABSORPTION_POTION.get(), Items.BLAZE_POWDER, ModPotions.HEALTH_BOOST_POTION.get());
+        PotionBrewing.addMix(ModPotions.LONG_ABSORPTION_POTION.get(), Items.BLAZE_POWDER, ModPotions.LONG_HEALTH_BOOST_POTION.get());
+        PotionBrewing.addMix(ModPotions.ABSORPTION_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_HEALTH_BOOST_POTION.get());
+        PotionBrewing.addMix(ModPotions.STRONG_ABSORPTION_POTION.get(), Items.BLAZE_POWDER, ModPotions.STRONG_ABSORPTION_POTION.get());
+        PotionBrewing.addMix(ModPotions.ABSORPTION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HEALTH_BOOST_POTION.get());
+        //Glowing
+        PotionBrewing.addMix(Potions.AWKWARD, Items.GLOWSTONE_DUST, ModPotions.GLOWING_POTION.get());
+        PotionBrewing.addMix(ModPotions.GLOWING_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_GLOWING_POTION.get());
+        //Saturation
+        PotionBrewing.addMix(Potions.AWKWARD, Items.GOLDEN_CARROT, ModPotions.SATURATION_POTION.get());
+        PotionBrewing.addMix(ModPotions.SATURATION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_SATURATION_POTION.get());
+        //Hunger
+        PotionBrewing.addMix(Potions.AWKWARD, Items.ROTTEN_FLESH, ModPotions.HUNGER_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.CHICKEN, ModPotions.HUNGER_POTION.get());
+        PotionBrewing.addMix(ModPotions.HUNGER_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_HUNGER_POTION.get());
+        PotionBrewing.addMix(ModPotions.HUNGER_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HUNGER_POTION.get());
+        //Confusion
+        PotionBrewing.addMix(Potions.AWKWARD, Items.WARPED_FUNGUS, ModPotions.CONFUSION_POTION.get());
+        PotionBrewing.addMix(ModPotions.CONFUSION_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_CONFUSION_POTION.get());
+        PotionBrewing.addMix(ModPotions.CONFUSION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_CONFUSION_POTION.get());
+        //Mining Fatigue
+        PotionBrewing.addMix(Potions.AWKWARD, Items.CRIMSON_FUNGUS, ModPotions.MINING_FATIGUE_POTION.get());
+        PotionBrewing.addMix(ModPotions.MINING_FATIGUE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_MINING_FATIGUE_POTION.get());
+        PotionBrewing.addMix(ModPotions.MINING_FATIGUE_POTION.get(), Items.REDSTONE, ModPotions.STRONG_MINING_FATIGUE_POTION.get());
+        //Haste
+        PotionBrewing.addMix(ModPotions.MINING_FATIGUE_POTION.get(), Items.CRIMSON_FUNGUS, ModPotions.HASTE_POTION.get());
+        PotionBrewing.addMix(ModPotions.LONG_MINING_FATIGUE_POTION.get(), Items.CRIMSON_FUNGUS, ModPotions.LONG_HASTE_POTION.get());
+        PotionBrewing.addMix(ModPotions.HASTE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_HASTE_POTION.get());
+        PotionBrewing.addMix(ModPotions.STRONG_MINING_FATIGUE_POTION.get(), Items.CRIMSON_FUNGUS, ModPotions.STRONG_HASTE_POTION.get());
+        PotionBrewing.addMix(ModPotions.HASTE_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HASTE_POTION.get());
+        //Fatal Poison
+        PotionBrewing.addMix(Potions.POISON, Items.CRIMSON_FUNGUS, ModPotions.FATAL_POISON_POTION.get());
+        PotionBrewing.addMix(Potions.LONG_POISON, Items.CRIMSON_FUNGUS, ModPotions.LONG_FATAL_POISON_POTION.get());
+        PotionBrewing.addMix(Potions.STRONG_POISON, Items.CRIMSON_FUNGUS, ModPotions.STRONG_FATAL_POISON_POTION.get());
+        PotionBrewing.addMix(ModPotions.FATAL_POISON_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_MINING_FATIGUE_POTION.get());
+        PotionBrewing.addMix(ModPotions.FATAL_POISON_POTION.get(), Items.REDSTONE, ModPotions.STRONG_FATAL_POISON_POTION.get());
+        //Protection
+        PotionBrewing.addMix(Potions.AWKWARD, Items.SCUTE, ModPotions.PROTECTION_POTION.get());
+        PotionBrewing.addMix(ModPotions.PROTECTION_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_PROTECTION_POTION.get());
+        PotionBrewing.addMix(ModPotions.PROTECTION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_PROTECTION_POTION.get());
+        //Silence
+        PotionBrewing.addMix(Potions.AWKWARD, Items.WHITE_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.ORANGE_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.MAGENTA_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.LIGHT_BLUE_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.YELLOW_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.LIME_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.PINK_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.GRAY_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.LIGHT_GRAY_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.CYAN_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.PURPLE_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.BLUE_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.BROWN_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.GREEN_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.RED_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.BLACK_WOOL, ModPotions.SILENCE_POTION.get());
+        PotionBrewing.addMix(ModPotions.SILENCE_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_SILENCE_POTION.get());
+        //Nullifier
+        PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Items.GLOWSTONE_DUST, ModPotions.LONG_NULLIFIER_POTION.get());
     }
 }

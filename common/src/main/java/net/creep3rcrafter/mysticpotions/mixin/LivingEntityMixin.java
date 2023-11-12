@@ -1,5 +1,6 @@
 package net.creep3rcrafter.mysticpotions.mixin;
 
+import dev.architectury.platform.Mod;
 import net.creep3rcrafter.mysticpotions.register.ModEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -8,6 +9,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -66,6 +68,8 @@ public abstract class LivingEntityMixin extends Entity {
             cir.setReturnValue(false);
         }
     }
+
+
     /*
     @Inject(method = "isAffectedByFluids", at = @At("RETURN"), cancellable = true)//return
     public void inject3(CallbackInfoReturnable<Boolean> cir) {

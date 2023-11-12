@@ -37,4 +37,5 @@ public abstract class EntityMixin implements Nameable, EntityAccess, CommandSour
             }
         }
     }
+
 }
