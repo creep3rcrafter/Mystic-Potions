@@ -9,7 +9,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.entity.EntityAccess;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,10 +28,11 @@ public abstract class EntityMixin implements Nameable, EntityAccess, CommandSour
     public void inject1(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(this.updateFluidHeightAndDoFluidPushing(FluidTags.WATER, 0.014D) || this.isInRain());
     }
+
     @Inject(method = "dampensVibrations", at = @At("HEAD"), cancellable = true)
     public void inject2(CallbackInfoReturnable<Boolean> cir) {
-        if (((Entity)(Object)this) instanceof LivingEntity){
-            if(((LivingEntity)(Object)this).hasEffect(ModEffects.SILENCE.get())){
+        if (((Entity) (Object) this) instanceof LivingEntity) {
+            if (((LivingEntity) (Object) this).hasEffect(ModEffects.SILENCE.get())) {
                 cir.setReturnValue(true);
             }
         }

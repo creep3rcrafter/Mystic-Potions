@@ -12,8 +12,6 @@ public class ModPotions {
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.POTION_REGISTRY);
 
 
-
-
     //
     //Thunderous
     public static final RegistrySupplier<Potion> THUNDEROUS_POTION = POTIONS.register("thunderous", () -> new Potion("thunderous", new MobEffectInstance(ModEffects.THUNDEROUS.get(), 1)));
@@ -88,7 +86,6 @@ public class ModPotions {
     public static final RegistrySupplier<Potion> LONG_SlIPPERY_POTION = POTIONS.register("long_slippery", () -> new Potion("slippery", new MobEffectInstance(ModEffects.SPLIPPERY.get(), 400)));
 
 
-
     public static final RegistrySupplier<Potion> ABSORPTION_POTION = POTIONS.register("absorption", () -> new Potion("absorption", new MobEffectInstance(MobEffects.ABSORPTION, 400)));
     public static final RegistrySupplier<Potion> LONG_ABSORPTION_POTION = POTIONS.register("long_absorption", () -> new Potion("absorption", new MobEffectInstance(MobEffects.ABSORPTION, 800)));
     public static final RegistrySupplier<Potion> STRONG_ABSORPTION_POTION = POTIONS.register("strong_absorption", () -> new Potion("absorption", new MobEffectInstance(MobEffects.ABSORPTION, 400, 1)));
@@ -100,20 +97,20 @@ public class ModPotions {
     public static final RegistrySupplier<Potion> STRONG_HEALTH_BOOST_POTION = POTIONS.register("strong_health_boost", () -> new Potion("health_boost", new MobEffectInstance(MobEffects.HEALTH_BOOST, 400, 1)));
     public static final RegistrySupplier<Potion> GLOWING_POTION = POTIONS.register("glowing", () -> new Potion("glowing", new MobEffectInstance(MobEffects.GLOWING, 600)));
     public static final RegistrySupplier<Potion> LONG_GLOWING_POTION = POTIONS.register("long_glowing", () -> new Potion("glowing", new MobEffectInstance(MobEffects.GLOWING, 1200)));
-    public static final RegistrySupplier<Potion> SATURATION_POTION = POTIONS.register("saturation", () -> new Potion("saturation", new MobEffectInstance(MobEffects.SATURATION, 1,5)));
-    public static final RegistrySupplier<Potion> STRONG_SATURATION_POTION = POTIONS.register("strong_saturation", () -> new Potion("saturation", new MobEffectInstance(MobEffects.SATURATION, 1,10)));
+    public static final RegistrySupplier<Potion> SATURATION_POTION = POTIONS.register("saturation", () -> new Potion("saturation", new MobEffectInstance(MobEffects.SATURATION, 1, 5)));
+    public static final RegistrySupplier<Potion> STRONG_SATURATION_POTION = POTIONS.register("strong_saturation", () -> new Potion("saturation", new MobEffectInstance(MobEffects.SATURATION, 1, 10)));
     public static final RegistrySupplier<Potion> HUNGER_POTION = POTIONS.register("hunger", () -> new Potion("hunger", new MobEffectInstance(MobEffects.HUNGER, 400)));
     public static final RegistrySupplier<Potion> LONG_HUNGER_POTION = POTIONS.register("long_hunger", () -> new Potion("hunger", new MobEffectInstance(MobEffects.HUNGER, 800)));
     public static final RegistrySupplier<Potion> STRONG_HUNGER_POTION = POTIONS.register("strong_hunger", () -> new Potion("hunger", new MobEffectInstance(MobEffects.HUNGER, 400, 1)));
     public static final RegistrySupplier<Potion> CONFUSION_POTION = POTIONS.register("confusion", () -> new Potion("confusion", new MobEffectInstance(MobEffects.CONFUSION, 400)));
     public static final RegistrySupplier<Potion> LONG_CONFUSION_POTION = POTIONS.register("long_confusion", () -> new Potion("confusion", new MobEffectInstance(MobEffects.CONFUSION, 800)));
-    public static final RegistrySupplier<Potion> STRONG_CONFUSION_POTION = POTIONS.register("strong_confusion", () -> new Potion("confusion", new MobEffectInstance(MobEffects.CONFUSION, 400,1)));
+    public static final RegistrySupplier<Potion> STRONG_CONFUSION_POTION = POTIONS.register("strong_confusion", () -> new Potion("confusion", new MobEffectInstance(MobEffects.CONFUSION, 400, 1)));
     public static final RegistrySupplier<Potion> MINING_FATIGUE_POTION = POTIONS.register("mining_fatigue", () -> new Potion("mining_fatigue", new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 400)));
     public static final RegistrySupplier<Potion> LONG_MINING_FATIGUE_POTION = POTIONS.register("long_mining_fatigue", () -> new Potion("mining_fatigue", new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 800)));
     public static final RegistrySupplier<Potion> STRONG_MINING_FATIGUE_POTION = POTIONS.register("strong_mining_fatigue", () -> new Potion("mining_fatigue", new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 400, 1)));
     public static final RegistrySupplier<Potion> HASTE_POTION = POTIONS.register("haste", () -> new Potion("haste", new MobEffectInstance(MobEffects.DIG_SPEED, 800)));
     public static final RegistrySupplier<Potion> LONG_HASTE_POTION = POTIONS.register("long_haste", () -> new Potion("haste", new MobEffectInstance(MobEffects.DIG_SPEED, 1600)));
-    public static final RegistrySupplier<Potion> STRONG_HASTE_POTION = POTIONS.register("strong_haste", () -> new Potion("haste", new MobEffectInstance(MobEffects.DIG_SPEED, 800,1)));
+    public static final RegistrySupplier<Potion> STRONG_HASTE_POTION = POTIONS.register("strong_haste", () -> new Potion("haste", new MobEffectInstance(MobEffects.DIG_SPEED, 800, 1)));
     public static final RegistrySupplier<Potion> FATAL_POISON_POTION = POTIONS.register("fatal_poison", () -> new Potion("fatal_poison", new MobEffectInstance(ModEffects.FATAL_POISON.get(), 400)));
     public static final RegistrySupplier<Potion> LONG_FATAL_POISON_POTION = POTIONS.register("long_fatal_poison", () -> new Potion("fatal_poison", new MobEffectInstance(ModEffects.FATAL_POISON.get(), 800)));
     public static final RegistrySupplier<Potion> STRONG_FATAL_POISON_POTION = POTIONS.register("strong_fatal_poison", () -> new Potion("fatal_poison", new MobEffectInstance(ModEffects.FATAL_POISON.get(), 400, 1)));

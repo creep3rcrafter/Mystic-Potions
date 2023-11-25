@@ -19,12 +19,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
@@ -32,28 +28,25 @@ import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.ZombieHorse;
 import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombieVillager;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.monster.warden.WardenAi;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 public class ModEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(MysticPotions.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
@@ -479,7 +472,7 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> PROTECTION = EFFECTS.register("protection", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 8751501) {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.getAttributes().hasAttribute(Attributes.ARMOR)){
+            if (livingEntity.getAttributes().hasAttribute(Attributes.ARMOR)) {
                 addAttributeModifier(Attributes.ARMOR, "9aa8ab7f-3f42-4c2d-acc9-30a56847c3fc", 1, AttributeModifier.Operation.ADDITION);
             }
         }
@@ -514,8 +507,8 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13691391) {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()){
-                if(effectInstance.getEffect() != ModEffects.NULLIFIER.get()){
+            for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()) {
+                if (effectInstance.getEffect() != ModEffects.NULLIFIER.get()) {
                     livingEntity.removeEffect(effectInstance.getEffect());
                 }
             }
@@ -535,28 +528,28 @@ public class ModEffects {
     public static final RegistrySupplier<MobEffect> INFECTION = EFFECTS.register("infection", () -> new MobEffect(MobEffectCategory.HARMFUL, 14848) {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-            if (livingEntity.hasEffect(this)){
+            if (livingEntity.hasEffect(this)) {
                 int duration = livingEntity.getEffect(this).getDuration();
-                if (duration == 600){
-                    livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 40)) ;
+                if (duration == 600) {
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 40));
                 }
-                if (duration == 300){
+                if (duration == 300) {
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 300));
                 }
-                if (duration == 200){
+                if (duration == 200) {
                     livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200));
                 }
-                if (duration == 1){
+                if (duration == 1) {
                     if (livingEntity instanceof Player && !((Player) livingEntity).isCreative()) {
                         livingEntity.hurt(DamageSource.MAGIC, 20f);
-                        if ((livingEntity.isDeadOrDying())){
+                        if ((livingEntity.isDeadOrDying())) {
                             Zombie zombie = new Zombie(EntityType.ZOMBIE, livingEntity.getLevel());
                             zombie.copyPosition(livingEntity);
                             zombie.setCustomName(livingEntity.getCustomName());
                             zombie.setCanPickUpLoot(true);
                             EquipmentSlot[] var4 = EquipmentSlot.values();
                             int var5 = var4.length;
-                            for(int var6 = 0; var6 < var5; ++var6) {
+                            for (int var6 = 0; var6 < var5; ++var6) {
                                 EquipmentSlot equipmentSlot = var4[var6];
                                 ItemStack itemStack = livingEntity.getItemBySlot(equipmentSlot);
                                 if (!itemStack.isEmpty()) {
@@ -575,19 +568,19 @@ public class ModEffects {
                             livingEntity.discard();
                         }
                     } else if (livingEntity instanceof Villager) {
-                        Mob mob = ((Mob)livingEntity).convertTo(EntityType.ZOMBIE_VILLAGER, true);
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOMBIE_VILLAGER, true);
                         mob.addEffect(new MobEffectInstance(this, 1200));
-                    }else if (livingEntity instanceof Piglin){
-                        Mob mob = ((Mob)livingEntity).convertTo(EntityType.ZOMBIFIED_PIGLIN, true);
+                    } else if (livingEntity instanceof Piglin) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOMBIFIED_PIGLIN, true);
                         mob.addEffect(new MobEffectInstance(this, 1200));
-                    }else if (livingEntity instanceof Hoglin){
-                        Mob mob = ((Mob)livingEntity).convertTo(EntityType.ZOGLIN, true);
+                    } else if (livingEntity instanceof Hoglin) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOGLIN, true);
                         mob.addEffect(new MobEffectInstance(this, 1200));
-                    }else if (livingEntity instanceof Horse) {
-                        Mob mob = ((Mob)livingEntity).convertTo(EntityType.ZOMBIE_HORSE, true);
+                    } else if (livingEntity instanceof Horse) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOMBIE_HORSE, true);
                         mob.addEffect(new MobEffectInstance(this, 1200));
-                    }else{
-                        if (!(livingEntity instanceof Zombie) && !(livingEntity instanceof ZombieHorse) && !(livingEntity instanceof Zoglin)){
+                    } else {
+                        if (!(livingEntity instanceof Zombie) && !(livingEntity instanceof ZombieHorse) && !(livingEntity instanceof Zoglin)) {
                             livingEntity.hurt(DamageSource.MAGIC, 5);
                         }
                     }
