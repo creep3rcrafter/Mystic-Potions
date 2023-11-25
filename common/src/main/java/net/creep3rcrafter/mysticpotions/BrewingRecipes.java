@@ -1,7 +1,9 @@
 package net.creep3rcrafter.mysticpotions;
 
+import dev.architectury.registry.registries.Registries;
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
 import net.minecraft.core.Registry;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -97,10 +99,10 @@ public class BrewingRecipes {
         PotionBrewing.addMix(Potions.AWKWARD, Items.GOLDEN_CARROT, ModPotions.SATURATION_POTION.get());
         PotionBrewing.addMix(ModPotions.SATURATION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_SATURATION_POTION.get());
         //Hunger
-        PotionBrewing.addMix(Potions.AWKWARD, Items.ROTTEN_FLESH, ModPotions.HUNGER_POTION.get());
-        PotionBrewing.addMix(Potions.AWKWARD, Items.CHICKEN, ModPotions.HUNGER_POTION.get());
+        PotionBrewing.addMix( ModPotions.SATURATION_POTION.get(), Items.FERMENTED_SPIDER_EYE, ModPotions.HUNGER_POTION.get());
         PotionBrewing.addMix(ModPotions.HUNGER_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_HUNGER_POTION.get());
         PotionBrewing.addMix(ModPotions.HUNGER_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HUNGER_POTION.get());
+        PotionBrewing.addMix(ModPotions.SATURATION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HUNGER_POTION.get());
         //Confusion
         PotionBrewing.addMix(Potions.AWKWARD, Items.WARPED_FUNGUS, ModPotions.CONFUSION_POTION.get());
         PotionBrewing.addMix(ModPotions.CONFUSION_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_CONFUSION_POTION.get());
@@ -146,5 +148,8 @@ public class BrewingRecipes {
         //Nullifier
         PotionBrewing.addMix(Potions.AWKWARD, Items.MILK_BUCKET, ModPotions.NULLIFIER_POTION.get());
         PotionBrewing.addMix(Potions.AWKWARD, Items.GLOWSTONE_DUST, ModPotions.LONG_NULLIFIER_POTION.get());
+        //Infection
+        PotionBrewing.addMix(ModPotions.STRONG_HUNGER_POTION.get(), Items.ROTTEN_FLESH, ModPotions.INFECTION.get());
+        PotionBrewing.addMix(ModPotions.LONG_INFECTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_INFECTION.get());
     }
 }

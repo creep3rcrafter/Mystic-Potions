@@ -16,13 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Mob.class)
 public abstract class MobMixin extends LivingEntity {
-    @Shadow
-    @Nullable
-    public abstract LivingEntity getTarget();
-
-    @Shadow
-    public abstract void setTarget(@Nullable LivingEntity livingEntity);
-
     protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
