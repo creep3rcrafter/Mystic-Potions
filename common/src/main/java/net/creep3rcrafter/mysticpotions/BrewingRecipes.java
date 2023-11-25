@@ -1,9 +1,7 @@
 package net.creep3rcrafter.mysticpotions;
 
-import dev.architectury.registry.registries.Registries;
 import net.creep3rcrafter.mysticpotions.register.ModPotions;
 import net.minecraft.core.Registry;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -99,7 +97,7 @@ public class BrewingRecipes {
         PotionBrewing.addMix(Potions.AWKWARD, Items.GOLDEN_CARROT, ModPotions.SATURATION_POTION.get());
         PotionBrewing.addMix(ModPotions.SATURATION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_SATURATION_POTION.get());
         //Hunger
-        PotionBrewing.addMix( ModPotions.SATURATION_POTION.get(), Items.FERMENTED_SPIDER_EYE, ModPotions.HUNGER_POTION.get());
+        PotionBrewing.addMix(ModPotions.SATURATION_POTION.get(), Items.FERMENTED_SPIDER_EYE, ModPotions.HUNGER_POTION.get());
         PotionBrewing.addMix(ModPotions.HUNGER_POTION.get(), Items.GLOWSTONE_DUST, ModPotions.LONG_HUNGER_POTION.get());
         PotionBrewing.addMix(ModPotions.HUNGER_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HUNGER_POTION.get());
         PotionBrewing.addMix(ModPotions.SATURATION_POTION.get(), Items.REDSTONE, ModPotions.STRONG_HUNGER_POTION.get());
