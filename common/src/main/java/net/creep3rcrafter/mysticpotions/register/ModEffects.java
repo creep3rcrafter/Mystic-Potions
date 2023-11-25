@@ -16,12 +16,21 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.monster.Zoglin;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -64,18 +73,6 @@ public class ModEffects {
     Extension/Extension Cooldown
     max health potion
 
-    haste
-    mining fatige
-    lucky
-    unlucky
-    nausea
-    resistance
-    saturation
-    hunger
-    absorpsion
-    health boost
-    glowing
-
     Done------------------------------------
     Undying - totem of undieing just without the item
     Homing - teleports you to your bed
@@ -98,22 +95,6 @@ public class ModEffects {
             return false;
         }
     });//New
-
-    /*
-    public static final RegistrySupplier<MobEffect> IRON_FIST = EFFECTS.register("iron_fist", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 16766527) {
-        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        }
-
-        public boolean isDurationEffectTick(int duration, int amplifier) {
-            return duration >= 1;
-        }
-
-        public boolean isInstantenous() {
-            return false;
-        }
-    });//New
-     */
-
     public static final RegistrySupplier<MobEffect> AIR_SWIM = EFFECTS.register("air_swim", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 24991) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
@@ -246,7 +227,7 @@ public class ModEffects {
                             double f = livingEntity.getZ();
                             for (int i = 0; i < 32; ++i) {
                                 double g = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5D) * 32.0D;
-                                double h = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16), (double) level.getMinBuildHeight(), (double) (level.getMinBuildHeight() + ((ServerLevel) level).getLogicalHeight() - 1));
+                                double h = Mth.clamp(livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16), level.getMinBuildHeight(), level.getMinBuildHeight() + level.getLogicalHeight() - 1);
                                 double j = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5D) * 32.0D;
                                 if (livingEntity.isPassenger()) {
                                     livingEntity.stopRiding();
@@ -256,7 +237,7 @@ public class ModEffects {
                                 if (livingEntity.randomTeleport(g, h, j, true)) {
                                     level.gameEvent(GameEvent.TELEPORT, vec3, GameEvent.Context.of(livingEntity));
                                     SoundEvent soundEvent = livingEntity instanceof Fox ? SoundEvents.FOX_TELEPORT : SoundEvents.CHORUS_FRUIT_TELEPORT;
-                                    level.playSound((Player) null, d, e, f, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                                    level.playSound(null, d, e, f, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
                                     livingEntity.playSound(soundEvent, 1.0F, 1.0F);
                                     break;
                                 }
@@ -470,6 +451,155 @@ public class ModEffects {
             return false;
         }
     });
+
+    public static final RegistrySupplier<MobEffect> FATAL_POISON = EFFECTS.register("fatal_poison", () -> new MobEffect(MobEffectCategory.HARMFUL, 65280) {
+        @Override
+        public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
+            livingEntity.hurt(DamageSource.MAGIC, 1.0F);
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            int k;
+            k = 25 >> amplifier;
+            if (k > 0) {
+                return duration % k == 0;
+            } else {
+                return true;
+            }
+        }
+    });
+    public static final RegistrySupplier<MobEffect> PROTECTION = EFFECTS.register("protection", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 8751501) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            if (livingEntity.getAttributes().hasAttribute(Attributes.ARMOR)) {
+                addAttributeModifier(Attributes.ARMOR, "9aa8ab7f-3f42-4c2d-acc9-30a56847c3fc", 1, AttributeModifier.Operation.ADDITION);
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    public static final RegistrySupplier<MobEffect> SILENCE = EFFECTS.register("silence", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 92) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            livingEntity.setSilent(true);
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    public static final RegistrySupplier<MobEffect> NULLIFIER = EFFECTS.register("nullifier", () -> new MobEffect(MobEffectCategory.NEUTRAL, 13691391) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()) {
+                if (effectInstance.getEffect() != ModEffects.NULLIFIER.get()) {
+                    livingEntity.removeEffect(effectInstance.getEffect());
+                }
+            }
+        }
+
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    public static final RegistrySupplier<MobEffect> INFECTION = EFFECTS.register("infection", () -> new MobEffect(MobEffectCategory.HARMFUL, 14848) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            if (livingEntity.hasEffect(this)) {
+                int duration = livingEntity.getEffect(this).getDuration();
+                if (duration == 600) {
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 40));
+                }
+                if (duration == 300) {
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 300));
+                }
+                if (duration == 200) {
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200));
+                }
+                if (duration == 1) {
+                    if (livingEntity instanceof Player && !((Player) livingEntity).isCreative()) {
+                        livingEntity.hurt(DamageSource.MAGIC, 20f);
+                        if ((livingEntity.isDeadOrDying())) {
+                            Zombie zombie = new Zombie(EntityType.ZOMBIE, livingEntity.getLevel());
+                            zombie.copyPosition(livingEntity);
+                            zombie.setCustomName(livingEntity.getCustomName());
+                            zombie.setCanPickUpLoot(true);
+                            EquipmentSlot[] var4 = EquipmentSlot.values();
+                            int var5 = var4.length;
+                            for (int var6 = 0; var6 < var5; ++var6) {
+                                EquipmentSlot equipmentSlot = var4[var6];
+                                ItemStack itemStack = livingEntity.getItemBySlot(equipmentSlot);
+                                if (!itemStack.isEmpty()) {
+                                    zombie.setItemSlot(equipmentSlot, itemStack.copy());
+                                    zombie.setDropChance(equipmentSlot, zombie.getEquipmentDropChance(equipmentSlot));
+                                    itemStack.setCount(0);
+                                }
+                            }
+                            livingEntity.getLevel().addFreshEntity(zombie);
+                            if (livingEntity.isPassenger()) {
+                                Entity entity = livingEntity.getVehicle();
+                                livingEntity.stopRiding();
+                                zombie.startRiding(entity, true);
+                            }
+                            zombie.addEffect(new MobEffectInstance(this, 1200));
+                            livingEntity.discard();
+                        }
+                    } else if (livingEntity instanceof Villager) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOMBIE_VILLAGER, true);
+                        mob.addEffect(new MobEffectInstance(this, 1200));
+                    } else if (livingEntity instanceof Piglin) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOMBIFIED_PIGLIN, true);
+                        mob.addEffect(new MobEffectInstance(this, 1200));
+                    } else if (livingEntity instanceof Hoglin) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOGLIN, true);
+                        mob.addEffect(new MobEffectInstance(this, 1200));
+                    } else if (livingEntity instanceof Horse) {
+                        Mob mob = ((Mob) livingEntity).convertTo(EntityType.ZOMBIE_HORSE, true);
+                        mob.addEffect(new MobEffectInstance(this, 1200));
+                    } else {
+                        if (!(livingEntity instanceof Zombie) && !(livingEntity instanceof ZombieHorse) && !(livingEntity instanceof Zoglin)) {
+                            livingEntity.hurt(DamageSource.MAGIC, 5);
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+    //water walk
+    //sinking
     /*
     public static final RegistrySupplier<MobEffect> HOLY_WATER = EFFECTS.register("holy_water", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 12989085) {
         @Override
