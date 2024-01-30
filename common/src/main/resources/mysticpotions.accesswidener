@@ -26,3 +26,4 @@ accessible method net/minecraft/client/Camera setPosition (DDD)V
 accessible method net/minecraft/client/Camera setPosition (Lnet/minecraft/world/phys/Vec3;)V
 accessible method net/minecraft/client/Camera move (DDD)V
 extendable method net/minecraft/world/entity/LivingEntity getEyeHeight (Lnet/minecraft/world/entity/Pose;Lnet/minecraft/world/entity/EntityDimensions;)F
+accessible method net/minecraft/world/entity/Mob getEquipmentDropChance (Lnet/minecraft/world/entity/EquipmentSlot;)F

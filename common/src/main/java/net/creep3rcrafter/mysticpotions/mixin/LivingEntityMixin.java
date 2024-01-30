@@ -58,8 +58,32 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @Inject(method = "isAffectedByPotions", at = @At("RETURN"), cancellable = true)//return
+    public void inject2(CallbackInfoReturnable<Boolean> cir) {
+        if (this.hasEffect(ModEffects.NULLIFIER.get())) {
+            cir.setReturnValue(false);
+        }
+    }
+
+
+    /*
+    @Inject(method = "isAffectedByFluids", at = @At("RETURN"), cancellable = true)//return
+    public void inject3(CallbackInfoReturnable<Boolean> cir) {
+        if (this.hasEffect(ModEffects.SINKING.get())) {
+            cir.setReturnValue(false);
+        }
+    }
+    @Inject(method = "canStandOnFluid", at = @At("RETURN"), cancellable = true)//return
+    public void inject4(FluidState fluidState, CallbackInfoReturnable<Boolean> cir) {
+        if (this.hasEffect(ModEffects.WATER_WALK.get())) {
+            if (fluidState.is(Fluids.WATER) || fluidState.is(Fluids.FLOWING_WATER)){
+                cir.setReturnValue(true);
+            }
+        }
+    }
+     */
     @ModifyVariable(method = "travel", at = @At("LOAD"), name = "f2", ordinal = 0, index = 8)//return
-    public float inject2(float value) {
+    public float inject5(float value) {
         if (this.hasEffect(ModEffects.SPLIPPERY.get()) && this.isOnGround()) {
             int amplifier = this.getEffect(ModEffects.SPLIPPERY.get()).getAmplifier();
             return (((amplifier / (-300f)) + 1) * 0.98f);
@@ -68,7 +92,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @ModifyVariable(method = "travel", at = @At("LOAD"), name = "d0", ordinal = 0, index = 2)//return
-    public double inject3(double value) {
+    public double inject6(double value) {
         if (this.hasEffect(ModEffects.GRAVITATION.get())) {
             if (this.isCrouching()) {
                 return 0.08D;
