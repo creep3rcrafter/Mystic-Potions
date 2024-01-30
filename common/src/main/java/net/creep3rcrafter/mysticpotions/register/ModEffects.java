@@ -451,8 +451,7 @@ public class ModEffects {
             return false;
         }
     });
-
-    public static final RegistrySupplier<MobEffect> FATAL_POISON = EFFECTS.register("fatal_poison", () -> new MobEffect(MobEffectCategory.HARMFUL, 65280) {
+    public static final RegistrySupplier<MobEffect> FATAL_POISON = EFFECTS.register("fatal_poison", () -> new MobEffect(MobEffectCategory.HARMFUL, 16711935) {
         @Override
         public void applyEffectTick(@NotNull LivingEntity livingEntity, int amplifier) {
             livingEntity.hurt(DamageSource.MAGIC, 1.0F);
@@ -487,7 +486,6 @@ public class ModEffects {
             return false;
         }
     });
-
     public static final RegistrySupplier<MobEffect> SILENCE = EFFECTS.register("silence", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 92) {
         @Override
         public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
