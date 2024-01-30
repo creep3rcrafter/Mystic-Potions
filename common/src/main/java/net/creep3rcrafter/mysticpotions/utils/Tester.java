@@ -7,12 +7,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 public class Tester {
-    public static boolean testEffect (MobEffectInstance mobEffectInstance, LivingEntity livingEntity, Level level){
+    public static boolean testEffect(MobEffectInstance mobEffectInstance, LivingEntity livingEntity, Level level) {
         if (!level.isClientSide) {
             level.addFreshEntity(livingEntity);
             livingEntity.addEffect(mobEffectInstance);
             MobEffect mobEffect = mobEffectInstance.getEffect();
-            if (mobEffect == ModEffects.AIR_SWIM.get()){
+            if (mobEffect == ModEffects.AIR_SWIM.get()) {
 
             }
         }
