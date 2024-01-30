@@ -7,7 +7,9 @@
   "mixins": [
     "EntityMixin",
     "LightningRodBlockMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "MobMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
