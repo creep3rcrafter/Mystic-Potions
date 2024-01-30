@@ -178,5 +178,9 @@
   "item.minecraft.potion.effect.infection": "Potion of Infection",
   "item.minecraft.splash_potion.effect.infection": "Splash Potion of Infection",
   "item.minecraft.lingering_potion.effect.infection": "Lingering Potion of Infection",
-  "item.minecraft.tipped_arrow.effect.infection": "Arrow of Infection"
+  "item.minecraft.tipped_arrow.effect.infection": "Arrow of Infection",
+  "potion.potency.7": "VII",
+  "potion.potency.8": "VIII",
+  "potion.potency.9": "IX",
+  "potion.potency.10": "X"
 }
