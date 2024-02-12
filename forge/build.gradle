@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -48,9 +48,7 @@ dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    //modApi "maven.modrinth:jei:15.2.0.27"
-    //modApi "curse.maven:mod-name-tooltip-238747:4652448"
-    //modApi "maven.modrinth:rubidium:0.7.0a"
+    modApi "maven.modrinth:jei:${rootProject.jei_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
@@ -76,17 +74,17 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier.set("dev-shadow")
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier "${minecraft_version}-${forge_suffix}"
+    archiveClassifier.set("${minecraft_version}-${forge_suffix}")
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier.set("dev")
 }
 
 sourcesJar {

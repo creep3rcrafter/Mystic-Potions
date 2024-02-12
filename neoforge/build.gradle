@@ -5,19 +5,19 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    fabric()
+    neoForge()
 }
-
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
+    neoForge {
+        accessTransformer(file('src/main/resources/META-INF/accesstransformer.cfg'))
+    }
 }
-
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
+    developmentNeoForge.extendsFrom common
 }
 
 dependencies {
@@ -25,6 +25,7 @@ dependencies {
         maven {
             url "https://cursemaven.com"
         }
+        maven { url "https://maven.neoforged.net/releases" }
         exclusiveContent {
             forRepository {
                 maven {
@@ -37,16 +38,12 @@ dependencies {
             }
         }
     }
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+    neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
+    modApi "dev.architectury:architectury-neoforge:${rootProject.architectury_version}"
     //modApi "maven.modrinth:jei:${rootProject.jei_version}"
-
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-    common(project(path: ":fabric-like", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":fabric-like", configuration: "transformProductionFabric")) { transitive false }
+    //shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive false }
 }
 
 processResources {
@@ -54,31 +51,33 @@ processResources {
     inputs.property "version", project.version
     inputs.property "architecturyVersion", architectury_version
     inputs.property "minecraftVersion", minecraft_version
+    inputs.property "neoforgeMajorVersion", neoforge_major_version
 
-    filesMatching("fabric.mod.json") {
+    filesMatching("META-INF/mods.toml") {
         expand "group": maven_group,
                 "version": version,
                 "architecturyVersion": architectury_version,
-                "minecraftVersion": minecraft_version
+                "minecraftVersion": minecraft_version,
+                "neoforgeMajorVersion":  neoforge_major_version
     }
 }
 
 shadowJar {
+    exclude "fabric.mod.json"
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set('dev-shadow')
+    archiveClassifier.set("dev-shadow")
 }
 
 remapJar {
-    injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set("${rootProject.minecraft_version}-${rootProject.fabric_suffix}")
+    archiveClassifier.set("${minecraft_version}-${neoforge_suffix}")
 }
 
 jar {
-    archiveClassifier.set('dev')
+    archiveClassifier.set("dev")
 }
 
 sourcesJar {
@@ -95,7 +94,7 @@ components.java {
 
 publishing {
     publications {
-        mavenFabric(MavenPublication) {
+        mavenForge(MavenPublication) {
             artifactId = rootProject.archives_base_name + "-" + project.name
             from components.java
         }
@@ -108,37 +107,37 @@ publishing {
 }
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
-    versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}"
-    projectId = project.modrinth_id
+    versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.neoforge_suffix}"
+    projectId = modrinth_id
     versionNumber = project.mod_version
-    versionType = project.fabric_release_type
+    versionType = project.neoforge_release_type
     uploadFile = remapJar
     gameVersions = [project.minecraft_version]
-    loaders = ['fabric']
+    loaders = ["neoforge"]
     changelog = project.changelog
     dependencies {
-        required.version project.fabric_modrinth_dependancies
+        required.version neoforge_modrinth_dependancies
     }
-    debugMode = fabric_debug.toBoolean()
+    debugMode = project.neoforge_debug.toBoolean()
 }
-tasks.getByName('curseforge').dependsOn(':build', ':fabric:remapJar')
+tasks.getByName('curseforge').dependsOn(':build', ':neoforge:remapJar')
 curseforge {
     apiKey = System.getenv("CURSEFORGE_API")
     project {
         id = project.curseforge_id
         changelog = project.changelog
-        releaseType = project.fabric_release_type
-        addGameVersion 'Fabric'
+        releaseType = project.neoforge_release_type
+        addGameVersion 'NeoForge'
         addGameVersion project.minecraft_version
         relations {
             requiredDependency project.curseforge_dependency
         }
         mainArtifact(remapJar) {
-            displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}"
+            displayName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.neoforge_suffix}"
         }
 
     }
     options {
-        debug = project.fabric_debug.toBoolean()
+        debug = project.neoforge_debug.toBoolean()
     }
 }

@@ -19,8 +19,7 @@ public abstract class LightningRodBlockMixin {
     @Inject(method = "onLightningStrike(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V", at = @At("TAIL"))
     private void onLightningStrike(BlockState blockState, Level level, BlockPos blockPos, CallbackInfo info) {
         if (level.getBlockEntity(blockPos.below()) != null) {
-            if (level.getBlockEntity(blockPos.below()) instanceof BrewingStandBlockEntity) {
-                BrewingStandBlockEntity brewingStand = (BrewingStandBlockEntity) level.getBlockEntity(blockPos.below());
+            if (level.getBlockEntity(blockPos.below()) instanceof BrewingStandBlockEntity brewingStand) {
                 for (int i = 0; i < brewingStand.items.size(); i++) {
                     if (brewingStand.getItem(i).getItem() instanceof PotionItem) {
                         if (PotionUtils.getPotion(brewingStand.getItem(i)) == Potions.AWKWARD) {

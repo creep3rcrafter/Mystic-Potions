@@ -1,6 +1,9 @@
+import net.fabricmc.loom.api.ModSettings
+
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
     id "com.modrinth.minotaur" version "2.+"
+    id 'org.quiltmc.loom' version '1.+'
 }
 
 repositories {
@@ -12,8 +15,22 @@ architectury {
     loader("quilt")
 }
 
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
+    mods {
+        // This should match your mod id.
+        "mystic_potions" {
+            // Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
+            sourceSet("main")
+            // If you shade (directly include classes, not JiJ) a dependency into your mod, include it here using one of these methods:
+            // dependency("com.example.shadowedmod:1.2.3")
+            configuration("transformProductionQuilt")
+            //configuration("exampleShadedConfigurationName")
+
+
+        }
+    }
 }
 
 configurations {
@@ -41,15 +58,14 @@ dependencies {
             }
         }
     }
+    //include project(":common")
     modImplementation "org.quiltmc:quilt-loader:${rootProject.quilt_loader_version}"
     modApi "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${rootProject.quilt_fabric_api_version}"
     // Remove the next few lines if you don't want to depend on the API
     modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
-        // We must not pull Fabric Loader from Architectury Fabric
         exclude group: "net.fabricmc"
         exclude group: "net.fabricmc.fabric-api"
     }
-    //modApi "maven.modrinth:jei:15.2.0.27"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionQuilt")) { transitive false }
@@ -77,18 +93,18 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier = "dev-shadow"
 }
 
 remapJar {
     injectAccessWidener = true
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier "${minecraft_version}-${quilt_suffix}"
+    //archiveClassifier "${minecraft_version}-${quilt_suffix}"
 }
 
 jar {
-    classifier "dev"
+    //archiveClassifier "dev"
 }
 
 sourcesJar {

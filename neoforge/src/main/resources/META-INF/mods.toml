@@ -1,0 +1,19 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "https://github.com/creep3rcrafter/Mystic-Potions/issues"
+license = "LGPL-3"
+
+[[mods]]
+modId = "mysticpotions"
+version = "${version}"
+displayName = "Mystic Potions NeoForge"
+authors = "Creep3rCrafter"
+description = '''Adds New Potions To Minecraft!'''
+license = "LGPL-3"
+
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+[[mixins]]
+config = "mysticpotions-common.mixins.json"
+[[mixins]]
+config = "mysticpotions.mixins.json"
