@@ -7,22 +7,14 @@ plugins {
 }
 
 tasks.register('runAllClients') {
-    dependsOn(':forge:runClient', ':fabric:runClient', ':quilt:runClient')
+    dependsOn(':forge:runClient', ':fabric:runClient', ':neoforge:runClient')
 }
 tasks.register('runForgeClient') {
     dependsOn(':forge:runClient')
 
 }
-tasks.register('runNeoForgeClient') {
-    dependsOn(':neoforge:runClient')
-
-}
 tasks.register('runFabricClient') {
     dependsOn(':fabric:runClient')
-
-}
-tasks.register('runQuiltClient') {
-    dependsOn(':quilt:runClient')
 
 }
 tasks.register('runNeoClient') {
@@ -45,10 +37,6 @@ forgix {
     fabric {
         projectName = "fabric"
         jarLocation = "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.fabric_suffix}.jar"
-    }
-    quilt {
-        projectName = 'quilt'
-        jarLocation = "build/libs/${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.quilt_suffix}.jar"
     }
     custom {
         projectName = 'neoforge'
@@ -94,7 +82,7 @@ allprojects {
         withSourcesJar()
     }
 }
-tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':quilt:modrinth', ':fabric:modrinth', ':forge:modrinth')
+tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':fabric:modrinth', ':forge:modrinth')
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}"
@@ -119,7 +107,6 @@ curseforge {
         releaseType = project.multi_release_type
         addGameVersion 'Forge'
         addGameVersion 'Fabric'
-        addGameVersion 'Quilt'
         addGameVersion project.minecraft_version
         relations {
             requiredDependency project.curseforge_dependency

@@ -10,10 +10,6 @@ pluginManagement {
             name = "Modrinth"
             url = "https://api.modrinth.com/maven"
         }
-        maven {
-            name 'Quilt'
-            url 'https://maven.quiltmc.org/repository/release'
-        }
         gradlePluginPortal()
     }
 }
@@ -21,9 +17,7 @@ pluginManagement {
 include("common")
 include("forge")
 include("neoforge")
-include("fabric-like")
 include("fabric")
-include("quilt")
 
 rootProject.name = "architectury-mysticpotions"
 
