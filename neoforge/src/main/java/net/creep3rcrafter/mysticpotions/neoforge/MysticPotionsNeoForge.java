@@ -21,7 +21,7 @@ public class MysticPotionsNeoForge {
     }
     @SubscribeEvent
     private void commonSetupEvent(FMLCommonSetupEvent event) {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        //IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         new BrewingRecipes();
     }
 }
