@@ -14,6 +14,11 @@ Adds New Potions To Minecraft!
 '''
 logoFile = "MysticPotions Logo HD720pC.png"
 
+[[mixins]]
+config = "mysticpotions-common.mixins.json"
+[[mixins]]
+config = "mysticpotions.mixins.json"
+
 [[dependencies.mysticpotions]]
 modId = "forge"
 mandatory = true
