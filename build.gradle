@@ -82,7 +82,7 @@ allprojects {
         withSourcesJar()
     }
 }
-tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':fabric:modrinth', ':forge:modrinth')
+tasks.getByName('modrinth').dependsOn(':clean', ':build', ':mergeJars', ':fabric:modrinth', ':forge:modrinth', ':neoforge:modrinth')
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     versionName = "${project.archives_base_name}-${project.mod_version}-${project.minecraft_version}-${project.multi_suffix}"
@@ -107,6 +107,7 @@ curseforge {
         releaseType = project.multi_release_type
         addGameVersion 'Forge'
         addGameVersion 'Fabric'
+        addGameVersion 'NeoFabric'
         addGameVersion project.minecraft_version
         relations {
             requiredDependency project.curseforge_dependency
