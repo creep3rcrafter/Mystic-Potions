@@ -74,8 +74,8 @@ remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
 
-    archiveClassifier.set(null)
-    //archiveClassifier.set("${minecraft_version}-${neoforge_suffix}")
+    //archiveClassifier.set(null)
+    archiveClassifier.set("${minecraft_version}-${neoforge_suffix}")
 }
 
 jar {

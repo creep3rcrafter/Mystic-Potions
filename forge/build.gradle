@@ -80,9 +80,9 @@ shadowJar {
 remapJar {
     inputFile = shadowJar.archiveFile
     dependsOn shadowJar
-    //archiveClassifier.set("${minecraft_version}-${forge_suffix}")
+    archiveClassifier.set("${minecraft_version}-${forge_suffix}")
 
-    archiveClassifier.set(null)
+    //archiveClassifier.set(null)
 }
 
 jar {
