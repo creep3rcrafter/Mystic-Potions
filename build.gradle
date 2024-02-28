@@ -107,7 +107,7 @@ curseforge {
         releaseType = project.multi_release_type
         addGameVersion 'Forge'
         addGameVersion 'Fabric'
-        addGameVersion 'NeoFabric'
+        addGameVersion 'NeoForge'
         addGameVersion project.minecraft_version
         relations {
             requiredDependency project.curseforge_dependency
