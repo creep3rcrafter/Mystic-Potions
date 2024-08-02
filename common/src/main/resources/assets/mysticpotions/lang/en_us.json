@@ -182,5 +182,24 @@
   "potion.potency.7": "VII",
   "potion.potency.8": "VIII",
   "potion.potency.9": "IX",
-  "potion.potency.10": "X"
+  "potion.potency.10": "X",
+
+  "effect.mysticpotions.thunderous.description":"Summons a lightning strike on the targets.",
+  "effect.mysticpotions.explosive.description":"Causes the target to explode.",
+  "effect.mysticpotions.freezing.description":"Gives the freezing effect generally caused by powdered snow.",
+  "effect.mysticpotions.warming.description":"Prevents the target from freezing. Harms snow golems.",
+  "effect.mysticpotions.burning.description":"Causes the target to burn.",
+  "effect.mysticpotions.corrosive.description":"Destroys objects made of copper, iron, and netherite in the target's inventory. Deals damage to iron golems.",
+  "effect.mysticpotions.homing.description":"Teleports the player to their spawnpoint, but only if that spawnpoint is a bed.",
+  "effect.mysticpotions.recovery.description":"Takes the player to their last death location.",
+  "effect.mysticpotions.teleportation.description":"Causes the target to randomly teleport around.",
+  "effect.mysticpotions.undying.description":"Entities with this effect cannot die.",
+  "effect.mysticpotions.air_swim.description":"Allows players to swim in the air by holding control while pressing W. They can elevate themselves using the space bar.",
+  "effect.mysticpotions.gravitation.description":"Causes the target's gravity to shift whenever they crouch.",
+  "effect.mysticpotions.slippery.description":"Reduces entity friction.",
+  "effect.mysticpotions.protection.description":"Offers the player armor points.",
+  "effect.mysticpotions.fatal_poison.description":"Poison effect that can kill, like the wither effect.",
+  "effect.mysticpotions.silence.description":"The target's footsteps are silenced, preventing sculk and warden detection.",
+  "effect.mysticpotions.nullifier.description":"Clears the target's current potion effects and blocks them from acquiring new ones.",
+  "effect.mysticpotions.infection.description":"Gives the target nausea, hunger, and blindness overtime. Spreads with attacks. Converts entities into zombies on death. Ends dealing 20 hit points."
 }
