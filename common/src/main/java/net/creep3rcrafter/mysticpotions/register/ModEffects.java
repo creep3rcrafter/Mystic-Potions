@@ -4,6 +4,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.creep3rcrafter.mysticpotions.MysticPotions;
 import net.creep3rcrafter.mysticpotions.utils.Utils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -21,11 +23,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zoglin;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
@@ -33,13 +38,20 @@ import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SpongeBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.WaterFluid;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -596,6 +608,220 @@ public class ModEffects {
             return false;
         }
     });
+
+
+
+
+
+
+
+
+
+
+    //welp you cant breath
+    public static final RegistrySupplier<MobEffect> SUFFOCATION = EFFECTS.register("suffocation", () -> new MobEffect(MobEffectCategory.HARMFUL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            livingEntity.setAirSupply(livingEntity.decreaseAirSupply(livingEntity.getAirSupply()));
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    //arrows do more damage and shoot further
+    public static final RegistrySupplier<MobEffect> ARCHER = EFFECTS.register("archer", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    //removes harmful effects
+    public static final RegistrySupplier<MobEffect> CURING = EFFECTS.register("curing", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            for (MobEffectInstance mobEffectInstance : livingEntity.getActiveEffects()){
+                if(mobEffectInstance.getEffect().getCategory().equals(MobEffectCategory.HARMFUL)){
+                    livingEntity.removeEffect(mobEffectInstance.getEffect());
+                }
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration == 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return true;
+        }
+    });
+
+    //Removes neutral effects
+    public static final RegistrySupplier<MobEffect> NEUTRALIZING = EFFECTS.register("neutralizing", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            for (MobEffectInstance mobEffectInstance : livingEntity.getActiveEffects()){
+                if(mobEffectInstance.getEffect().getCategory().equals(MobEffectCategory.NEUTRAL)){
+                    livingEntity.removeEffect(mobEffectInstance.getEffect());
+                }
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration == 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return true;
+        }
+    });
+
+    //removes beneficial effects
+    public static final RegistrySupplier<MobEffect> DESTRUCTION = EFFECTS.register("destruction", () -> new MobEffect(MobEffectCategory.HARMFUL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            for (MobEffectInstance mobEffectInstance : livingEntity.getActiveEffects()){
+                if(mobEffectInstance.getEffect().getCategory().equals(MobEffectCategory.BENEFICIAL)){
+                    livingEntity.removeEffect(mobEffectInstance.getEffect());
+                }
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration == 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return true;
+        }
+    });
+
+
+    //Grows Plants nearby
+    public static final RegistrySupplier<MobEffect> FERTILIZING = EFFECTS.register("fertilization", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration == 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return true;
+        }
+    });
+
+    //Sets off nearby redstone and pistons
+    public static final RegistrySupplier<MobEffect> REDSTONEACTIVE = EFFECTS.register("redstoneactive", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    //Doesnt set off pressureplates or tripwires or breaks plants if you jump on them
+    public static final RegistrySupplier<MobEffect> NIMBLE = EFFECTS.register("nimble", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    //Drains water around you
+    public static final RegistrySupplier<MobEffect> SPONGY = EFFECTS.register("spongy", () -> new MobEffect(MobEffectCategory.NEUTRAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+            Level level = livingEntity.getLevel();
+            BlockPos blockPos = livingEntity.blockPosition();
+            if (Utils.removeWaterBreadthFirstSearch(level, blockPos)) {
+                //level.setBlock(blockPos, Blocks.WET_SPONGE.defaultBlockState(), 2);
+                //level.levelEvent(2001, blockPos, Block.getId(Blocks.WATER.defaultBlockState()));
+            }
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+    //Scares mobs
+    /*
+    public static final RegistrySupplier<MobEffect> MENACING = EFFECTS.register("menacing", () -> new MobEffect(MobEffectCategory.BENEFICIAL, 0) {
+        @Override
+        public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        }
+
+        @Override
+        public boolean isDurationEffectTick(int duration, int amplifier) {
+            return duration >= 1;
+        }
+
+        @Override
+        public boolean isInstantenous() {
+            return false;
+        }
+    });
+
+     */
+
+
+
+
+
+
+
+
     //water walk
     //sinking
     /*

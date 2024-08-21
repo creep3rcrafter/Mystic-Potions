@@ -1,5 +1,6 @@
 package net.creep3rcrafter.mysticpotions.register;
 
+import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.creep3rcrafter.mysticpotions.MysticPotions;
@@ -120,6 +121,12 @@ public class ModPotions {
     public static final RegistrySupplier<Potion> LONG_NULLIFIER_POTION = POTIONS.register("long_nullifier", () -> new Potion("nullifier", new MobEffectInstance(ModEffects.NULLIFIER.get(), 400)));
     public static final RegistrySupplier<Potion> INFECTION = POTIONS.register("infection", () -> new Potion("infection", new MobEffectInstance(ModEffects.INFECTION.get(), 1200)));
     public static final RegistrySupplier<Potion> LONG_INFECTION = POTIONS.register("long_infection", () -> new Potion("infection", new MobEffectInstance(ModEffects.INFECTION.get(), 2400)));
+
+
+    public static final RegistrySupplier<Potion> SUFFOCATION = POTIONS.register("suffocation", () -> new Potion("suffocation", new MobEffectInstance(ModEffects.SUFFOCATION.get(), 600)));
+    public static final RegistrySupplier<Potion> CURING = POTIONS.register("curing", () -> new Potion("curing", new MobEffectInstance(ModEffects.CURING.get(), 1)));
+    public static final RegistrySupplier<Potion> NEUTRALIZING = POTIONS.register("neutralizing", () -> new Potion("neutralizing", new MobEffectInstance(ModEffects.NEUTRALIZING.get(), 1)));
+    public static final RegistrySupplier<Potion> DESTRUCTION = POTIONS.register("destruction", () -> new Potion("destruction", new MobEffectInstance(ModEffects.DESTRUCTION.get(), 1)));
     /*
     public static final RegistrySupplier<Potion> CRUSHING_MIND_POTION = POTIONS.register("crushing_mind", () -> new Potion("crushing_mind",
             new MobEffectInstance(MobEffects.BLINDNESS, 400),

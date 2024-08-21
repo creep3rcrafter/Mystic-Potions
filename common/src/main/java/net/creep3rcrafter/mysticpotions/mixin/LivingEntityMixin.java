@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -102,17 +103,11 @@ public abstract class LivingEntityMixin extends Entity {
         }
         return value;
     }
-    /*
 
-    @Inject(method = "getEyeHeight", at = @At("RETURN"), cancellable = true)//return
-    public void inject4(Pose pose, EntityDimensions entityDimensions, CallbackInfoReturnable<Float> cir) {
-        if (this.hasEffect(ModEffects.GRAVITATION.get())) {
-            cir.setReturnValue(pose == Pose.SLEEPING ? 0.2F : entityDimensions.height * 0.15f);
-        }else{
-            cir.setReturnValue(pose == Pose.SLEEPING ? 0.2F : entityDimensions.height * 0.85f);
-        }
+    @Inject(method = "baseTick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;isEyeInFluid(Lnet/minecraft/tags/TagKey;)Z"), cancellable = true)//return
+    public void inject4(CallbackInfo ci) {
+        ci.
     }
-     */
 }
 
 //explosive crashes when not instant

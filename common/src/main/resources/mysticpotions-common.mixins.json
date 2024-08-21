@@ -7,10 +7,13 @@
   ],
   "mixins": [
     "EntityMixin",
+    "FarmBlockMixin",
     "LightningRodBlockMixin",
     "LivingEntityMixin",
     "MobMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "PressurePlateMixin",
+    "TripWireBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
